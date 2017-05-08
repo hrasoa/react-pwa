@@ -1,7 +1,7 @@
 {
-  "name": "fulljs",
+  "name": "ffpc",
   "version": "1.0.0",
-  "description": "Learning Fullstack JavaScript Development: MongoDB, Node.js, React.js",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node server.js --ignore public/",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jscomplete/learn-fullstack-javascript.git"
+    "url": "git+https://github.com/hrasoa/ffpc.git"
   },
-  "author": "",
+  "author": "Haja Rasoahaingo <haja.rasoah@gmail.com>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/jscomplete/learn-fullstack-javascript/issues"
+    "url": "https://github.com/hrasoa/ffpc/issues"
   },
-  "homepage": "https://github.com/jscomplete/learn-fullstack-javascript#readme",
+  "homepage": "https://github.com/hrasoa/ffpc#readme",
   "dependencies": {
     "axios": "^0.15.0",
     "ejs": "^2.5.2",
