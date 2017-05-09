@@ -1,9 +1,5 @@
 .idea/
-.happypack
-.nyc_output/
-.tarec/
-coverage/
-dist/
 node_modules/
+public/
 npm-debug.log
 yarn-error.log
