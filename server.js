@@ -5,7 +5,7 @@ import path from 'path';
 import express from 'express';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpackConfig from './webpack.config.server';
+import webpackConfig from './webpack.config';
 import webpack from 'webpack';
 import App from './src/components/App';
 import data from './src/testData.json';
