@@ -44,7 +44,7 @@ module.exports = [{
 }, {
   name: 'server',
   target: 'node',
-  entry: './server/renderer.js',
+  entry: './src/server/renderer.js',
   output: {
     path: resolve(__dirname, 'public'),
     filename: 'server.js',
@@ -59,7 +59,7 @@ module.exports = [{
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader!eslint-loader',
+        loader: 'babel-loader',
         exclude: /node_modules/
       }
     ]
