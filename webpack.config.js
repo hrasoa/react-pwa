@@ -1,10 +1,12 @@
 const webpack = require('webpack');
 const { resolve } = require('path');
 
-module.exports = {
+module.exports = [{
+  name: 'client',
+  target: 'web',
   entry: [
     'react-hot-loader/patch',
-    'webpack-hot-middleware/client?path=http://0.0.0.0:3000/__webpack_hmr',
+    'webpack-hot-middleware/client',
     'webpack/hot/only-dev-server',
     './src/index.js'
   ],
@@ -16,14 +18,8 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     hot: true,
-    inline: true,
-    filename: 'bundle.js',
     publicPath: '/',
-    historyApiFallback: true,
-    contentBase: resolve(__dirname, 'public'),
-    port: 3000,
-    host: '0.0.0.0',
-    stats: 'minimal'
+    contentBase: resolve(__dirname, 'public')
   },
   module: {
     loaders: [
@@ -45,4 +41,28 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ]
-};
+}, {
+  name: 'server',
+  target: 'node',
+  entry: './server.js',
+  output: {
+    path: resolve(__dirname, 'public'),
+    filename: 'server.js',
+    libraryTarget: 'commonjs2'
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      }
+    ]
+  }
+}
+];
