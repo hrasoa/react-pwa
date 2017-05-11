@@ -19,7 +19,9 @@ app.use(webpackDevMiddleware(bundler, {
 app.use(webpackHotMiddleware(bundler.compilers.find(compiler => compiler.name === 'client')));
 app.use(webpackHotServerMiddleware(bundler));
 
-app.set('view engine', 'ejs');app.use('/api', apiRouter);
+app.set('view engine', 'ejs');
+
+app.use('/api', apiRouter);
 
 app.use(express.static('public'));
 
