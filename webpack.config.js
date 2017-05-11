@@ -31,7 +31,7 @@ module.exports = [{
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader!eslint-loader',
+        loader: 'babel-loader',
         include: /src/
       }
     ]
