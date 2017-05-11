@@ -1,5 +1,5 @@
 import config from './config';
-import apiRouter from './src/api/index';
+import apiRouter from './api/index';
 import sassMiddleware from 'node-sass-middleware';
 import path from 'path';
 import express from 'express';
@@ -20,11 +20,8 @@ app.use(webpackDevMiddleware(bundler, {
 app.use(webpackHotMiddleware(bundler.compilers.find(compiler => compiler.name === 'client')));
 app.use(webpackHotServerMiddleware(bundler));
 
-//app.set('view engine', 'ejs');
+app.set('view engine', 'ejs');app.use('/api', apiRouter);
 
-//app.use(serverRenderer());
-
-app.use('/api', apiRouter);
 app.use(express.static('public'));
 
 app.listen(config.port, config.host, () => {
