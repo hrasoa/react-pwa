@@ -27,7 +27,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  initialContests: PropTypes.array
+  initialContests: PropTypes.array.isRequired
 };
 
 export default App;

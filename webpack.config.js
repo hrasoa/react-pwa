@@ -8,7 +8,7 @@ module.exports = [{
     'react-hot-loader/patch',
     'webpack-hot-middleware/client',
     'webpack/hot/only-dev-server',
-    './src/index.js'
+    './src/client/index.js'
   ],
   output: {
     path: resolve(__dirname, 'public'),
@@ -17,6 +17,7 @@ module.exports = [{
   },
   devtool: 'inline-source-map',
   devServer: {
+    historyApiFallback: true,
     hot: true,
     publicPath: '/',
     contentBase: resolve(__dirname, 'public')
@@ -30,13 +31,12 @@ module.exports = [{
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loader: 'babel-loader!eslint-loader',
         include: /src/
       }
     ]
   },
   plugins: [
-    //new HtmlWebpackPlugin({ template: 'index.ejs' }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
@@ -44,7 +44,7 @@ module.exports = [{
 }, {
   name: 'server',
   target: 'node',
-  entry: './server.js',
+  entry: './server/renderer.js',
   output: {
     path: resolve(__dirname, 'public'),
     filename: 'server.js',
@@ -59,7 +59,7 @@ module.exports = [{
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loader: 'babel-loader!eslint-loader',
         exclude: /node_modules/
       }
     ]

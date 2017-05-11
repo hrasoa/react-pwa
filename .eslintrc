@@ -1,7 +1,8 @@
 {
   "extends": "airbnb",
   "globals": {
-    "document": true
+    "document": true,
+    "window": true
   },
   "plugins": [
     "react",
@@ -12,6 +13,7 @@
     "comma-dangle": [2, "never"],
     "max-len": [2, { "code": 120 }],
     "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-a11y/img-has-alt": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/prop-types": [2, { "ignore": ["children", "className"] }]
   }
