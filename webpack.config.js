@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const { resolve } = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = [{
   name: 'client',
@@ -8,14 +9,14 @@ module.exports = [{
     'react-hot-loader/patch',
     'webpack-hot-middleware/client',
     'webpack/hot/only-dev-server',
-    './src/client/index.js'
+    './src/index.js'
   ],
   output: {
     path: resolve(__dirname, 'public'),
     filename: 'bundle.js',
     publicPath: '/'
   },
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   devServer: {
     historyApiFallback: true,
     hot: true,
@@ -23,16 +24,21 @@ module.exports = [{
     contentBase: resolve(__dirname, 'public')
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.json$/,
         loader: 'json-loader',
-        include: /src/
+        include: resolve(__dirname, 'src')
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: /src/
+        include: resolve(__dirname, 'src')
+      },
+      {
+        test: /\.scss$/,
+        include: resolve(__dirname, 'src'),
+        use: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
   },
@@ -44,7 +50,7 @@ module.exports = [{
 }, {
   name: 'server',
   target: 'node',
-  entry: './src/server/renderer.js',
+  entry: './serverRenderer.js',
   output: {
     path: resolve(__dirname, 'public'),
     filename: 'server.js',
