@@ -6,12 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Naming Contests</title>
   <% if (prod === true) { %><link rel="stylesheet" href="/style.css"><% } %>
-  <script>
-    window.initialState = <%- JSON.stringify(initialState) -%>;
-  </script>
 </head>
 <body class="container">
-<div id="root"><%- initialMarkup -%></div>
-<script src="/bundle.js" charset="utf-8"></script>
+  <div id="root"><%- initialMarkup -%></div>
+  <script>window.initialState = <%- JSON.stringify(initialState) -%>;</script>
+  <script src="/bundle.js" charset="utf-8"></script>
 </body>
 </html>
