@@ -15,15 +15,16 @@ module.exports = {
       {
         test: /\.json$/,
         loader: 'json-loader',
-        include: resolve(__dirname, 'src/client')
+        include: resolve(__dirname, 'src')
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: resolve(__dirname, 'src/client')
+        include: resolve(__dirname, 'src')
       },
       {
         test: /\.scss$/,
+        include: resolve(__dirname, 'src'),
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: ['css-loader', 'sass-loader']
@@ -34,6 +35,11 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin({
       filename: 'style.css'
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
     })
   ]
 };

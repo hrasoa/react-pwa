@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production npm run build && babel-node server.js",
-    "start:dev": "babel-node server.js",
-    "build": "webpack -p --config webpack.config.prod.js"
+    "start": "npm run build && npm run server",
+    "build": "NODE_ENV=production webpack -p --config webpack.config.prod.js",
+    "server": "NODE_ENV=production babel-node server.js",
+    "start:dev": "babel-node server.js"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,6 @@
     "express": "^4.14.0",
     "json-loader": "^0.5.4",
     "mongodb": "^2.2.10",
-    "node-sass-middleware": "^0.9.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-router": "^4.1.1"
@@ -44,7 +44,6 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.0.0",
-    "extract-css-chunks-webpack-plugin": "^1.0.10",
     "extract-text-webpack-plugin": "^2.1.0",
     "node-sass": "^4.5.2",
     "react-hot-loader": "next",
