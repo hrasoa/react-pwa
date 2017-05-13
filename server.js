@@ -4,9 +4,7 @@ import config from './config';
 import express from 'express';
 
 const app = express();
-
 app.use(express.static('public'));
-
 app.set('view engine', 'ejs');
 
 if (process.env.NODE_ENV !== 'production') {
