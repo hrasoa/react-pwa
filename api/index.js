@@ -1,10 +1,9 @@
 import express from 'express';
-import data from '../src/testData';
 
 const router = express.Router();
 
-router.get('/contests', (req, res) => {
-  res.send({ contests: data.contests });
+router.get('/posts', (req, res) => {
+  res.send({ posts: data });
 });
 
 export default router;
