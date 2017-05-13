@@ -8,7 +8,7 @@ export default function serverRenderer() {
     res.status(200).render('index', {
       initialState: data.contests,
       prod: process.env.NODE_ENV === 'production',
-      initialMarkup: ReactDOMServer.renderToString(<App initialContests={data.contests}/>)
+      initialMarkup: ReactDOMServer.renderToStaticMarkup(<App initialContests={data.contests}/>)
     });
   }
 };
