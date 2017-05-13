@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const { resolve } = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = [{
   name: 'client',
