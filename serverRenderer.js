@@ -4,10 +4,10 @@ import { StaticRouter } from 'react-router'
 import App from './src/components/App';
 import data from './src/testData.json';
 
-const context = {};
-
 export default function serverRenderer() {
   return (req, res, next) => {
+
+    const context = {};
 
     const markup = (
       <StaticRouter
@@ -24,6 +24,6 @@ export default function serverRenderer() {
       prod: process.env.NODE_ENV === 'production'
     });
 
-    //res.end();
+    res.end();
   }
 };
