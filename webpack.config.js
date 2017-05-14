@@ -31,7 +31,7 @@ module.exports = [{
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        use: ['babel-loader', 'esling-loader'],
         include: resolve(__dirname, 'src')
       },
       {

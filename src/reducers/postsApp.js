@@ -1,7 +1,9 @@
 const postsApp = (state = {}, action) => {
-  // handle more actions ...
-
-  return state;
+  switch (action) {
+    // do more actions ...
+    default:
+      return state;
+  }
 };
 
 export default postsApp;

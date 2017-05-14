@@ -1,11 +1,9 @@
 import { connect } from 'react-redux';
 import PostsListing from '../components/PostsListing';
 
-const mapStateToProps = (state) => {
-  return {
-    posts: state.posts
-  };
-};
+const mapStateToProps = state => ({
+  posts: state.posts
+});
 
 const Posts = connect(
   mapStateToProps

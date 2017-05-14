@@ -13,11 +13,11 @@ export default () => (
         <li><Link to="/about">About</Link></li>
       </ul>
     </div>
-    <hr/>
+    <hr />
     <Switch>
-      <Route exact path="/" component={Posts}/>
-      <Route exact path="/about" component={About}/>
-      <Route component={NotFound}/>
+      <Route exact path="/" component={Posts} />
+      <Route exact path="/about" component={About} />
+      <Route component={NotFound} />
     </Switch>
   </div>
 );

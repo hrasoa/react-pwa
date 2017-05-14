@@ -7,12 +7,12 @@ import { BrowserRouter } from 'react-router-dom';
 import postsApp from './reducers/postsApp';
 import './style.scss';
 
-let store = createStore(postsApp, window.initialState);
+const store = createStore(postsApp, window.initialState);
 
 delete window.initialState;
 
 const render = () => {
-  const App = require('./components/App').default;
+  const App = require('./components/App').default; // eslint-disable-line global-require
   ReactDOM.render(
     <AppContainer>
       <Provider store={store}>
@@ -30,7 +30,7 @@ render();
 if (module.hot) {
   module.hot.accept('./components/App', render);
   module.hot.accept('./reducers/postsApp', () => {
-    const nextRootReducer = require('./reducers/postsApp');
+    const nextRootReducer = require('./reducers/postsApp'); // eslint-disable-line global-require
     store.replaceReducer(nextRootReducer);
   });
 }

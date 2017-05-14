@@ -1,3 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default ({ title }) => <div>{title}</div>;
+const PostsItem = ({ title }) => <div>{title}</div>;
+
+PostsItem.propTypes = {
+  title: PropTypes.string.isRequired
+};
+
+export default PostsItem;
