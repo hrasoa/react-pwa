@@ -4,10 +4,10 @@ import { AppContainer } from 'react-hot-loader';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import postsApp from './reducers/postsApp';
+import blogApp from './reducers/blogApp';
 import './style.scss';
 
-const store = createStore(postsApp, window.initialState);
+const store = createStore(blogApp, window.initialState);
 
 delete window.initialState;
 
@@ -29,8 +29,8 @@ render();
 
 if (module.hot) {
   module.hot.accept('./components/App', render);
-  module.hot.accept('./reducers/postsApp', () => {
-    const nextRootReducer = require('./reducers/postsApp'); // eslint-disable-line global-require
+  module.hot.accept('./reducers/blogApp', () => {
+    const nextRootReducer = require('./reducers/blogApp'); // eslint-disable-line global-require
     store.replaceReducer(nextRootReducer);
   });
 }

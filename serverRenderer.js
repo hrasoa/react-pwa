@@ -3,13 +3,13 @@ import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import postsApp from './src/reducers/postsApp';
+import blogApp from './src/reducers/blogApp';
 import App from './src/components/App';
 import data from './src/testData.json';
 
 export default function serverRenderer() {
   return (req, res, next) => {
-    const store = createStore(postsApp, data);
+    const store = createStore(blogApp, data);
     const context = {};
     const markup = (
       <Provider store={store}>

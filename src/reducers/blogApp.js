@@ -1,9 +1,7 @@
-const postsApp = (state = {}, action) => {
+export default (state = {}, action) => {
   switch (action) {
     // do more actions ...
     default:
       return state;
   }
 };
-
-export default postsApp;
