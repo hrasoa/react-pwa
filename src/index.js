@@ -4,7 +4,6 @@ import { AppContainer } from 'react-hot-loader';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import App from './components/App';
 import postsApp from './reducers/postsApp';
 import './style.scss';
 
@@ -12,12 +11,13 @@ let store = createStore(postsApp, window.initialState);
 
 delete window.initialState;
 
-const render = (Component) => {
+const render = () => {
+  const App = require('./components/App').default;
   ReactDOM.render(
     <AppContainer>
       <Provider store={store}>
         <BrowserRouter>
-          {Component}
+          <App />
         </BrowserRouter>
       </Provider>
     </AppContainer>,
@@ -25,13 +25,10 @@ const render = (Component) => {
   );
 };
 
-render(<App />);
+render();
 
 if (module.hot) {
-  module.hot.accept('./components/App', () => {
-    const NextApp = require('./components/App').default;
-    render(<NextApp />);
-  });
+  module.hot.accept('./components/App', render);
   module.hot.accept('./reducers/postsApp', () => {
     const nextRootReducer = require('./reducers/postsApp');
     store.replaceReducer(nextRootReducer);

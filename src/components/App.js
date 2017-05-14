@@ -9,7 +9,7 @@ export default () => (
   <div className="App">
     <div>
       <ul>
-        <li><Link to="/">Home</Link></li>
+        <li><Link to="/">Hooome</Link></li>
         <li><Link to="/about">About</Link></li>
       </ul>
     </div>
