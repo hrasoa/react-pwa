@@ -32,4 +32,8 @@ if (module.hot) {
     const NextApp = require('./components/App').default;
     render(<NextApp />);
   });
+  module.hot.accept('./reducers/postsApp', () => {
+    const nextRootReducer = require('./reducers/postsApp');
+    store.replaceReducer(nextRootReducer);
+  });
 }
