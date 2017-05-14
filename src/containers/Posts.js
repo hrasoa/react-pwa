@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import PostListing from '../components/PostListing';
+import PostsListing from '../components/PostsListing';
 
 const mapStateToProps = (state) => {
   return {
@@ -9,6 +9,6 @@ const mapStateToProps = (state) => {
 
 const Posts = connect(
   mapStateToProps
-)(PostListing);
+)(PostsListing);
 
 export default Posts;
