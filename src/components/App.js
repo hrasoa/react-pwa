@@ -16,7 +16,7 @@ export default () => {
       </div>
       <hr/>
       <Switch>
-        <Route exact path="/" components={Posts}/>
+        <Route exact path="/" component={Posts}/>
         <Route exact path="/about" component={About}/>
         <Route component={NotFound}/>
       </Switch>
