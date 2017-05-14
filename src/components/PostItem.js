@@ -1,13 +1,3 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class PostItem extends Component {
-  render() {
-    return (
-      <div>
-        {this.props.title}
-      </div>
-    );
-  }
-}
-
-export default PostItem;
+export default ({ title }) => <div>{title}</div>;

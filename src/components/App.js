@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import PostItem from './PostItem';
+import { Route, Link } from 'react-router-dom';
+import PostListing from './PostListing';
+import About from './About';
+
 
 class App extends Component {
   constructor(props) {
@@ -13,15 +16,14 @@ class App extends Component {
       <div className="App">
         <div>
           <ul>
-            <li>Home</li>
-            <li>About</li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
           </ul>
         </div>
         <hr/>
         <div>
-          {this.state.posts.map(post =>
-            <PostItem key={post.id} {...post} />
-          )}
+          <Route exact path="/" render={() => <PostListing posts={this.state.posts} />}/>
+          <Route path="/about" component={About}/>
         </div>
       </div>
     );
