@@ -6,7 +6,6 @@ import PostListing from './PostListing';
 import NotFound from './NotFound';
 import About from './About';
 
-
 class App extends Component {
   constructor(props) {
     super(props);
