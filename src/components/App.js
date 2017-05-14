@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Switch } from 'react-router';
 import { Route, Link } from 'react-router-dom';
-import PostListing from './PostListing';
-import NotFound from './NotFound';
 import About from './About';
+import NotFound from './NotFound';
+import PostListing from './PostListing';
 
 class App extends Component {
   constructor(props) {
