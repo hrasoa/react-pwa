@@ -1,4 +1,5 @@
 import { connect, dispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { fetchPosts } from '../actions/index';
 import PostsListing from '../components/PostsListing';
 
@@ -14,9 +15,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const Posts = connect(
+const Posts = withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(PostsListing);
+)(PostsListing));
 
 export default Posts;
