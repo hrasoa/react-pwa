@@ -30,7 +30,7 @@ export default function serverRenderer() {
       </Provider>
     );
 
-    store.dispatch(fetchPosts(config.serverUrl))
+    store.dispatch(fetchPosts(config))
       .then(response => {
         res.status(200).render('index', {
           initialMarkup: ReactDOMServer.renderToString(markup),
