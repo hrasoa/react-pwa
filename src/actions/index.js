@@ -14,10 +14,10 @@ function receivePosts(posts) {
   };
 }
 
-export function fetchPosts() {
+export function fetchPosts(serverUrl = '') {
   return dispatch => {
     dispatch(requestPosts());
-    return axios.get('/api/posts')
+    return axios.get(`${serverUrl}/api/posts`)
       .then(response => dispatch(receivePosts(response.data)));
   }
 }
