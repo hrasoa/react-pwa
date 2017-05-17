@@ -1,13 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import blogApp from './reducers/blogApp';
+import thunkMiddleware from 'redux-thunk';
+import reducers from './reducers/index';
 import './style.scss';
 
-const store = createStore(blogApp, window.initialState);
+const store = createStore(
+  reducers,
+  window.initialState,
+  applyMiddleware(
+    thunkMiddleware
+  )
+);
 
 delete window.initialState;
 
@@ -29,8 +36,8 @@ render();
 
 if (module.hot) {
   module.hot.accept('./components/App', render);
-  module.hot.accept('./reducers/blogApp', () => {
-    const nextRootReducer = require('./reducers/blogApp'); // eslint-disable-line global-require
+  module.hot.accept('./reducers/index', () => {
+    const nextRootReducer = require('./reducers/index'); // eslint-disable-line global-require
     store.replaceReducer(nextRootReducer);
   });
 }

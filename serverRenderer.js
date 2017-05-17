@@ -3,13 +3,12 @@ import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import blogApp from './src/reducers/blogApp';
+import reducers from './src/reducers/index';
 import App from './src/components/App';
-import data from './src/testData.json';
 
 export default function serverRenderer() {
   return (req, res, next) => {
-    const store = createStore(blogApp, data);
+    const store = createStore(reducers);
     const context = {};
     const markup = (
       <Provider store={store}>
@@ -27,5 +26,7 @@ export default function serverRenderer() {
       initialState: store.getState(),
       prod: process.env.NODE_ENV === 'production'
     });
+
+    res.end();
   }
 };

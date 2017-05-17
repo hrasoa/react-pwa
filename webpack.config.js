@@ -31,7 +31,7 @@ module.exports = [{
       },
       {
         test: /\.js$/,
-        use: ['babel-loader', 'eslint-loader'],
+        use: ['babel-loader'],
         include: resolve(__dirname, 'src')
       },
       {
@@ -56,7 +56,7 @@ module.exports = [{
     libraryTarget: 'commonjs2'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.json$/,
         loader: 'json-loader',

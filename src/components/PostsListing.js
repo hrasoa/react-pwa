@@ -1,15 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import PostsItem from './PostsItem';
+import { fetchPosts } from '../actions/index';
 
-const PostsListing = ({ posts }) => (
-  <div>
-    {posts.map(post => <PostsItem key={post.id} {...post} />)}
-  </div>
-);
+class PostsListing extends Component {
+  componentDidMount() {
+    this.props.fetchPosts();
+  }
+
+  render() {
+    return (
+      <div>
+      {this.props.posts.map(post =>
+        <PostsItem
+          key={post.id}
+          {...post}
+        />
+      )}
+      </div>
+    )
+  }
+}
+
+PostsListing.defaultProps = {
+  posts: []
+};
 
 PostsListing.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.object).isRequired
+  fetchPosts: PropTypes.func.isRequired,
+  posts: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default PostsListing;
