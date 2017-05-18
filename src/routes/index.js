@@ -1,7 +1,7 @@
-import { fetchPosts } from './actions/index';
-import About from './components/About';
-import App from './components/App';
-import Posts from './containers/Posts';
+import { fetchPosts } from '../actions/index';
+import About from '../components/About';
+import App from '../components/App';
+import Posts from '../containers/Posts';
 
 export default [
   { component: App,
