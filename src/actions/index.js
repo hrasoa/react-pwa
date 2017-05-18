@@ -1,4 +1,4 @@
-import axios from 'axios';;
+import axios from 'axios';
 
 export const REQUEST_POSTS = 'REQUEST_POSTS';
 function requestPosts() {

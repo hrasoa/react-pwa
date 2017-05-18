@@ -1,6 +1,6 @@
 import express from 'express';
 import compression from 'compression';
-import apiRouter from './src/api/index';
+import apiRouter from './api/index';
 import config from './config';
 
 const app = express();

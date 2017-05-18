@@ -2,7 +2,7 @@ const env = process.env;
 
 export const nodeEnv = process.env.NODE_ENV || 'development';
 
-export const logStars = function(message) {
+export const logStars = message => {
   console.info('**********');
   console.info(message);
   console.info('**********');
