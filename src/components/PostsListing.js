@@ -4,6 +4,10 @@ import PostsItem from './PostsItem';
 import { fetchPosts } from '../actions/index';
 
 class PostsListing extends Component {
+  static fetchData() {
+
+  }
+
   componentDidMount() {
     this.props.fetchPosts();
   }

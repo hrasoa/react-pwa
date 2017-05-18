@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import { renderRoutes } from 'react-router-config';
 import { BrowserRouter } from 'react-router-dom';
+import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import reducers from './reducers/index';
+import routes from './routes';
+
 import './style.scss';
 
 const store = createStore(
@@ -19,12 +22,12 @@ const store = createStore(
 delete window.initialState;
 
 const render = () => {
-  const App = require('./components/App').default; // eslint-disable-line global-require
+  const routes = require('./routes').default; // eslint-disable-line global-require
   ReactDOM.render(
     <AppContainer>
       <Provider store={store}>
         <BrowserRouter>
-          <App />
+          {renderRoutes(routes)}
         </BrowserRouter>
       </Provider>
     </AppContainer>,
@@ -35,7 +38,7 @@ const render = () => {
 render();
 
 if (module.hot) {
-  module.hot.accept('./components/App', render);
+  module.hot.accept('./routes', render);
   module.hot.accept('./reducers/index', () => {
     const nextRootReducer = require('./reducers/index'); // eslint-disable-line global-require
     store.replaceReducer(nextRootReducer);

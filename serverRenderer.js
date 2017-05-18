@@ -1,23 +1,39 @@
+import axios from 'axios';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { StaticRouter } from 'react-router';
-import { createStore, applyMiddleware } from 'redux';
+import { matchPath, StaticRouter } from 'react-router-dom';
+import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
-import axios from 'axios';
+import { matchRoutes, renderRoutes } from 'react-router-config';
 import thunkMiddleware from 'redux-thunk';
 import reducers from './src/reducers/index';
 import App from './src/components/App';
 import config from './config';
-import { fetchPosts } from './src/actions/index';
+import routes from './src/routes';
+
+const loadBranchData = location => {
+  const branch = matchRoutes(routes, location.pathname);
+
+  const promises = branch.map(({ route, match }) => {
+    return route.loadData
+      ? route.loadData(match)
+      : Promise.resolve(null)
+  });
+
+  return Promise.all(promises)
+};
 
 export default function serverRenderer() {
   return (req, res, next) => {
+
     const store = createStore(
       reducers,
-      applyMiddleware(
-        thunkMiddleware
-      )
+      applyMiddleware(thunkMiddleware)
     );
+
+    //const promises = [];
+    loadBranchData(req.url);
+
     const context = {};
     const markup = (
       <Provider store={store}>
@@ -25,20 +41,20 @@ export default function serverRenderer() {
           location={req.url}
           context={context}
         >
-          <App />
+          {renderRoutes(routes)}
         </StaticRouter>
       </Provider>
     );
 
-    store.dispatch(fetchPosts(config))
-      .then(response => {
+    //Promise.all(promises)
+      //.then(response => {
         res.status(200).render('index', {
           initialMarkup: ReactDOMServer.renderToString(markup),
           initialState: store.getState(),
           prod: process.env.NODE_ENV === 'production'
         });
         res.end();
-      });
+      //});
 
   }
 };

@@ -1,11 +1,13 @@
 import React from 'react';
-import { Switch } from 'react-router';
-import { Route, Link } from 'react-router-dom';
-import About from './About';
-import NotFound from './NotFound';
-import Posts from '../containers/Posts';
+import { renderRoutes } from 'react-router-config';
+import {
+  Link,
+  Route,
+  Switch,
+  withRouter
+} from 'react-router-dom';
 
-export default () => (
+export default withRouter(({ route }) => (
   <div className="App">
     <div>
       <ul>
@@ -14,10 +16,6 @@ export default () => (
       </ul>
     </div>
     <hr />
-    <Switch>
-      <Route exact path="/" component={Posts} />
-      <Route exact path="/about" component={About} />
-      <Route component={NotFound} />
-    </Switch>
+    {renderRoutes(route.routes)}
   </div>
-);
+));

@@ -9,8 +9,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchPosts: () => {
-      dispatch(fetchPosts());
+    fetchPosts: (params = {}) => {
+      dispatch(fetchPosts(params));
     }
   };
 };
