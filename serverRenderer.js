@@ -7,7 +7,7 @@ import { matchRoutes, renderRoutes } from 'react-router-config';
 import thunkMiddleware from 'redux-thunk';
 import reducers from './src/reducers/index';
 import config from './config';
-import routes from './src/routes';
+import routes from './src/routes/index';
 
 const store = createStore(
   reducers,
