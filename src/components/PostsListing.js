@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import PostsItem from './PostsItem';
-import { fetchPosts } from '../actions/index';
 
 class PostsListing extends Component {
   componentDidMount() {
