@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { matchPath, StaticRouter } from 'react-router-dom';
