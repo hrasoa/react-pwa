@@ -11,29 +11,23 @@ import App from './src/components/App';
 import config from './config';
 import routes from './src/routes';
 
+const store = createStore(
+  reducers,
+  applyMiddleware(thunkMiddleware)
+);
+
 const loadBranchData = location => {
   const branch = matchRoutes(routes, location.pathname);
-
   const promises = branch.map(({ route, match }) => {
     return route.loadData
-      ? route.loadData(match)
+      ? store.dispatch(route.loadData({ ...match, serverUrl: config.serverUrl }))
       : Promise.resolve(null)
   });
-
-  return Promise.all(promises)
+  return Promise.all(promises);
 };
 
 export default function serverRenderer() {
   return (req, res, next) => {
-
-    const store = createStore(
-      reducers,
-      applyMiddleware(thunkMiddleware)
-    );
-
-    //const promises = [];
-    loadBranchData(req.url);
-
     const context = {};
     const markup = (
       <Provider store={store}>
@@ -46,15 +40,14 @@ export default function serverRenderer() {
       </Provider>
     );
 
-    //Promise.all(promises)
-      //.then(response => {
-        res.status(200).render('index', {
-          initialMarkup: ReactDOMServer.renderToString(markup),
-          initialState: store.getState(),
-          prod: process.env.NODE_ENV === 'production'
-        });
-        res.end();
-      //});
+    loadBranchData(req.url).then(response => {
+      res.status(200).render('index', {
+        initialMarkup: ReactDOMServer.renderToString(markup),
+        initialState: store.getState(),
+        prod: process.env.NODE_ENV === 'production'
+      });
+      res.end();
+    });
 
   }
 };

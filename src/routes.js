@@ -1,9 +1,11 @@
+import { fetchPosts } from './actions/index';
+import About from './components/About';
 import App from './components/App';
 import Posts from './containers/Posts';
-import About from './components/About';
 
 export default [
   { component: App,
+    loadData: params => fetchPosts(params),
     routes: [
       { path: '/',
         component: Posts,
