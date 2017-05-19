@@ -25,11 +25,6 @@ module.exports = [{
   module: {
     rules: [
       {
-        test: /\.json$/,
-        loader: 'json-loader',
-        include: resolve(__dirname, 'src')
-      },
-      {
         test: /\.js$/,
         use: ['babel-loader'],
         include: resolve(__dirname, 'src')
@@ -57,11 +52,6 @@ module.exports = [{
   },
   module: {
     rules: [
-      {
-        test: /\.json$/,
-        loader: 'json-loader',
-        exclude: /node_modules/
-      },
       {
         test: /\.js$/,
         loader: 'babel-loader',

@@ -1,11 +1,14 @@
 import express from 'express';
 import compression from 'compression';
+import favicon from 'serve-favicon';
+import { resolve } from 'path';
 import apiRouter from './api/index';
 import config from './config';
 
 const app = express();
 app.use('/api', apiRouter);
 app.use(express.static('public'));
+app.use(favicon(resolve(__dirname, 'src', 'favicon.ico')));
 app.set('view engine', 'ejs');
 
 if (process.env.NODE_ENV !== 'production') {

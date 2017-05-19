@@ -24,7 +24,6 @@
     "compression": "^1.6.2",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
-    "json-loader": "^0.5.4",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
@@ -34,7 +33,8 @@
     "react-router-dom": "^4.1.1",
     "react-router-redux": "^4.0.8",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "serve-favicon": "^2.4.3"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
