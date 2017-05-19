@@ -7,8 +7,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import reducers from './reducers/index';
-import routes from './routes/index';
-
 import './style.scss';
 
 const store = createStore(
@@ -22,7 +20,7 @@ const store = createStore(
 delete window.__INITIAL_STATE;
 
 const render = () => {
-  const routes = require('./routes').default; // eslint-disable-line global-require
+  const routes = require('./routes/index').default; // eslint-disable-line global-require
   ReactDOM.render(
     <AppContainer>
       <Provider store={store}>

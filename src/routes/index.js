@@ -5,11 +5,11 @@ import Posts from '../containers/Posts';
 
 export default [
   { component: App,
-    loadData: params => fetchPosts(params),
     routes: [
       { path: '/',
         component: Posts,
-        exact: true
+        exact: true,
+        loadData: params => fetchPosts(params)
       },
       { path: '/about',
         component: About,

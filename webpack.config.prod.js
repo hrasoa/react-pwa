@@ -13,13 +13,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.json$/,
-        loader: 'json-loader',
-        include: resolve(__dirname, 'src')
-      },
-      {
         test: /\.js$/,
-        use: ['babel-loader', 'eslint-loader'],
+        use: ['babel-loader'],
         include: resolve(__dirname, 'src')
       },
       {
