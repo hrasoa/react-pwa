@@ -9,7 +9,7 @@
 </head>
 <body class="container">
   <div id="root"><%- initialMarkup -%></div>
-  <script>window.initialState = <%- JSON.stringify(initialState) -%>;</script>
+  <script>window.__INITIAL_STATE = <%- JSON.stringify(initialState) -%>;</script>
   <script src="/bundle.js" charset="utf-8"></script>
 </body>
 </html>

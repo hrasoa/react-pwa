@@ -13,13 +13,13 @@ import './style.scss';
 
 const store = createStore(
   reducers,
-  window.initialState,
+  window.__INITIAL_STATE,
   applyMiddleware(
     thunkMiddleware
   )
 );
 
-delete window.initialState;
+delete window.__INITIAL_STATE;
 
 const render = () => {
   const routes = require('./routes').default; // eslint-disable-line global-require
