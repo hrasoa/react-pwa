@@ -38,7 +38,7 @@ render();
 if (module.hot) {
   module.hot.accept('./routes/index', render);
   module.hot.accept('./reducers/index', () => {
-    const nextRootReducer = require('./reducers/index'); // eslint-disable-line global-require
+    const nextRootReducer = require('./reducers/index').default; // eslint-disable-line global-require
     store.replaceReducer(nextRootReducer);
   });
 }
