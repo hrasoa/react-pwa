@@ -15,7 +15,6 @@ function receivePosts(posts) {
 }
 
 export function fetchPosts({ serverUrl = '' }) {
-  console.log('fetch posts');
   return dispatch => {
     dispatch(requestPosts());
     return axios.get(`${serverUrl}/api/posts`)
