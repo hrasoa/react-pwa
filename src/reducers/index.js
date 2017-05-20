@@ -10,7 +10,6 @@ export default (state = {}, action) => {
         ...state,
         isFetching: true
       };
-      break;
 
     case RECEIVE_POSTS:
       return {

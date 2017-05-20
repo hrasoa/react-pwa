@@ -2,8 +2,6 @@ import React from 'react';
 import { renderRoutes } from 'react-router-config';
 import {
   Link,
-  Route,
-  Switch,
   withRouter
 } from 'react-router-dom';
 
