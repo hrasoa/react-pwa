@@ -36,6 +36,11 @@ function receiveSinglePost(post) {
   };
 }
 
+export const LEAVE_SINGLE_POST = 'LEAVE_SINGLE_POST';
+export function leaveSinglePost() {
+  return { type: LEAVE_SINGLE_POST };
+}
+
 export function fetchSinglePost({ serverUrl = '', ...match }) {
   return (dispatch) => {
     dispatch(requestSinglePost());

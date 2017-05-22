@@ -6,8 +6,12 @@ class SinglePost extends Component {
     this.props.fetchSinglePost();
   }
 
+  componentWillUnmount() {
+    this.props.leaveSinglePost();
+  }
+
   render() {
-    const { title, body } = this.props;
+    const { title, body } = this.props.post;
     return (
       <div>
         <h1>{title}</h1>
@@ -18,9 +22,14 @@ class SinglePost extends Component {
 }
 
 SinglePost.propTypes = {
-  body: PropTypes.string.isRequired,
+  post: PropTypes.shape({
+    title: PropTypes.string,
+    body: PropTypes.string,
+    id: PropTypes.number,
+    userId: PropTypes.number
+  }).isRequired,
   fetchSinglePost: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
+  leaveSinglePost: PropTypes.func.isRequired
 };
 
 export default SinglePost;
