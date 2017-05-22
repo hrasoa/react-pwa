@@ -4,18 +4,21 @@ import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { BrowserRouter } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import reducers from './reducers/index';
 import './style.scss';
 
+/* eslint-disable no-underscore-dangle */
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   reducers,
   window.INITIAL_STATE,
-  applyMiddleware(
+  composeEnhancers(applyMiddleware(
     thunkMiddleware
-  )
+  ))
 );
+/* eslint-enable */
 
 delete window.INITIAL_STATE;
 
