@@ -28,6 +28,7 @@ export default (state = {}, action) => {
         ...state,
         isFetching: false,
         post: {
+          ...state.post,
           [action.post.id]: { ...action.post, lastUpdated: action.receivedAt }
         },
         selectedPost: action.post.id
