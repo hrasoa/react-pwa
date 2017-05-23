@@ -16,6 +16,13 @@ function updateItemInObject(obj = {}, itemId, newValues) {
   };
 }
 
+function updateItemsInObject(obj = {}, items) {
+  return items.reduce((acc, item) => {
+    acc[item.id] = updateItem(obj[item.id], item);
+    return acc;
+  }, {});
+}
+
 export default (state = {}, action) => {
   switch (action.type) {
     case REQUEST_POSTS:
@@ -25,13 +32,17 @@ export default (state = {}, action) => {
         isFetching: true
       };
 
-    case RECEIVE_POSTS:
+    case RECEIVE_POSTS: {
+      const postsById = updateItemsInObject(state.post, action.posts);
       return {
         ...state,
         isFetching: false,
-        posts: action.posts,
-        lastUpdated: action.receivedAt
+        post: {
+          ...postsById,
+          listing: action.posts.map(post => post.id)
+        }
       };
+    }
 
     case RECEIVE_SINGLE_POST:
       return {
@@ -39,8 +50,11 @@ export default (state = {}, action) => {
         isFetching: false,
         post: updateItemInObject(
           state.post,
-          action.post.id,
-          { ...action.post, lastUpdated: action.receivedAt }
+          action.post.id, {
+            ...action.post,
+            lastUpdated: action.receivedAt,
+            from: 'singlepost'
+          }
         )
       };
 
