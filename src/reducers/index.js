@@ -52,8 +52,7 @@ export default (state = {}, action) => {
           state.post,
           action.post.id, {
             ...action.post,
-            lastUpdated: action.receivedAt,
-            from: 'singlepost'
+            lastUpdated: action.receivedAt
           }
         )
       };
