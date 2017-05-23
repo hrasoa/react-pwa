@@ -5,6 +5,17 @@ import {
   REQUEST_SINGLE_POST
 } from '../actions/index';
 
+function updateItem(oldObject = {}, newValues) {
+  return { ...oldObject, ...newValues };
+}
+
+function updateItemInObject(obj = {}, itemId, newValues) {
+  return {
+    ...obj,
+    [itemId]: updateItem(obj[itemId], newValues)
+  };
+}
+
 export default (state = {}, action) => {
   switch (action.type) {
     case REQUEST_POSTS:
@@ -26,10 +37,11 @@ export default (state = {}, action) => {
       return {
         ...state,
         isFetching: false,
-        post: {
-          ...state.post,
-          [action.post.id]: { ...action.post, lastUpdated: action.receivedAt }
-        }
+        post: updateItemInObject(
+          state.post,
+          action.post.id,
+          { ...action.post, lastUpdated: action.receivedAt }
+        )
       };
 
     default:
