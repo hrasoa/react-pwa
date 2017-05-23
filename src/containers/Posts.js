@@ -4,8 +4,8 @@ import { fetchPosts } from '../actions/index';
 import PostsListing from '../components/PostsListing';
 
 const mapStateToProps = state => ({
-  posts: state.post && state.post.listing ?
-    state.post.listing.map(postId => state.post[postId]) : []
+  posts: state.posts && state.posts.listing ?
+    state.posts.listing.map(postId => state.posts[postId]) : []
 });
 
 const mapDispatchToProps = dispatch => ({

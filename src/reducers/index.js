@@ -33,11 +33,11 @@ export default (state = {}, action) => {
       };
 
     case RECEIVE_POSTS: {
-      const postsById = updateItemsInObject(state.post, action.posts);
+      const postsById = updateItemsInObject(state.posts, action.posts);
       return {
         ...state,
         isFetching: false,
-        post: {
+        posts: {
           ...postsById,
           listing: action.posts.map(post => post.id)
         }
@@ -48,8 +48,8 @@ export default (state = {}, action) => {
       return {
         ...state,
         isFetching: false,
-        post: updateItemInObject(
-          state.post,
+        posts: updateItemInObject(
+          state.posts,
           action.post.id, {
             ...action.post,
             lastUpdated: action.receivedAt

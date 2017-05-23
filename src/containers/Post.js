@@ -4,7 +4,7 @@ import { fetchSinglePost } from '../actions/index';
 import SinglePost from '../components/SinglePost';
 
 const mapStateToProps = (state, ownProps) => ({
-  post: (state.post && state.post[ownProps.match.params.id]) || {}
+  post: (state.posts && state.posts[ownProps.match.params.id]) || {}
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
