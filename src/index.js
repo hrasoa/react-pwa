@@ -13,14 +13,13 @@ import './style.scss';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   reducers,
-  window.INITIAL_STATE,
+  window.__INITIAL_STATE__,
   composeEnhancers(applyMiddleware(
     thunkMiddleware
   ))
 );
+delete window.__INITIAL_STATE__;
 /* eslint-enable */
-
-delete window.INITIAL_STATE;
 
 const render = () => {
   const routes = require('./routes/index').default; // eslint-disable-line global-require
