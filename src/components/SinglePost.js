@@ -6,10 +6,6 @@ class SinglePost extends Component {
     this.props.fetchSinglePost();
   }
 
-  componentWillUnmount() {
-    this.props.leaveSinglePost();
-  }
-
   render() {
     const { title, body } = this.props.post;
     return (
@@ -28,8 +24,7 @@ SinglePost.propTypes = {
     id: PropTypes.number,
     userId: PropTypes.number
   }).isRequired,
-  fetchSinglePost: PropTypes.func.isRequired,
-  leaveSinglePost: PropTypes.func.isRequired
+  fetchSinglePost: PropTypes.func.isRequired
 };
 
 export default SinglePost;

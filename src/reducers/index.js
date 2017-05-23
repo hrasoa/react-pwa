@@ -2,8 +2,7 @@ import {
   RECEIVE_POSTS,
   REQUEST_POSTS,
   RECEIVE_SINGLE_POST,
-  REQUEST_SINGLE_POST,
-  LEAVE_SINGLE_POST
+  REQUEST_SINGLE_POST
 } from '../actions/index';
 
 export default (state = {}, action) => {
@@ -30,14 +29,7 @@ export default (state = {}, action) => {
         post: {
           ...state.post,
           [action.post.id]: { ...action.post, lastUpdated: action.receivedAt }
-        },
-        selectedPost: action.post.id
-      };
-
-    case LEAVE_SINGLE_POST:
-      return {
-        ...state,
-        selectedPost: null
+        }
       };
 
     default:
