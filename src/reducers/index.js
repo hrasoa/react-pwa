@@ -17,16 +17,15 @@ function updateItemInObject(obj = {}, itemId, newValues) {
 }
 
 function updateItemsInObject(obj = {}, items) {
-  return items.reduce((acc, item) => {
-    acc[item.id] = updateItem(obj[item.id], item);
-    return acc;
-  }, {});
+  return items.reduce((acc, item) => ({
+    ...acc,
+    [item.id]: updateItem(obj[item.id], item)
+  }), {});
 }
 
 export default (state = {}, action) => {
   switch (action.type) {
     case REQUEST_POSTS:
-    case REQUEST_SINGLE_POST:
       return {
         ...state,
         isFetching: true
@@ -44,6 +43,12 @@ export default (state = {}, action) => {
       };
     }
 
+    case REQUEST_SINGLE_POST:
+      return {
+        ...state,
+        isFetching: true
+      };
+
     case RECEIVE_SINGLE_POST:
       return {
         ...state,
@@ -52,7 +57,8 @@ export default (state = {}, action) => {
           state.posts,
           action.post.id, {
             ...action.post,
-            lastUpdated: action.receivedAt
+            lastUpdated: action.receivedAt,
+            lastViewed: action.receivedAt
           }
         )
       };

@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 class SinglePost extends Component {
   componentDidMount() {
+    if (this.props.post.lastViewed) {
+      return;
+    }
     this.props.fetchSinglePost();
   }
 
@@ -22,6 +25,7 @@ SinglePost.propTypes = {
     title: PropTypes.string,
     body: PropTypes.string,
     id: PropTypes.number,
+    lastViewed: PropTypes.number,
     userId: PropTypes.number
   }).isRequired,
   fetchSinglePost: PropTypes.func.isRequired

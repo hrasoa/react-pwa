@@ -4,6 +4,9 @@ import PostsItem from './PostsItem';
 
 class PostsListing extends Component {
   componentDidMount() {
+    if (this.props.posts.length) {
+      return;
+    }
     this.props.fetchPosts();
   }
 
@@ -16,13 +19,9 @@ class PostsListing extends Component {
   }
 }
 
-PostsListing.defaultProps = {
-  posts: []
-};
-
 PostsListing.propTypes = {
   fetchPosts: PropTypes.func.isRequired,
-  posts: PropTypes.arrayOf(PropTypes.object)
+  posts: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default PostsListing;
