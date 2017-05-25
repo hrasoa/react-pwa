@@ -10,7 +10,11 @@ class PostsListing extends Component {
   render() {
     return (
       <ul>
-        {this.props.posts.map(post => <li><PostsItem key={post.id} {...post} /></li>)}
+        {this.props.posts.map(post => (
+          <li key={post.id}>
+            <PostsItem {...post} />
+          </li>)
+        )}
       </ul>
     );
   }
