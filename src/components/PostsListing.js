@@ -9,9 +9,9 @@ class PostsListing extends Component {
 
   render() {
     return (
-      <div>
-        {this.props.posts.map(post => <PostsItem key={post.id} {...post} />)}
-      </div>
+      <ul>
+        {this.props.posts.map(post => <li><PostsItem key={post.id} {...post} /></li>)}
+      </ul>
     );
   }
 }
