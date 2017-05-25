@@ -4,9 +4,6 @@ import PostsItem from './PostsItem';
 
 class PostsListing extends Component {
   componentDidMount() {
-    if (this.props.posts.length) {
-      return;
-    }
     this.props.fetchPosts();
   }
 

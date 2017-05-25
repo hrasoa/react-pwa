@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { matchPath, StaticRouter } from 'react-router-dom';
@@ -27,20 +28,20 @@ const loadBranchData = location => {
 export default function serverRenderer() {
   return (req, res, next) => {
     const context = {};
-    const markup = (
-      <Provider store={store}>
-        <StaticRouter
-          location={req.url}
-          context={context}
-        >
-          {renderRoutes(routes)}
-        </StaticRouter>
-      </Provider>
-    );
-
     loadBranchData(req.url).then(response => {
+      const markup = ReactDOMServer.renderToString(
+        <Provider store={store}>
+          <StaticRouter
+            location={req.url}
+            context={context}
+          >
+            {renderRoutes(routes)}
+          </StaticRouter>
+        </Provider>
+      );
       res.status(200).render('index', {
-        initialMarkup: ReactDOMServer.renderToString(markup),
+        helmet: Helmet.renderStatic(),
+        initialMarkup: markup,
         initialState: store.getState(),
         prod: process.env.NODE_ENV === 'production'
       });

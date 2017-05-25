@@ -1,11 +1,9 @@
+import { Helmet } from 'react-helmet';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class SinglePost extends Component {
   componentDidMount() {
-    if (this.props.post.lastViewed) {
-      return;
-    }
     this.props.fetchSinglePost();
   }
 
@@ -13,6 +11,9 @@ class SinglePost extends Component {
     const { title, body } = this.props.post;
     return (
       <div>
+        <Helmet>
+          <title>{title}</title>
+        </Helmet>
         <h1>{title}</h1>
         <div>{body}</div>
       </div>

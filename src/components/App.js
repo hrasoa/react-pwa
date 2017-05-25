@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet';
 import React from 'react';
 import { renderRoutes } from 'react-router-config';
 import {
@@ -7,6 +8,11 @@ import {
 
 export default withRouter(({ route }) => (
   <div className="App">
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>My Title</title>
+      <link rel="canonical" href="http://mysite.com/example" />
+    </Helmet>
     <div>
       <ul>
         <li><Link to="/">Home</Link></li>

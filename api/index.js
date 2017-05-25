@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/posts', (req, res) => {
   axios.get('http://jsonplaceholder.typicode.com/posts')
     .then(response => {
-      res.send(response.data.map(({ id, title }) => ({ id, title })));
+      res.send(response.data.slice(0, 5).map(({ id, title }) => ({ id, title })));
     });
 });
 
