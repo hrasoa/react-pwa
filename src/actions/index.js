@@ -1,24 +1,31 @@
 import axios from 'axios';
 
 export const REQUEST_POSTS = 'REQUEST_POSTS';
-function requestPosts() {
-  return { type: REQUEST_POSTS };
+function requestPosts(listingName) {
+  return {
+    type: REQUEST_POSTS,
+    listingName
+  };
 }
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
-function receivePosts(posts) {
+function receivePosts({ listingName, items }) {
   return {
     type: RECEIVE_POSTS,
-    posts,
+    items,
+    listingName,
     receivedAt: Date.now()
   };
 }
 
-export function fetchPosts({ serverUrl = '' }) {
+export function fetchPosts({ serverUrl = '', listingName }) {
   return (dispatch) => {
-    dispatch(requestPosts());
+    dispatch(requestPosts(listingName));
     return axios.get(`${serverUrl}/api/posts`)
-      .then(response => dispatch(receivePosts(response.data)));
+      .then(response => dispatch(receivePosts({
+        items: response.data,
+        listingName
+      })));
   };
 }
 

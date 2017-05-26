@@ -4,12 +4,14 @@ import { fetchPosts } from '../actions/index';
 import PostListing from '../components/PostListing';
 
 const mapStateToProps = state => ({
-  posts: state.posts && state.posts.listing ?
-    state.posts.listing.map(postId => state.posts[postId]) : []
+  posts: (state.posts &&
+    state.posts.byListing &&
+    state.posts.byListing.home &&
+    state.posts.byListing.home.items) || []
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPosts: (params = {}) => {
+  fetchPosts: (params = { listingName: 'home' }) => {
     dispatch(fetchPosts(params));
   }
 });

@@ -13,7 +13,7 @@ export default [
       { path: '/',
         component: PostHome,
         exact: true,
-        loadData: params => fetchPosts(params)
+        loadData: params => fetchPosts({ listingName: 'home', ...params })
       },
       { path: '/posts/:id',
         component: PostView,
