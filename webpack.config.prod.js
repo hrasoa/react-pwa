@@ -18,12 +18,17 @@ module.exports = {
         include: resolve(__dirname, 'src')
       },
       {
+        test: /manifest\.json$/,
+        use: ['file-loader?name=[name].[ext]'],
+        include: resolve(__dirname, 'src')
+      },
+      {
         test: /\.scss$/,
-        include: resolve(__dirname, 'src'),
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: ['css-loader', 'sass-loader']
-        })
+        }),
+        include: resolve(__dirname, 'src')
       }
     ]
   },

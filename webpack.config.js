@@ -30,9 +30,14 @@ module.exports = [{
         include: resolve(__dirname, 'src')
       },
       {
+        test: /manifest\.json$/,
+        use: ['file-loader?name=[name].[ext]'],
+        include: resolve(__dirname, 'src')
+      },
+      {
         test: /\.scss$/,
-        include: resolve(__dirname, 'src'),
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+        include: resolve(__dirname, 'src')
       }
     ]
   },

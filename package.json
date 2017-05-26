@@ -7,7 +7,8 @@
     "start": "npm run build && npm run server",
     "build": "NODE_ENV=production webpack -p --config webpack.config.prod.js",
     "server": "NODE_ENV=production babel-node server.js",
-    "start:dev": "babel-node server.js"
+    "start:dev": "babel-node server.js",
+    "postinstall": "npm rebuild node-sass"
   },
   "repository": {
     "type": "git",
@@ -54,6 +55,7 @@
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.0.0",
     "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.11.1",
     "node-sass": "^4.5.2",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.17.0",
