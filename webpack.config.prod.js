@@ -4,7 +4,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpackDevConfig = require('./webpack.config');
 const commonConfig = webpackDevConfig.reduce(function(acc, conf) {
   if (conf.name === 'client') {
-    acc.vendor = conf.entry.vendor;
+    acc.vendor = conf.entry.vendor.filter(function(vendor) {
+      return vendor !== 'react-hot-loader';
+    });
     acc.output = conf.output;
   }
   return acc;
@@ -16,7 +18,7 @@ module.exports = {
     vendor: commonConfig.vendor
   },
   output: commonConfig.output,
-  devtool: 'source-map',
+  devtool: 'cheap-source-map',
   module: {
     rules: [
       {

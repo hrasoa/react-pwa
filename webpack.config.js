@@ -12,18 +12,17 @@ module.exports = [{
       './src/index.js'
     ],
     vendor: [
-      "axios",
-      "prop-types",
-      "react",
-      "react-dom",
-      "react-helmet",
-      "react-hot-loader",
-      "react-redux",
-      "react-router-config",
-      "react-router-dom",
-      "react-router-redux",
-      "redux",
-      "redux-thunk"
+      'axios',
+      'prop-types',
+      'react',
+      'react-dom',
+      'react-helmet',
+      'react-hot-loader',
+      'react-redux',
+      'react-router-config',
+      'react-router-dom',
+      'redux',
+      'redux-thunk'
     ]
   },
   output: {
