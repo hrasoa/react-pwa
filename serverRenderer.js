@@ -18,8 +18,8 @@ const store = createStore(
 const loadBranchData = location => {
   const branch = matchRoutes(routes, location);
   const promises = branch.map(({ route, match }) => {
-    return route && route.loadData
-      ? store.dispatch(route.loadData({ ...match, serverUrl: config.serverUrl }))
+    return route && route.component.fetchData
+      ? store.dispatch(route.component.fetchData({ ...match, serverUrl: config.serverUrl }))
       : Promise.resolve(null)
   });
   return Promise.all(promises);

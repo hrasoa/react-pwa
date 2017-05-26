@@ -1,8 +1,13 @@
 import { Helmet } from 'react-helmet';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { fetchSinglePost } from '../actions/index';
 
 class Post extends Component {
+  static fetchData(params) {
+    return fetchSinglePost(params);
+  }
+
   componentDidMount() {
     this.props.fetchSinglePost();
   }

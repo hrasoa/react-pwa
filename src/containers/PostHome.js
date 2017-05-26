@@ -12,8 +12,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPosts: (params = { listingName: 'home' }) => {
-    dispatch(fetchPosts(params));
+  fetchPosts: (params = {}) => {
+    dispatch(fetchPosts({ listingName: 'home', ...params }));
   }
 });
 

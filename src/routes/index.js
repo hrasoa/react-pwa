@@ -1,7 +1,3 @@
-import {
-  fetchPosts,
-  fetchSinglePost
-} from '../actions/index';
 import About from '../components/About';
 import App from '../components/App';
 import PostView from '../containers/PostView';
@@ -12,13 +8,11 @@ export default [
     routes: [
       { path: '/',
         component: PostHome,
-        exact: true,
-        loadData: params => fetchPosts({ listingName: 'home', ...params })
+        exact: true
       },
       { path: '/posts/:id',
         component: PostView,
-        exact: true,
-        loadData: params => fetchSinglePost(params)
+        exact: true
       },
       { path: '/about',
         component: About,
