@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const { resolve } = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
+const CompressionPlugin = require('compression-webpack-plugin');
 const webpackDevConfig = require('./webpack.config');
 const commonConfig = webpackDevConfig.reduce(function(acc, conf) {
   if (conf.name === 'client') {
@@ -59,8 +59,8 @@ module.exports = {
       minimize: true
     }),
     new CompressionPlugin({
-      asset: "[path].gz[query]",
-      algorithm: "gzip",
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
       test: /\.(js|css)$/,
       threshold: 10240,
       minRatio: 0.8
