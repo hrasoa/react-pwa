@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class SinglePost extends Component {
+class Post extends Component {
   componentDidMount() {
     this.props.fetchSinglePost();
   }
@@ -21,7 +21,7 @@ class SinglePost extends Component {
   }
 }
 
-SinglePost.propTypes = {
+Post.propTypes = {
   post: PropTypes.shape({
     title: PropTypes.string,
     body: PropTypes.string,
@@ -32,4 +32,4 @@ SinglePost.propTypes = {
   fetchSinglePost: PropTypes.func.isRequired
 };
 
-export default SinglePost;
+export default Post;

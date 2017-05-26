@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchSinglePost } from '../actions/index';
-import SinglePost from '../components/SinglePost';
+import Post from '../components/Post';
 
 const mapStateToProps = (state, ownProps) => ({
   post: (state.posts && state.posts[ownProps.match.params.id]) || {}
@@ -13,9 +13,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   }
 });
 
-const Post = withRouter(connect(
+const PostView = withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(SinglePost));
+)(Post));
 
-export default Post;
+export default PostView;

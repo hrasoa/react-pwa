@@ -4,19 +4,19 @@ import {
 } from '../actions/index';
 import About from '../components/About';
 import App from '../components/App';
-import Post from '../containers/Post';
-import Posts from '../containers/Posts';
+import PostView from '../containers/PostView';
+import PostHome from '../containers/PostHome';
 
 export default [
   { component: App,
     routes: [
       { path: '/',
-        component: Posts,
+        component: PostHome,
         exact: true,
         loadData: params => fetchPosts(params)
       },
       { path: '/posts/:id',
-        component: Post,
+        component: PostView,
         exact: true,
         loadData: params => fetchSinglePost(params)
       },

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import PostsItem from './PostsItem';
+import PostListingItem from './PostListingItem';
 
-class PostsListing extends Component {
+class PostListing extends Component {
   componentDidMount() {
     this.props.fetchPosts();
   }
@@ -12,7 +12,7 @@ class PostsListing extends Component {
       <ul>
         {this.props.posts.map(post => (
           <li key={post.id}>
-            <PostsItem {...post} />
+            <PostListingItem {...post} />
           </li>)
         )}
       </ul>
@@ -20,9 +20,9 @@ class PostsListing extends Component {
   }
 }
 
-PostsListing.propTypes = {
+PostListing.propTypes = {
   fetchPosts: PropTypes.func.isRequired,
   posts: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
-export default PostsListing;
+export default PostListing;
