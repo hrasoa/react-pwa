@@ -12,9 +12,7 @@ const commonConfig = webpackDevConfig.reduce(function(acc, conf) {
 
 module.exports = {
   entry: {
-    bundle: [
-      './src/index.js'
-    ],
+    bundle: './src/index.js',
     vendor: commonConfig.vendor
   },
   output: commonConfig.output,
