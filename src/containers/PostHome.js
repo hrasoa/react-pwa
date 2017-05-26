@@ -4,8 +4,7 @@ import { fetchPosts } from '../actions/index';
 import PostListing from '../components/PostListing';
 
 const mapStateToProps = state => ({
-  posts: (state.posts &&
-    state.posts.byListing &&
+  posts: (
     state.posts.byListing.home &&
     state.posts.byListing.home.items &&
     state.posts.byListing.home.items.map(itemId => state.posts.byId[itemId])
