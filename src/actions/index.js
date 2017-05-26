@@ -23,8 +23,11 @@ export function fetchPosts({ serverUrl = '' }) {
 }
 
 export const REQUEST_SINGLE_POST = 'REQUEST_SINGLE_POST';
-function requestSinglePost() {
-  return { type: REQUEST_SINGLE_POST };
+function requestSinglePost(postId) {
+  return {
+    type: REQUEST_SINGLE_POST,
+    postId
+  };
 }
 
 export const RECEIVE_SINGLE_POST = 'RECEIVE_SINGLE_POST';
@@ -38,7 +41,7 @@ function receiveSinglePost(post) {
 
 export function fetchSinglePost({ serverUrl = '', ...match }) {
   return (dispatch) => {
-    dispatch(requestSinglePost());
+    dispatch(requestSinglePost(match.params.id));
     return axios.get(`${serverUrl}/api/posts/${match.params.id}`)
       .then(response => dispatch(receiveSinglePost(response.data)));
   };

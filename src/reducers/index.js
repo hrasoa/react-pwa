@@ -46,7 +46,12 @@ export default (state = {}, action) => {
     case REQUEST_SINGLE_POST:
       return {
         ...state,
-        isFetching: true
+        posts: updateItemInObject(
+          state.posts,
+          action.postId, {
+            isFetching: true
+          }
+        )
       };
 
     case RECEIVE_SINGLE_POST:
@@ -57,6 +62,7 @@ export default (state = {}, action) => {
           state.posts,
           action.post.id, {
             ...action.post,
+            isFetching: false,
             lastUpdated: action.receivedAt,
             lastViewed: action.receivedAt
           }
