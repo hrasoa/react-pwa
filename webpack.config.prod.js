@@ -18,7 +18,7 @@ module.exports = {
     vendor: commonConfig.vendor
   },
   output: commonConfig.output,
-  devtool: 'cheap-source-map',
+  devtool: 'source-map',
   module: {
     rules: [
       {
