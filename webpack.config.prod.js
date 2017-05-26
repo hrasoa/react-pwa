@@ -1,32 +1,23 @@
 const webpack = require('webpack');
 const { resolve } = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpackDevConfig = require('./webpack.config');
+const commonConfig = webpackDevConfig.reduce(function(acc, conf) {
+  if (conf.name === 'client') {
+    acc.vendor = conf.entry.vendor;
+    acc.output = conf.output;
+  }
+  return acc;
+}, {});
 
 module.exports = {
   entry: {
     bundle: [
       './src/index.js'
     ],
-    vendor: [
-      "axios",
-      "prop-types",
-      "react",
-      "react-dom",
-      "react-helmet",
-      "react-hot-loader",
-      "react-redux",
-      "react-router-config",
-      "react-router-dom",
-      "react-router-redux",
-      "redux",
-      "redux-thunk"
-    ]
+    vendor: commonConfig.vendor
   },
-  output: {
-    path: resolve(__dirname, 'public'),
-    filename: '[name].js',
-    publicPath: '/'
-  },
+  output: commonConfig.output,
   devtool: 'source-map',
   module: {
     rules: [
