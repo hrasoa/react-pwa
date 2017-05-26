@@ -32,11 +32,11 @@ export function fetchPosts({ serverUrl = '', listingName }) {
     dispatch(requestPosts(listingName));
     return axios.get(`${serverUrl}/api/posts`)
       .then((response) => {
-        dispatch(receivePosts({
+        dispatch(updatePosts({ items: response.data }));
+        return dispatch(receivePosts({
           items: response.data,
           listingName
         }));
-        return dispatch(updatePosts({ items: response.data }));
       });
   };
 }
