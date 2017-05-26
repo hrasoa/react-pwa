@@ -25,7 +25,7 @@ export default (state = {}, action) => {
           ...action.post,
           isFetching: false,
           lastUpdated: action.receivedAt,
-          lastViewed: action.receivedAt
+          firstViewed: action.receivedAt
         }
       );
 
