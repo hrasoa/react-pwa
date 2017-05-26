@@ -2,9 +2,7 @@ import {
   RECEIVE_POSTS,
   REQUEST_POSTS
 } from '../../actions/index';
-import {
-  updateItemByKeyInObject
-} from '../utilities';
+import { updateItemByKeyInObject } from '../utilities';
 
 export default (state = {}, action) => {
   switch (action.type) {
