@@ -3,10 +3,28 @@ const { resolve } = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    bundle: [
+      './src/index.js'
+    ],
+    vendor: [
+      "axios",
+      "prop-types",
+      "react",
+      "react-dom",
+      "react-helmet",
+      "react-hot-loader",
+      "react-redux",
+      "react-router-config",
+      "react-router-dom",
+      "react-router-redux",
+      "redux",
+      "redux-thunk"
+    ]
+  },
   output: {
     path: resolve(__dirname, 'public'),
-    filename: 'bundle.js',
+    filename: '[name].js',
     publicPath: '/'
   },
   devtool: 'source-map',
@@ -33,6 +51,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: ['vendor']
+    }),
     new ExtractTextPlugin({
       filename: 'style.css'
     }),

@@ -4,15 +4,31 @@ const { resolve } = require('path');
 module.exports = [{
   name: 'client',
   target: 'web',
-  entry: [
-    'react-hot-loader/patch',
-    'webpack-hot-middleware/client',
-    'webpack/hot/only-dev-server',
-    './src/index.js'
-  ],
+  entry: {
+    bundle: [
+      'react-hot-loader/patch',
+      'webpack-hot-middleware/client',
+      'webpack/hot/only-dev-server',
+      './src/index.js'
+    ],
+    vendor: [
+      "axios",
+      "prop-types",
+      "react",
+      "react-dom",
+      "react-helmet",
+      "react-hot-loader",
+      "react-redux",
+      "react-router-config",
+      "react-router-dom",
+      "react-router-redux",
+      "redux",
+      "redux-thunk"
+    ]
+  },
   output: {
     path: resolve(__dirname, 'public'),
-    filename: 'bundle.js',
+    filename: '[name].js',
     publicPath: '/'
   },
   devtool: 'source-map',
@@ -42,6 +58,9 @@ module.exports = [{
     ]
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: ['vendor']
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
