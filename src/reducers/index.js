@@ -3,7 +3,8 @@ import {
   RECEIVE_POSTS,
   REQUEST_POSTS,
   RECEIVE_SINGLE_POST,
-  REQUEST_SINGLE_POST
+  REQUEST_SINGLE_POST,
+  UPDATE_POSTS
 } from '../actions/index';
 
 function updateItem(oldObject = {}, newValues) {
@@ -15,6 +16,13 @@ function updateItemByKeyInObject(obj = {}, key, newValues) {
     ...obj,
     [key]: updateItem(obj[key], newValues)
   };
+}
+
+function updateItemsInObject(obj = {}, items) {
+  return items.reduce((acc, item) => ({
+    ...acc,
+    [item.id]: updateItem(obj[item.id], item)
+  }), {});
 }
 
 function byId(state = {}, action) {
@@ -38,6 +46,12 @@ function byId(state = {}, action) {
         }
       );
 
+    case UPDATE_POSTS:
+      return updateItemsInObject(
+        state,
+        action.items
+      );
+
     default:
       return state;
   }
@@ -58,7 +72,7 @@ function byListing(state = {}, action) {
         state,
         action.listingName, {
           isFetching: false,
-          items: action.items,
+          items: action.items.map(item => item.id),
           lastUpdated: action.receivedAt
         }
       );

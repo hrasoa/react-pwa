@@ -18,14 +18,26 @@ function receivePosts({ listingName, items }) {
   };
 }
 
+export const UPDATE_POSTS = 'UPDATE_POSTS';
+function updatePosts({ items }) {
+  return {
+    type: UPDATE_POSTS,
+    items,
+    receivedAt: Date.now()
+  };
+}
+
 export function fetchPosts({ serverUrl = '', listingName }) {
   return (dispatch) => {
     dispatch(requestPosts(listingName));
     return axios.get(`${serverUrl}/api/posts`)
-      .then(response => dispatch(receivePosts({
-        items: response.data,
-        listingName
-      })));
+      .then((response) => {
+        dispatch(receivePosts({
+          items: response.data,
+          listingName
+        }));
+        return dispatch(updatePosts({ items: response.data }));
+      });
   };
 }
 

@@ -7,7 +7,9 @@ const mapStateToProps = state => ({
   posts: (state.posts &&
     state.posts.byListing &&
     state.posts.byListing.home &&
-    state.posts.byListing.home.items) || []
+    state.posts.byListing.home.items &&
+    state.posts.byListing.home.items.map(itemId => state.posts.byId[itemId])
+    ) || []
 });
 
 const mapDispatchToProps = dispatch => ({
