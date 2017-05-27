@@ -2,16 +2,19 @@ export function updateItem(oldObject = {}, newValues) {
   return { ...oldObject, ...newValues };
 }
 
-export function updateItemByKeyInObject(obj = {}, key, newValues) {
-  return {
-    ...obj,
-    [key]: updateItem(obj[key], newValues)
-  };
-}
-
 export function updateItemsInObject(obj = {}, items) {
   return items.reduce((acc, item) => ({
     ...acc,
     [item.id]: updateItem(obj[item.id], item)
   }), {});
 }
+
+export function createReducer(initialState, handlers) {
+  return function reducer(state = initialState, action) {
+    if (action.type in handlers) {
+      return handlers[action.type](state, action);
+    }
+    return state;
+  };
+}
+

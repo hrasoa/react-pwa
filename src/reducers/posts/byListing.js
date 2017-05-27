@@ -3,45 +3,39 @@ import {
   RECEIVE_POSTS,
   REQUEST_POSTS
 } from '../../actions/index';
-import { updateItem } from '../utilities';
+import {
+  createReducer,
+  updateItem
+} from '../utilities';
 
 const defaultPostsState = {
   isFetching: false,
   didInvalidate: false
 };
 
-function posts(state = defaultPostsState, action) {
-  switch (action.type) {
-    case INVALIDATE_POSTS:
-      return updateItem(state, { didInvalidate: true });
+const invalidatePosts = state => updateItem(state, { didInvalidate: true });
 
-    case REQUEST_POSTS:
-      return updateItem(state, { isFetching: true });
+const requestPosts = state => updateItem(state, { isFetching: true });
 
-    case RECEIVE_POSTS: {
-      return updateItem(state, {
-        isFetching: false,
-        items: action.items.map(item => item.id),
-        lastUpdated: action.receivedAt,
-        didInvalidate: false
-      });
-    }
+const receivePosts = (state, action) => updateItem(state, {
+  isFetching: false,
+  items: action.items.map(item => item.id),
+  lastUpdated: action.receivedAt,
+  didInvalidate: false
+});
 
-    default:
-      return state;
-  }
-}
+const posts = createReducer(defaultPostsState, {
+  [INVALIDATE_POSTS]: invalidatePosts,
+  [REQUEST_POSTS]: requestPosts,
+  [RECEIVE_POSTS]: receivePosts
+});
 
-export default (state = {}, action) => {
-  switch (action.type) {
-    case INVALIDATE_POSTS:
-    case REQUEST_POSTS:
-    case RECEIVE_POSTS:
-      return updateItem(state, {
-        [action.listingName]: posts(state[action.listingName], action)
-      });
+const handlePosts = (state, action) => updateItem(state, {
+  [action.listingName]: posts(state[action.listingName], action)
+});
 
-    default:
-      return state;
-  }
-};
+export default createReducer({}, {
+  [INVALIDATE_POSTS]: handlePosts,
+  [REQUEST_POSTS]: handlePosts,
+  [RECEIVE_POSTS]: handlePosts
+});

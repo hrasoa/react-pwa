@@ -5,6 +5,7 @@ import {
   UPDATE_POSTS
 } from '../../actions/index';
 import {
+  createReducer,
   updateItemsInObject,
   updateItem
 } from '../utilities';
@@ -14,42 +15,36 @@ const defaultPostState = {
   didInvalidate: false
 };
 
-function post(state = defaultPostState, action) {
-  switch (action.type) {
-    case INVALIDATE_SINGLE_POST:
-      return updateItem(state, { didInvalidate: true });
+const invalidatePost = state => updateItem(state, { didInvalidate: true });
 
-    case REQUEST_SINGLE_POST:
-      return updateItem(state, { isFetching: true });
+const requestPost = state => updateItem(state, { isFetching: true });
 
-    case RECEIVE_SINGLE_POST:
-      return updateItem(state, {
-        ...action.post,
-        isFetching: false,
-        didInvalidate: false,
-        lastUpdated: action.receivedAt,
-        firstViewed: action.receivedAt
-      });
+const receivePost = (state, action) => updateItem(state, {
+  ...action.post,
+  isFetching: false,
+  didInvalidate: false,
+  lastUpdated: action.receivedAt,
+  firstViewed: action.receivedAt
+});
 
-    default:
-      return state;
-  }
-}
+const updatePost = (state, action) => updateItemsInObject(
+  state,
+  action.items.map(item => ({ ...item, lastUpdated: action.receivedAt }))
+);
 
-export default (state = {}, action) => {
-  switch (action.type) {
-    case INVALIDATE_SINGLE_POST:
-    case REQUEST_SINGLE_POST:
-    case RECEIVE_SINGLE_POST:
-      return updateItem(state, { [action.postId]: post(state[action.postId], action) });
+const post = createReducer(defaultPostState, {
+  [INVALIDATE_SINGLE_POST]: invalidatePost,
+  [REQUEST_SINGLE_POST]: requestPost,
+  [RECEIVE_SINGLE_POST]: receivePost
+});
 
-    case UPDATE_POSTS:
-      return updateItemsInObject(
-        state,
-        action.items.map(item => ({ ...item, lastUpdated: action.receivedAt }))
-      );
+const handlePost = (state, action) => updateItem(state, {
+  [action.postId]: post(state[action.postId], action)
+});
 
-    default:
-      return state;
-  }
-};
+export default createReducer({}, {
+  [INVALIDATE_SINGLE_POST]: handlePost,
+  [REQUEST_SINGLE_POST]: handlePost,
+  [RECEIVE_SINGLE_POST]: handlePost,
+  [UPDATE_POSTS]: updatePost
+});
