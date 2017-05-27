@@ -68,8 +68,9 @@ function receiveSinglePost(post) {
 }
 
 function shouldFetchSinglePost(state, { params }) {
-  const post = state.posts.byId[params.id] &&
-    state.posts.byId[params.id].firstViewed;
+  const postId = params.id;
+  const post = state.posts.byId[postId] &&
+    state.posts.byId[postId].firstViewed;
   if (!post) {
     return true;
   } else if (post.isFetching) {
@@ -79,10 +80,12 @@ function shouldFetchSinglePost(state, { params }) {
 }
 
 export function fetchSinglePost({ serverUrl = '', ...match }) {
+  const postId = match.params.id;
   return (dispatch) => {
-    dispatch(requestSinglePost(match.params.id));
-    return axios.get(`${serverUrl}/api/posts/${match.params.id}`)
-      .then(response => dispatch(receiveSinglePost(response.data)));
+    dispatch(requestSinglePost(postId));
+    return axios.get(`${serverUrl}/api/posts/${postId}`)
+      .then(response => dispatch(receiveSinglePost(response.data)))
+      .catch(error => dispatch(invalidateSinglePost(postId)));
   };
 }
 
