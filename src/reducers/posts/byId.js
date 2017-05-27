@@ -23,15 +23,13 @@ function post(state = defaultPostState, action) {
       return updateItem(state, { isFetching: true });
 
     case RECEIVE_SINGLE_POST:
-      return updateItem(
-        state, {
-          ...action.post,
-          isFetching: false,
-          didInvalidate: false,
-          lastUpdated: action.receivedAt,
-          firstViewed: action.receivedAt
-        }
-      );
+      return updateItem(state, {
+        ...action.post,
+        isFetching: false,
+        didInvalidate: false,
+        lastUpdated: action.receivedAt,
+        firstViewed: action.receivedAt
+      });
 
     default:
       return state;

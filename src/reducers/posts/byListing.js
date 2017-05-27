@@ -19,14 +19,12 @@ function posts(state = defaultPostsState, action) {
       return updateItem(state, { isFetching: true });
 
     case RECEIVE_POSTS: {
-      return updateItem(
-        state, {
-          isFetching: false,
-          items: action.items.map(item => item.id),
-          lastUpdated: action.receivedAt,
-          didInvalidate: false
-        }
-      );
+      return updateItem(state, {
+        isFetching: false,
+        items: action.items.map(item => item.id),
+        lastUpdated: action.receivedAt,
+        didInvalidate: false
+      });
     }
 
     default:
