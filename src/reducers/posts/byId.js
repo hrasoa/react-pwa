@@ -1,33 +1,51 @@
 import {
+  INVALIDATE_SINGLE_POST,
   RECEIVE_SINGLE_POST,
   REQUEST_SINGLE_POST,
   UPDATE_POSTS
 } from '../../actions/index';
 import {
-  updateItemByKeyInObject,
-  updateItemsInObject
+  updateItemsInObject,
+  updateItem
 } from '../utilities';
 
-export default (state = {}, action) => {
+const defaultPostState = {
+  isFetching: false,
+  didInvalidate: false
+};
+
+function post(state = defaultPostState, action) {
   switch (action.type) {
+    case INVALIDATE_SINGLE_POST:
+      return updateItem(state, { didInvalidate: true });
+
     case REQUEST_SINGLE_POST:
-      return updateItemByKeyInObject(
-        state,
-        action.postId, {
-          isFetching: true
-        }
-      );
+      return updateItem(state, { isFetching: true });
 
     case RECEIVE_SINGLE_POST:
-      return updateItemByKeyInObject(
-        state,
-        action.post.id, {
+      return updateItem(
+        state, {
           ...action.post,
           isFetching: false,
           lastUpdated: action.receivedAt,
           firstViewed: action.receivedAt
         }
       );
+
+    default:
+      return state;
+  }
+}
+
+export default (state = {}, action) => {
+  switch (action.type) {
+    case INVALIDATE_SINGLE_POST:
+    case REQUEST_SINGLE_POST:
+    case RECEIVE_SINGLE_POST:
+      return {
+        ...state,
+        [action.postId]: post(state[action.postId], action)
+      };
 
     case UPDATE_POSTS:
       return updateItemsInObject(

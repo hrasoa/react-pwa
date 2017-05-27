@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchSinglePost } from '../actions/index';
+import { fetchSinglePostIfNeeded } from '../actions/index';
 import Post from '../components/Post';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -9,7 +9,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchSinglePost: () => {
-    dispatch(fetchSinglePost(ownProps.match));
+    dispatch(fetchSinglePostIfNeeded(ownProps.match));
   }
 });
 
