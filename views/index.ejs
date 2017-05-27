@@ -7,23 +7,7 @@
   <meta name="theme-color" content="#FFFFFF" />
   <%- helmet.meta.toString() %>
   <%- helmet.title.toString() %>
-  <% if (prod === true) { %>
-  <link rel="stylesheet" href="/style.css">
-  <link rel="manifest" href="./manifest.json">
-  <% } %>
-  <script type="text/javascript">
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js').then(function(registration) {
-          // Registration was successful
-          console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }, function(err) {
-          // registration failed :(
-          console.log('ServiceWorker registration failed: ', err);
-        });
-      });
-    }
-  </script>
+  <% if (prod === true) { %><%- include('_head'); %><% } %>
 </head>
 <body class="container">
   <div id="root"><%- initialMarkup -%></div>
