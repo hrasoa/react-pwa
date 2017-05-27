@@ -2,10 +2,10 @@ export function updateItem(oldObject = {}, newValues) {
   return { ...oldObject, ...newValues };
 }
 
-export function updateItemsInObject(obj = {}, items) {
+export function updateItemsInObject(obj = {}, items, key = 'id') {
   return items.reduce((acc, item) => ({
     ...acc,
-    [item.id]: updateItem(obj[item.id], item)
+    [item[key]]: updateItem(obj[item[key]], item)
   }), {});
 }
 
