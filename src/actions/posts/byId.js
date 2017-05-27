@@ -28,10 +28,10 @@ function receiveSinglePost(post) {
 }
 
 function shouldFetchSinglePost(state, { params }) {
-  const postId = params.id;
-  const post = state.posts.byId[postId] &&
-    state.posts.byId[postId].firstViewed;
+  const post = state.posts.byId[params.id];
   if (!post) {
+    return true;
+  } else if (!post.firstViewed) {
     return true;
   } else if (post.isFetching) {
     return false;
