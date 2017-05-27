@@ -67,8 +67,9 @@ function receiveSinglePost(post) {
   };
 }
 
-function shouldFetchSinglePost(state, { match }) {
-  const post = state.posts.byId[match.params.postId];
+function shouldFetchSinglePost(state, { params }) {
+  const post = state.posts.byId[params.id] &&
+    state.posts.byId[params.id].firstViewed;
   if (!post) {
     return true;
   } else if (post.isFetching) {
@@ -85,10 +86,10 @@ export function fetchSinglePost({ serverUrl = '', ...match }) {
   };
 }
 
-export function fetchSinglePostIfNeeded(params) {
+export function fetchSinglePostIfNeeded(match) {
   return (dispatch, getState) => {
-    if (shouldFetchSinglePost(getState(), params)) {
-      return dispatch(fetchSinglePost(params));
+    if (shouldFetchSinglePost(getState(), match)) {
+      return dispatch(fetchSinglePost(match));
     }
     return Promise.resolve();
   };
