@@ -27,6 +27,7 @@ function post(state = defaultPostState, action) {
         state, {
           ...action.post,
           isFetching: false,
+          didInvalidate: false,
           lastUpdated: action.receivedAt,
           firstViewed: action.receivedAt
         }
@@ -42,10 +43,7 @@ export default (state = {}, action) => {
     case INVALIDATE_SINGLE_POST:
     case REQUEST_SINGLE_POST:
     case RECEIVE_SINGLE_POST:
-      return {
-        ...state,
-        [action.postId]: post(state[action.postId], action)
-      };
+      return updateItem(state, { [action.postId]: post(state[action.postId], action) });
 
     case UPDATE_POSTS:
       return updateItemsInObject(

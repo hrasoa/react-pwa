@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchPosts } from '../actions/index';
+import { fetchPostsIfNeeded } from '../actions/index';
 import PostListing from '../components/PostListing';
 
 const mapStateToProps = state => ({
@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchPosts: (params = {}) => {
-    dispatch(fetchPosts({ listingName: 'home', ...params }));
+    dispatch(fetchPostsIfNeeded({ listingName: 'home', ...params }));
   }
 });
 

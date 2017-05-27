@@ -1,6 +1,17 @@
 import axios from 'axios';
 
+export const INVALIDATE_POSTS = 'INVALIDATE_POSTS';
+export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 export const REQUEST_POSTS = 'REQUEST_POSTS';
+export const UPDATE_POSTS = 'UPDATE_POSTS';
+
+function invalidatePosts(listingName) {
+  return {
+    type: INVALIDATE_POSTS,
+    listingName
+  };
+}
+
 function requestPosts(listingName) {
   return {
     type: REQUEST_POSTS,
@@ -8,7 +19,6 @@ function requestPosts(listingName) {
   };
 }
 
-export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 function receivePosts({ listingName, items }) {
   return {
     type: RECEIVE_POSTS,
@@ -18,13 +28,22 @@ function receivePosts({ listingName, items }) {
   };
 }
 
-export const UPDATE_POSTS = 'UPDATE_POSTS';
 function updatePosts({ items }) {
   return {
     type: UPDATE_POSTS,
     items,
     receivedAt: Date.now()
   };
+}
+
+function shouldFetchPosts(state, listingName) {
+  const posts = state.posts.byListing[listingName];
+  if (!posts) {
+    return true;
+  } else if (posts.isFetching) {
+    return false;
+  }
+  return posts.didInvalidate;
 }
 
 export function fetchPosts({ serverUrl = '', listingName }) {
@@ -37,6 +56,16 @@ export function fetchPosts({ serverUrl = '', listingName }) {
           items: response.data,
           listingName
         }));
-      });
+      })
+      .catch(() => dispatch(invalidatePosts(listingName)));
+  };
+}
+
+export function fetchPostsIfNeeded(params) {
+  return (dispatch, getState) => {
+    if (shouldFetchPosts(getState(), params.listingName)) {
+      return dispatch(fetchPosts(params));
+    }
+    return Promise.resolve();
   };
 }

@@ -1,6 +1,9 @@
 import axios from 'axios';
 
 export const INVALIDATE_SINGLE_POST = 'INVALIDATE_SINGLE_POST';
+export const REQUEST_SINGLE_POST = 'REQUEST_SINGLE_POST';
+export const RECEIVE_SINGLE_POST = 'RECEIVE_SINGLE_POST';
+
 export function invalidateSinglePost(postId) {
   return {
     type: INVALIDATE_SINGLE_POST,
@@ -8,7 +11,6 @@ export function invalidateSinglePost(postId) {
   };
 }
 
-export const REQUEST_SINGLE_POST = 'REQUEST_SINGLE_POST';
 function requestSinglePost(postId) {
   return {
     type: REQUEST_SINGLE_POST,
@@ -16,7 +18,6 @@ function requestSinglePost(postId) {
   };
 }
 
-export const RECEIVE_SINGLE_POST = 'RECEIVE_SINGLE_POST';
 function receiveSinglePost(post) {
   return {
     type: RECEIVE_SINGLE_POST,
