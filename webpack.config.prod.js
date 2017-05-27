@@ -2,7 +2,9 @@ const webpack = require('webpack');
 const { resolve } = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpackDevConfig = require('./webpack.config');
+
 const commonConfig = webpackDevConfig.reduce(function(acc, conf) {
   if (conf.name === 'client') {
     acc.vendor = conf.entry.vendor.filter(function(vendor) {
@@ -28,11 +30,6 @@ module.exports = {
         include: resolve(__dirname, 'src')
       },
       {
-        test: /manifest\.json$/,
-        use: ['file-loader?name=[name].[ext]'],
-        include: resolve(__dirname, 'src')
-      },
-      {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -48,6 +45,10 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
+    new CopyWebpackPlugin([
+      { from: 'manifest.json' },
+      { from: 'sw.js' }
+    ]),
     new webpack.optimize.CommonsChunkPlugin({
       name: ['vendor']
     }),

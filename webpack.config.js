@@ -45,7 +45,7 @@ module.exports = [{
         include: resolve(__dirname, 'src')
       },
       {
-        test: /manifest\.json$/,
+        test: /(manifest\.json|sw\.js)$/,
         use: ['file-loader?name=[name].[ext]'],
         include: resolve(__dirname, 'src')
       },

@@ -6,8 +6,6 @@ import {
   withRouter
 } from 'react-router-dom';
 
-import '../manifest.json';
-
 export default withRouter(({ route }) => (
   <div className="App">
     <Helmet>

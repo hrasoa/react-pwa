@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && npm run server",
+    "start": "npm run clean && npm run build && npm run server",
     "build": "NODE_ENV=production webpack -p --config webpack.config.prod.js",
     "server": "NODE_ENV=production babel-node server.js",
-    "start:dev": "babel-node server.js",
-    "postinstall": "npm rebuild node-sass"
+    "start:dev": "npm run clean && babel-node server.js",
+    "postinstall": "npm rebuild node-sass",
+    "clean": "rm -f public/*"
   },
   "repository": {
     "type": "git",
@@ -47,6 +48,7 @@
     "compression-webpack-plugin": "^0.4.0",
     "connect-gzip-static": "^2.0.1",
     "connect-history-api-fallback": "^1.3.0",
+    "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
