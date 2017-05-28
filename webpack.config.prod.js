@@ -47,7 +47,9 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       { from: 'manifest.json' },
-      { from: 'sw.js' }
+      { from: 'sw.js' },
+      { from: 'node_modules/sw-toolbox/sw-toolbox.js' },
+      { from: 'node_modules/sw-toolbox/sw-toolbox.js.map' }
     ]),
     new webpack.optimize.CommonsChunkPlugin({
       name: ['vendor']
