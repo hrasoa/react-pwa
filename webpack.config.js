@@ -45,11 +45,6 @@ module.exports = [{
         include: resolve(__dirname, 'src')
       },
       {
-        test: /(manifest\.json|sw\.js)$/,
-        use: ['file-loader?name=[name].[ext]'],
-        include: resolve(__dirname, 'src')
-      },
-      {
         test: /\.scss$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
         include: resolve(__dirname, 'src')
