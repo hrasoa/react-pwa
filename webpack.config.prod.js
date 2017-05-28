@@ -48,6 +48,7 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: 'manifest.json' },
       { from: 'sw.js' },
+      { from: 'node_modules/sw-toolbox/companion.js' },
       { from: 'node_modules/sw-toolbox/sw-toolbox.js' },
       { from: 'node_modules/sw-toolbox/sw-toolbox.js.map' }
     ]),
