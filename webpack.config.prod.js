@@ -50,12 +50,6 @@ module.exports = {
       context: process.cwd(),
       manifest: require(resolve(__dirname, 'dll', 'vendor-manifest.json'))
     }),
-    new CopyWebpackPlugin([
-      { from: 'manifest.json' },
-      { from: 'sw.js' },
-      { from: 'node_modules/sw-toolbox/sw-toolbox.js' },
-      { from: 'node_modules/sw-toolbox/sw-toolbox.js.map' }
-    ]),
     new ExtractTextPlugin({
       filename: 'style.css'
     }),
@@ -69,6 +63,12 @@ module.exports = {
       test: /\.(js|css)$/,
       threshold: 10240,
       minRatio: 0.8
-    })
+    }),
+    new CopyWebpackPlugin([
+      { from: 'manifest.json' },
+      { from: 'sw.js' },
+      { from: 'node_modules/sw-toolbox/sw-toolbox.js' },
+      { from: 'node_modules/sw-toolbox/sw-toolbox.js.map' }
+    ])
   ]
 };
