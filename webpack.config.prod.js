@@ -7,26 +7,31 @@ const webpackDevConfig = require('./webpack.config');
 
 const commonConfig = webpackDevConfig.reduce(function(acc, conf) {
   if (conf.name === 'client') {
-    acc.vendor = conf.entry.vendor.filter(function(vendor) {
-      return vendor !== 'react-hot-loader';
-    });
     acc.output = conf.output;
   }
   return acc;
 }, {});
 
 module.exports = {
+  cache: true,
   entry: {
-    bundle: './src/index.js',
-    vendor: commonConfig.vendor
+    bundle: './src/index.js'
   },
   output: commonConfig.output,
-  devtool: 'source-map',
+  devtool: 'cheap-source-map',
   module: {
     rules: [
       {
         test: /\.js$/,
-        use: ['babel-loader', 'eslint-loader'],
+        use: [
+          'babel-loader',
+          {
+            loader: 'eslint-loader',
+            query: {
+              cacheDirectory: true
+            }
+          }
+        ],
         include: resolve(__dirname, 'src')
       },
       {
@@ -45,15 +50,16 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
+    new webpack.DllReferencePlugin({
+      context: process.cwd(),
+      manifest: require(resolve(__dirname, 'dll', 'vendor-manifest.json'))
+    }),
     new CopyWebpackPlugin([
       { from: 'manifest.json' },
       { from: 'sw.js' },
       { from: 'node_modules/sw-toolbox/sw-toolbox.js' },
       { from: 'node_modules/sw-toolbox/sw-toolbox.js.map' }
     ]),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: ['vendor']
-    }),
     new ExtractTextPlugin({
       filename: 'style.css'
     }),

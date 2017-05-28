@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run clean && npm run build && npm run server",
     "build": "NODE_ENV=production webpack -p --config webpack.config.prod.js",
-    "server": "NODE_ENV=production babel-node server.js",
-    "start:dev": "npm run clean && babel-node server.js",
+    "build:dll": "NODE_ENV=production webpack -p --config webpack.dll.js",
+    "clean": "rm -f public/*",
     "postinstall": "npm rebuild node-sass",
-    "clean": "rm -f public/*"
+    "server": "NODE_ENV=production babel-node server.js",
+    "start": "npm run clean && npm run build && npm run server",
+    "start:dev": "npm run clean && babel-node server.js"
   },
   "repository": {
     "type": "git",
