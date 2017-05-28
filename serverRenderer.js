@@ -9,6 +9,7 @@ import thunkMiddleware from 'redux-thunk';
 import reducers from './src/reducers/index';
 import config from './config';
 import routes from './src/routes/index';
+import manifest from './manifest.json';
 
 const store = createStore(
   reducers,
@@ -43,6 +44,7 @@ export default function serverRenderer() {
         helmet: Helmet.renderStatic(),
         initialMarkup: markup,
         initialState: store.getState(),
+        manifest,
         prod: process.env.NODE_ENV === 'production'
       });
       res.end();
