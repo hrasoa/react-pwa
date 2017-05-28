@@ -7,7 +7,11 @@
   <meta name="theme-color" content="#FFFFFF" />
   <%- helmet.meta.toString() %>
   <%- helmet.title.toString() %>
-  <% if (prod === true) { %><%- include('_head'); %><% } %>
+  <% if (prod === true) { %>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="manifest" href="./manifest.json">
+  <script src="/companion.js" data-service-worker="sw.js"></script>
+  <% } %>
 </head>
 <body class="container">
   <div id="root"><%- initialMarkup -%></div>

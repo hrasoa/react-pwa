@@ -12,9 +12,9 @@
     '/bundle.js.gz'
   ];
 
-  global.toolbox.cache.name = CACHE_NAME;
-  global.toolbox.precache(urlsToCache);
+  global.toolbox.options.cache.name = CACHE_NAME;
   global.toolbox.options.debug = true;
+  global.toolbox.precache(urlsToCache);
   global.toolbox.router.default = global.toolbox.networkFirst;
 
   global.toolbox.router.get(/(\.js|\.css|\.gz)$/, toolbox.cacheFirst);
