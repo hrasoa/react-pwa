@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const { resolve } = require('path');
+const HappyPack = require('happypack');
 
 module.exports = [{
   name: 'client',
@@ -41,7 +42,7 @@ module.exports = [{
     rules: [
       {
         test: /\.js$/,
-        use: ['babel-loader', 'eslint-loader'],
+        use: ['happypack/loader'],
         include: resolve(__dirname, 'src')
       },
       {
@@ -54,6 +55,9 @@ module.exports = [{
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       name: ['vendor']
+    }),
+    new HappyPack({
+      loaders: ['babel-loader', 'eslint-loader']
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),

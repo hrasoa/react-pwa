@@ -3,6 +3,7 @@ const { resolve } = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HappyPack = require('happypack');
 const webpackDevConfig = require('./webpack.config');
 
 const commonConfig = webpackDevConfig.reduce(function(acc, conf) {
@@ -23,15 +24,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: [
-          'babel-loader',
-          {
-            loader: 'eslint-loader',
-            query: {
-              cacheDirectory: true
-            }
-          }
-        ],
+        use: ['happypack/loader'],
         include: resolve(__dirname, 'src')
       },
       {
@@ -49,6 +42,9 @@ module.exports = {
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
+    }),
+    new HappyPack({
+      loaders: [ 'babel-loader', 'eslint-loader' ]
     }),
     new webpack.DllReferencePlugin({
       context: process.cwd(),
