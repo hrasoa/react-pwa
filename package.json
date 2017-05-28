@@ -1,5 +1,5 @@
 {
-  "name": "ffpc",
+  "name": "rsk",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hrasoa/ffpc.git"
+    "url": "git+https://github.com/hrasoa/rsk.git"
   },
   "author": "Haja Rasoahaingo <haja.rasoah@gmail.com>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/hrasoa/ffpc/issues"
+    "url": "https://github.com/hrasoa/rsk/issues"
   },
-  "homepage": "https://github.com/hrasoa/ffpc#readme",
+  "homepage": "https://github.com/hrasoa/rsk#readme",
   "dependencies": {
     "axios": "^0.15.0",
     "ejs": "^2.5.2",
