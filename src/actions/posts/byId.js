@@ -31,7 +31,7 @@ function shouldFetchSinglePost(state, { params }) {
   const post = state.posts.byId[params.id];
   if (!post) {
     return true;
-  } else if (!post.firstViewed) {
+  } else if (!post.body) {
     return true;
   } else if (post.isFetching) {
     return false;

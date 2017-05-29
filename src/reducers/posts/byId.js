@@ -23,8 +23,7 @@ const receivePost = (state, action) => updateItem(state, {
   ...action.post,
   isFetching: false,
   didInvalidate: false,
-  lastUpdated: action.receivedAt,
-  firstViewed: action.receivedAt
+  lastUpdated: action.receivedAt
 });
 
 const updatePost = (state, action) => updateItemsInObject(
