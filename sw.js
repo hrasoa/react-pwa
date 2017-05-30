@@ -1,25 +1,19 @@
 (function(global) {
   importScripts('sw-toolbox.js');
-
-  var CACHE_NAME = 'my-pwa-cache-v1';
-
-  var urlsToCache = [
-    '/',
-    '/*.css',
-    '/*.js',
-    '/*.gz'
-  ];
-
-  global.toolbox.options.cache.name = CACHE_NAME;
+  global.toolbox.options.cache.name = 'my-pwa-cache-v1';
   global.toolbox.options.debug = true;
-  global.toolbox.precache(urlsToCache);
+  global.toolbox.precache([
+    '/',
+    '/bundle.*.css',
+    '/bundle.*.js',
+    '/vendor.*.js'
+  ]);
   global.toolbox.router.default = global.toolbox.networkFirst;
-
   global.toolbox.router.get(/(\.js|\.css|\.gz)$/, toolbox.cacheFirst);
-
-  global.addEventListener('install',
-    function(event) { return event.waitUntil(global.skipWaiting()); });
-  global.addEventListener('activate',
-    function(event) { return event.waitUntil(global.clients.claim()); });
-
+  global.addEventListener('install', function(event) {
+    return event.waitUntil(global.skipWaiting());
+  });
+  global.addEventListener('activate', function(event) {
+    return event.waitUntil(global.clients.claim());
+  });
 })(self);
