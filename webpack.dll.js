@@ -1,6 +1,7 @@
-var { resolve } = require('path');
-var webpack = require('webpack');
+const { resolve } = require('path');
+const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 module.exports = {
   entry: {
@@ -19,7 +20,7 @@ module.exports = {
   },
   output: {
     path: resolve(__dirname, 'public'),
-    filename: '[name].js',
+    filename: '[name].[chunkhash].js',
     library: '[name]'
   },
   plugins: [
@@ -38,6 +39,9 @@ module.exports = {
       test: /\.(js|css)$/,
       threshold: 10240,
       minRatio: 0.8
+    }),
+    new ManifestPlugin({
+      fileName: 'vendor-manifest.json'
     })
   ]
 };

@@ -26,7 +26,13 @@ const loadBranchData = location => {
   return Promise.all(promises);
 };
 
-export default function serverRenderer() {
+const defaultAssetsManifest = {
+  bundleCss: 'bundle.css',
+  bundleJs: 'bundle.js',
+  vendorJs: 'vendor.js'
+};
+
+export default function serverRenderer(assetsManifest = defaultAssetsManifest) {
   return (req, res, next) => {
     const context = {};
     loadBranchData(req.url).then(response => {
@@ -45,6 +51,7 @@ export default function serverRenderer() {
         initialMarkup: markup,
         initialState: store.getState(),
         manifest,
+        assetsManifest,
         prod: process.env.NODE_ENV === 'production'
       });
       res.end();

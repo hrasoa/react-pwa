@@ -4,21 +4,18 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HappyPack = require('happypack');
-const webpackDevConfig = require('./webpack.config');
-
-const commonConfig = webpackDevConfig.reduce(function(acc, conf) {
-  if (conf.name === 'client') {
-    acc.output = conf.output;
-  }
-  return acc;
-}, {});
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 module.exports = {
   cache: true,
   entry: {
     bundle: './src/index.js'
   },
-  output: commonConfig.output,
+  output: {
+    path: resolve(__dirname, 'public'),
+    filename: '[name].[chunkhash].js',
+    library: '[name]'
+  },
   devtool: 'cheap-source-map',
   module: {
     rules: [
@@ -51,7 +48,7 @@ module.exports = {
       manifest: require(resolve(__dirname, 'dll', 'vendor-manifest.json'))
     }),
     new ExtractTextPlugin({
-      filename: 'style.css'
+      filename: 'bundle.[chunkhash].css'
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
@@ -69,6 +66,9 @@ module.exports = {
       { from: 'sw.js' },
       { from: 'node_modules/sw-toolbox/sw-toolbox.js' },
       { from: 'node_modules/sw-toolbox/sw-toolbox.js.map' }
-    ])
+    ]),
+    new ManifestPlugin({
+      fileName: 'bundle-manifest.json'
+    })
   ]
 };

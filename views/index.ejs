@@ -8,7 +8,7 @@
   <%- helmet.meta.toString() %>
   <%- helmet.title.toString() %>
   <% if (prod === true) { %>
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/<%- assetsManifest.bundleCss -%>">
   <script type="text/javascript">
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').then(function(registration) {
@@ -24,7 +24,7 @@
 <body class="container">
   <div id="root"><%- initialMarkup -%></div>
   <script>window.__INITIAL_STATE__ = <%- JSON.stringify(initialState) -%>;</script>
-  <script type="text/javascript" src="/vendor.js"></script>
-  <script type="text/javascript" src="/bundle.js"></script>
+  <script type="text/javascript" src="/<%- assetsManifest.vendorJs -%>"></script>
+  <script type="text/javascript" src="/<%- assetsManifest.bundleJs -%>"></script>
 </body>
 </html>

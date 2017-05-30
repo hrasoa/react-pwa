@@ -5,11 +5,9 @@
 
   var urlsToCache = [
     '/',
-    '/style.css',
-    '/vendor.js',
-    '/vendor.js.gz',
-    '/bundle.js',
-    '/bundle.js.gz'
+    '/*.css',
+    '/*.js',
+    '/*.gz'
   ];
 
   global.toolbox.options.cache.name = CACHE_NAME;

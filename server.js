@@ -31,7 +31,13 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(webpackHotServerMiddleware(bundler));
 } else {
   const serverRenderer = require('./serverRenderer').default;
-  app.use(serverRenderer());
+  const vendorManifest = require('./public/vendor-manifest.json');
+  const bundleManifest = require('./public/bundle-manifest.json');
+  app.use(serverRenderer({
+    bundleCss: bundleManifest['bundle.css'],
+    bundleJs: bundleManifest['bundle.js'],
+    vendorJs: vendorManifest['vendor.js']
+  }));
 }
 
 app.listen(config.port, config.host, () => {
