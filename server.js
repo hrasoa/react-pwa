@@ -34,9 +34,11 @@ if (process.env.NODE_ENV !== 'production') {
   const vendorManifest = require('./public/vendor-manifest.json');
   const bundleManifest = require('./public/bundle-manifest.json');
   app.use(serverRenderer({
-    bundleCss: bundleManifest['bundle.css'],
-    bundleJs: bundleManifest['bundle.js'],
-    vendorJs: vendorManifest['vendor.js']
+    assetsManifest:{
+      bundleCss: bundleManifest['bundle.css'],
+      bundleJs: bundleManifest['bundle.js'],
+      vendorJs: vendorManifest['vendor.js']
+    }
   }));
 }
 

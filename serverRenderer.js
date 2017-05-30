@@ -32,7 +32,11 @@ const defaultAssetsManifest = {
   vendorJs: 'vendor.js'
 };
 
-export default function serverRenderer(assetsManifest = defaultAssetsManifest) {
+export default function serverRenderer({
+  clientStats,
+  serverStats,
+  assetsManifest = defaultAssetsManifest
+}) {
   return (req, res, next) => {
     const context = {};
     loadBranchData(req.url).then(response => {
