@@ -14,8 +14,7 @@ swPrecache.generate({
     '/': [resolve(__dirname, 'views', 'index.ejs')]
   },
   staticFileGlobs: [
-    `${publicDir}/bundle.*.{js,css}`,
-    `${publicDir}/vendor.*.{js,css}`
+    `${publicDir}/{bundle,vendor}.*.{js,css}`
   ],
   navigateFallback: '/',
   navigateFallbackWhitelist: [
