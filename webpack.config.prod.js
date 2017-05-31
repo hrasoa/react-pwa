@@ -62,10 +62,7 @@ module.exports = {
       minRatio: 0.8
     }),
     new CopyWebpackPlugin([
-      { from: 'manifest.json' },
-      { from: 'sw.js' },
-      { from: 'node_modules/sw-toolbox/sw-toolbox.js' },
-      { from: 'node_modules/sw-toolbox/sw-toolbox.js.map' }
+      { from: 'manifest.json' }
     ]),
     new ManifestPlugin({
       fileName: 'bundle-manifest.json'

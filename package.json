@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run clean && npm run build:dll && npm run build:app",
+    "build": "npm run clean && npm run build:dll && npm run build:app && npm run precache",
     "build:app": "NODE_ENV=production webpack -p --config webpack.config.prod.js",
     "build:dll": "NODE_ENV=production webpack -p --config webpack.dll.js",
     "clean": "rm -f public/*",
     "postinstall": "npm rebuild node-sass",
     "server": "NODE_ENV=production babel-node server.js",
     "start": "npm run build && npm run server",
-    "start:dev": "npm run clean && babel-node server.js"
+    "start:dev": "npm run clean && babel-node server.js",
+    "precache": "babel-node precache.js"
   },
   "repository": {
     "type": "git",
@@ -64,6 +65,7 @@
     "node-sass": "^4.5.2",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.17.0",
+    "sw-precache": "^5.1.1",
     "webpack": "^2.5.1",
     "webpack-dev-middleware": "^1.10.2",
     "webpack-dev-server": "^2.4.5",
