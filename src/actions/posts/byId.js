@@ -11,14 +11,14 @@ export function invalidateSinglePost(postId) {
   };
 }
 
-function requestSinglePost(postId) {
+export function requestSinglePost(postId) {
   return {
     type: REQUEST_SINGLE_POST,
     postId
   };
 }
 
-function receiveSinglePost(post) {
+export function receiveSinglePost(post) {
   return {
     type: RECEIVE_SINGLE_POST,
     postId: post.id,
@@ -27,7 +27,7 @@ function receiveSinglePost(post) {
   };
 }
 
-function shouldFetchSinglePost(state, { params }) {
+export function shouldFetchSinglePost(state, { params }) {
   const post = state.posts.byId[params.id];
   if (!post) {
     return true;

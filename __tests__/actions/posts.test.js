@@ -7,5 +7,5 @@ describe('actions by Id', () => {
       postId: 1
     };
     expect(actionsById.invalidateSinglePost(1)).toEqual(expectedAction);
-  })
+  });
 });
