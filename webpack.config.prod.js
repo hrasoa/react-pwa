@@ -43,12 +43,12 @@ module.exports = {
     new HappyPack({
       loaders: [ 'babel-loader', 'eslint-loader' ]
     }),
+    new ExtractTextPlugin({
+      filename: '[name].[chunkhash].css'
+    }),
     new webpack.DllReferencePlugin({
       context: process.cwd(),
       manifest: require(resolve(__dirname, 'dll', 'vendor-manifest.json'))
-    }),
-    new ExtractTextPlugin({
-      filename: 'bundle.[chunkhash].css'
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
