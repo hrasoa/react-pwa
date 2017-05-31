@@ -12,7 +12,8 @@
     "server": "NODE_ENV=production babel-node server.js",
     "start": "npm run build && npm run server",
     "start:dev": "npm run clean && babel-node server.js",
-    "precache": "babel-node precache.js"
+    "precache": "babel-node precache.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -44,6 +45,7 @@
   "devDependencies": {
     "babel-cli": "^6.16.0",
     "babel-eslint": "^7.0.0",
+    "babel-jest": "^20.0.3",
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.16.0",
     "babel-preset-react": "^6.16.0",
@@ -53,6 +55,7 @@
     "connect-history-api-fallback": "^1.3.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.1",
+    "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-loader": "^1.7.1",
@@ -61,6 +64,7 @@
     "eslint-plugin-react": "^7.0.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "happypack": "^3.1.0",
+    "jest": "^20.0.4",
     "node-sass": "^4.5.2",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.17.0",
@@ -72,5 +76,8 @@
     "webpack-hot-middleware": "^2.18.0",
     "webpack-hot-server-middleware": "^0.1.0",
     "webpack-manifest-plugin": "^1.1.0"
+  },
+  "jest": {
+    "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.jsx?$"
   }
 }
