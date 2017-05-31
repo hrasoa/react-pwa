@@ -1,11 +1,13 @@
 import swPrecache from 'sw-precache';
 import { resolve } from 'path';
+import fs from 'fs';
+import uglifyJs from 'uglify-js';
 import webpackConfig from './webpack.config.prod';
 import pkg from './package.json';
 
 const publicDir = webpackConfig.output.path;
 
-swPrecache.write(`${publicDir}/sw.js`, {
+swPrecache.generate({
   cacheId: pkg.name,
   dontCacheBustUrlsMatching: /./,
   dynamicUrlToDependencies: {
@@ -25,4 +27,13 @@ swPrecache.write(`${publicDir}/sw.js`, {
     urlPattern: /api/,
     handler: 'networkFirst'
   }]
+}, (error, serviceWorkerString) => {
+  if (error) {
+    return console.log(error);
+  }
+  fs.writeFile(`${publicDir}/sw.js`, uglifyJs.minify(serviceWorkerString).code, (err) => {
+    if (err) {
+      return console.log(err);
+    }
+  });
 });

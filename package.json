@@ -39,7 +39,8 @@
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
-    "serve-favicon": "^2.4.3"
+    "serve-favicon": "^2.4.3",
+    "uglify-js": "^3.0.14"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
