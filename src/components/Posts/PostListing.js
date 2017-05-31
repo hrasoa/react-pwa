@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import PostListingItem from './PostListingItem';
-import { fetchPosts } from '../actions/index';
+import { fetchPosts } from '../../actions/index';
 
 class PostListing extends Component {
   static fetchData(params) {
@@ -14,7 +14,7 @@ class PostListing extends Component {
 
   render() {
     return (
-      <ul className="listing">
+      <ul>
         {this.props.posts.map(post => (
           <li key={post.id}>
             <PostListingItem {...post} />

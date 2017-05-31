@@ -1,7 +1,7 @@
 import About from '../components/About';
 import App from '../components/App';
-import PostView from '../containers/PostView';
-import PostHome from '../containers/PostHome';
+import PostView from '../containers/Posts/PostView';
+import PostHome from '../containers/Posts/PostHome';
 
 export default [
   { component: App,

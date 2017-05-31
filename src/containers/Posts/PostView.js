@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchSinglePostIfNeeded } from '../actions/index';
-import Post from '../components/Post';
+import { fetchSinglePostIfNeeded } from '../../actions/index';
+import Post from '../../components/Posts/Post';
 
 const mapStateToProps = (state, ownProps) => ({
   post: state.posts.byId[ownProps.match.params.id] || {}
