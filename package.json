@@ -39,8 +39,7 @@
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
-    "serve-favicon": "^2.4.3",
-    "uglify-js": "^3.0.14"
+    "serve-favicon": "^2.4.3"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
@@ -66,6 +65,7 @@
     "sass-loader": "^6.0.5",
     "style-loader": "^0.17.0",
     "sw-precache": "^5.1.1",
+    "uglify-js": "^3.0.14",
     "webpack": "^2.5.1",
     "webpack-dev-middleware": "^1.10.2",
     "webpack-dev-server": "^2.4.5",
