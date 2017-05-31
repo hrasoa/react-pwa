@@ -76,8 +76,5 @@
     "webpack-hot-middleware": "^2.18.0",
     "webpack-hot-server-middleware": "^0.1.0",
     "webpack-manifest-plugin": "^1.1.0"
-  },
-  "jest": {
-    "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.jsx?$"
   }
 }
