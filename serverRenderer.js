@@ -9,7 +9,7 @@ import thunkMiddleware from 'redux-thunk';
 import reducers from './src/reducers/index';
 import config from './config';
 import routes from './src/routes/index';
-import manifest from './manifest.json';
+import manifest from './src/manifest.json';
 
 const store = createStore(
   reducers,

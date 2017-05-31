@@ -62,7 +62,7 @@ module.exports = {
       minRatio: 0.8
     }),
     new CopyWebpackPlugin([
-      { from: 'manifest.json' }
+      { from: resolve(__dirname, 'src', 'manifest.json') }
     ]),
     new ManifestPlugin({
       fileName: 'bundle-manifest.json'
