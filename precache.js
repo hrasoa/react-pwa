@@ -27,10 +27,7 @@ swPrecache.generate({
     urlPattern: /api/,
     handler: 'networkFirst'
   }]
-}, (error, serviceWorkerString) => {
-  if (error) {
-    return console.log(error);
-  }
+}).then((serviceWorkerString) => {
   fs.writeFile(`${publicDir}/sw.js`, uglifyJs.minify(serviceWorkerString).code, (err) => {
     if (err) {
       return console.log(err);
