@@ -1,5 +1,5 @@
 import swPrecache from 'sw-precache';
-const { resolve } = require('path');
+import { resolve } from 'path';
 import webpackConfig from './webpack.config.prod';
 import pkg from './package.json';
 
