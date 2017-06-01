@@ -13,13 +13,9 @@ swPrecache.generate({
   dynamicUrlToDependencies: {
     '/': [resolve(__dirname, '../server/views/index.ejs')]
   },
+  navigateFallback: '/',
   staticFileGlobs: [
     `${publicDir}/{bundle,vendor}.*.{js,css}`
-  ],
-  navigateFallback: '/',
-  navigateFallbackWhitelist: [
-    /^\/posts\//,
-    /^\/about/
   ],
   stripPrefix: publicDir,
   runtimeCaching: [{
