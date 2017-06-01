@@ -22,7 +22,9 @@ delete window.__INITIAL_STATE__;
 /* eslint-enable */
 
 const render = () => {
-  const routes = require('./routes/index').default; // eslint-disable-line global-require
+  /* eslint-disable global-require */
+  const routes = require('./routes/index').default;
+  /* eslint-enable */
   ReactDOM.render(
     <AppContainer>
       <Provider store={store}>
@@ -40,7 +42,9 @@ render();
 if (module.hot) {
   module.hot.accept('./routes/index', render);
   module.hot.accept('./reducers/index', () => {
-    const nextRootReducer = require('./reducers/index').default; // eslint-disable-line global-require
+    /* eslint-disable global-require */
+    const nextRootReducer = require('./reducers/index').default;
+    /* eslint-enable */
     store.replaceReducer(nextRootReducer);
   });
 }
