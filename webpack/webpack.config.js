@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const { resolve } = require('path');
 const HappyPack = require('happypack');
+const webpackProdConfig = require('./webpack.config.prod');
 
 module.exports = [{
   name: 'client',
@@ -10,7 +11,7 @@ module.exports = [{
       'react-hot-loader/patch',
       'webpack-hot-middleware/client',
       'webpack/hot/only-dev-server',
-      './src/index.js'
+      resolve(__dirname, '../src/index.js')
     ],
     vendor: [
       'axios',
@@ -27,7 +28,7 @@ module.exports = [{
     ]
   },
   output: {
-    path: resolve(__dirname, 'public'),
+    path: webpackProdConfig.output.path,
     filename: '[name].js',
     publicPath: '/'
   },
@@ -36,19 +37,19 @@ module.exports = [{
     historyApiFallback: true,
     hot: true,
     publicPath: '/',
-    contentBase: resolve(__dirname, 'public')
+    contentBase: webpackProdConfig.output.path
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         use: ['happypack/loader'],
-        include: resolve(__dirname, 'src')
+        include: resolve(__dirname, '../src')
       },
       {
         test: /\.scss$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
-        include: resolve(__dirname, 'src')
+        include: resolve(__dirname, '../src')
       }
     ]
   },
@@ -66,9 +67,9 @@ module.exports = [{
 }, {
   name: 'server',
   target: 'node',
-  entry: './serverRenderer.js',
+  entry: resolve(__dirname, '../server/serverRenderer.js'),
   output: {
-    path: resolve(__dirname, 'public'),
+    path: webpackProdConfig.output.path,
     filename: 'server.js',
     libraryTarget: 'commonjs2'
   },

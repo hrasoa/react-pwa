@@ -1,0 +1,7 @@
+{
+  "watch": [
+    "server/api/",
+    "server/views/",
+    "server/server.js"
+  ]
+}

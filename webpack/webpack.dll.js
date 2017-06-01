@@ -2,6 +2,7 @@ const { resolve } = require('path');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const webpackProdConfig = require('./webpack.config.prod');
 
 module.exports = {
   entry: {
@@ -19,14 +20,14 @@ module.exports = {
     ]
   },
   output: {
-    path: resolve(__dirname, 'public'),
+    path: webpackProdConfig.output.path,
     filename: '[name].[chunkhash].js',
     library: '[name]'
   },
   plugins: [
     new webpack.DllPlugin({
       context: process.cwd(),
-      path: resolve(__dirname, 'dll', '[name]-manifest.json'),
+      path: resolve(__dirname, '../dll/[name]-manifest.json'),
       name: '[name]'
     }),
     new webpack.optimize.UglifyJsPlugin({

@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run clean && npm run build:dll && npm run build:app && npm run precache",
-    "build:app": "NODE_ENV=production webpack -p --config webpack.config.prod.js",
-    "build:dll": "NODE_ENV=production webpack -p --config webpack.dll.js",
+    "build:app": "NODE_ENV=production webpack -p --config webpack/webpack.config.prod.js",
+    "build:dll": "NODE_ENV=production webpack -p --config webpack/webpack.dll.js",
     "clean": "rm -f public/*",
     "postinstall": "npm rebuild node-sass",
-    "precache": "babel-node precache.js",
-    "server": "NODE_ENV=production babel-node server.js",
-    "server:dev": "nodemon --watch api/ --watch ./server.js --watch views/ --exec 'babel-node server.js'",
+    "precache": "babel-node scripts/precache.js",
+    "server": "NODE_ENV=production babel-node server/server.js",
+    "server:dev": "nodemon --exec 'babel-node server/server.js'",
     "start": "npm run build && npm run server",
     "start:dev": "npm run clean && npm run server:dev",
     "test": "jest"

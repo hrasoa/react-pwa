@@ -9,10 +9,10 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 module.exports = {
   cache: true,
   entry: {
-    bundle: './src/index.js'
+    bundle: resolve(__dirname, '../src/index.js')
   },
   output: {
-    path: resolve(__dirname, 'public'),
+    path: resolve(__dirname, '../public'),
     filename: '[name].[chunkhash].js',
     library: '[name]'
   },
@@ -22,7 +22,7 @@ module.exports = {
       {
         test: /\.js$/,
         use: ['happypack/loader'],
-        include: resolve(__dirname, 'src')
+        include: resolve(__dirname, '../src')
       },
       {
         test: /\.scss$/,
@@ -30,7 +30,7 @@ module.exports = {
           fallback: 'style-loader',
           use: ['css-loader', 'sass-loader']
         }),
-        include: resolve(__dirname, 'src')
+        include: resolve(__dirname, '../src')
       }
     ]
   },
@@ -48,7 +48,7 @@ module.exports = {
     }),
     new webpack.DllReferencePlugin({
       context: process.cwd(),
-      manifest: require(resolve(__dirname, 'dll', 'vendor-manifest.json'))
+      manifest: require(resolve(__dirname, '../dll/vendor-manifest.json'))
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
@@ -62,7 +62,7 @@ module.exports = {
       minRatio: 0.8
     }),
     new CopyWebpackPlugin([
-      { from: resolve(__dirname, 'src', 'manifest.json') }
+      { from: resolve(__dirname, '../src/manifest.json') }
     ]),
     new ManifestPlugin({
       fileName: 'bundle-manifest.json'

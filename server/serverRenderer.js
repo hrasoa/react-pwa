@@ -6,10 +6,10 @@ import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import thunkMiddleware from 'redux-thunk';
-import reducers from './src/reducers/index';
+import reducers from '../src/reducers/index';
 import config from './config';
-import routes from './src/routes/index';
-import manifest from './src/manifest.json';
+import routes from '../src/routes/index';
+import manifest from '../src/manifest.json';
 
 const store = createStore(
   reducers,
