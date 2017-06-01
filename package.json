@@ -11,7 +11,7 @@
     "postinstall": "npm rebuild node-sass",
     "precache": "babel-node precache.js",
     "server": "NODE_ENV=production babel-node server.js",
-    "server:dev": "nodemon --watch api/ --watch ./server.js --exec 'babel-node server.js'",
+    "server:dev": "nodemon --watch api/ --watch ./server.js --watch views/ --exec 'babel-node server.js'",
     "start": "npm run build && npm run server",
     "start:dev": "npm run clean && npm run server:dev",
     "test": "jest"
