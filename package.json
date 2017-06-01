@@ -9,10 +9,11 @@
     "build:dll": "NODE_ENV=production webpack -p --config webpack.dll.js",
     "clean": "rm -f public/*",
     "postinstall": "npm rebuild node-sass",
-    "server": "NODE_ENV=production babel-node server.js",
-    "start": "npm run build && npm run server",
-    "start:dev": "npm run clean && babel-node server.js",
     "precache": "babel-node precache.js",
+    "server": "NODE_ENV=production babel-node server.js",
+    "server:dev": "nodemon --exec 'babel-node server.js'",
+    "start": "npm run build && npm run server",
+    "start:dev": "npm run clean && npm run server:dev",
     "test": "jest"
   },
   "repository": {
@@ -66,6 +67,7 @@
     "happypack": "^3.1.0",
     "jest": "^20.0.4",
     "node-sass": "^4.5.2",
+    "nodemon": "^1.11.0",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.17.0",
     "sw-precache": "^5.1.1",
