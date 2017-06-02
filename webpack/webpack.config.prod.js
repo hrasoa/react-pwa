@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const { resolve } = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HappyPack = require('happypack');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
@@ -61,9 +60,6 @@ module.exports = {
       threshold: 10240,
       minRatio: 0.8
     }),
-    new CopyWebpackPlugin([
-      { from: resolve(__dirname, '../src/manifest.json') }
-    ]),
     new ManifestPlugin({
       fileName: 'bundle-manifest.json'
     })
