@@ -9,11 +9,12 @@ const publicDir = webpackConfig.output.path;
 
 swPrecache.generate({
   cacheId: pkg.name,
+  verbose: true,
   dontCacheBustUrlsMatching: /./,
-  dynamicUrlToDependencies: {
-    '/': [resolve(__dirname, '../server/views/index.ejs')]
-  },
-  navigateFallback: '/',
+  //dynamicUrlToDependencies: {
+  //  '/': [resolve(__dirname, '../server/views/index.ejs')]
+  //},
+  //navigateFallback: '/',
   staticFileGlobs: [
     `${publicDir}/{bundle,vendor}.*.{js,css,gz}`,
     `${publicDir}/manifest.json`
