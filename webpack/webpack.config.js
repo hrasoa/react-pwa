@@ -4,7 +4,10 @@ const HappyPack = require('happypack');
 const webpackProdConfig = require('./webpack.config.prod');
 const webpackDllConfig = require('./webpack.dll');
 const dllVendor = webpackDllConfig.entry.vendor;
-const vendor = [].concat(dllVendor, 'react-hot-loader');
+const devVendor = [
+  'react-hot-loader'
+];
+const vendor = [].concat(dllVendor, devVendor);
 
 module.exports = [{
   name: 'client',
