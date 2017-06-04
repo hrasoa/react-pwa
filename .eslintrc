@@ -2,6 +2,7 @@
   "extends": "airbnb",
   "globals": {
     "document": true,
+    "navigator": true,
     "window": true
   },
   "plugins": [
@@ -15,6 +16,11 @@
     "jsx-a11y/no-static-element-interactions": 0,
     "jsx-a11y/img-has-alt": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/prop-types": [2, { "ignore": ["children", "className"] }]
+    "react/prop-types": [2, { "ignore": [
+      "children",
+      "route",
+      "location",
+      "className"
+    ] }]
   }
 }
