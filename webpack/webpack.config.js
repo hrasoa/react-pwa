@@ -2,6 +2,9 @@ const webpack = require('webpack');
 const { resolve } = require('path');
 const HappyPack = require('happypack');
 const webpackProdConfig = require('./webpack.config.prod');
+const webpackDllConfig = require('./webpack.dll');
+const dllVendor = webpackDllConfig.entry.vendor;
+const vendor = [].concat(dllVendor, 'react-hot-loader');
 
 module.exports = [{
   name: 'client',
@@ -13,19 +16,7 @@ module.exports = [{
       'webpack/hot/only-dev-server',
       resolve(__dirname, '../src/index.js')
     ],
-    vendor: [
-      'axios',
-      'prop-types',
-      'react',
-      'react-dom',
-      'react-helmet',
-      'react-hot-loader',
-      'react-redux',
-      'react-router-config',
-      'react-router-dom',
-      'redux',
-      'redux-thunk'
-    ]
+    vendor: vendor
   },
   output: {
     path: webpackProdConfig.output.path,
