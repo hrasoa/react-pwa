@@ -4,14 +4,14 @@ import axios from 'axios';
 const router = express.Router();
 
 router.get('/posts', (req, res) => {
-  axios.get('http://jsonplaceholder.typicode.com/posts')
+  axios.get('https://jsonplaceholder.typicode.com/posts')
     .then(response => {
       res.send(response.data.slice(0, 10).map(({ id, title }) => ({ id, title })));
     });
 });
 
 router.get('/posts/:id', (req, res) => {
-  axios.get(`http://jsonplaceholder.typicode.com/posts/${req.params.id}`)
+  axios.get(`https://jsonplaceholder.typicode.com/posts/${req.params.id}`)
     .then(response => {
       res.send(response.data);
     });

@@ -50,15 +50,23 @@ export default function serverRenderer({
           </StaticRouter>
         </Provider>
       );
-      res.status(200).render('index', {
-        helmet: Helmet.renderStatic(),
-        initialMarkup: markup,
-        initialState: store.getState(),
-        manifest,
-        assetsManifest,
-        prod: process.env.NODE_ENV === 'production'
-      });
-      res.end();
+
+      if (context.url) {
+        res.writeHead(301, {
+          Location: context.url
+        });
+        res.end();
+      } else {
+        res.status(200).render('index', {
+          helmet: Helmet.renderStatic(),
+          initialMarkup: markup,
+          initialState: store.getState(),
+          manifest,
+          assetsManifest,
+          prod: process.env.NODE_ENV === 'production'
+        });
+        res.end();
+      }
     });
   }
 };
