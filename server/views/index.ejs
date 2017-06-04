@@ -16,7 +16,6 @@
           reg.onupdatefound = function() {
             var installingWorker = reg.installing;
             installingWorker.onstatechange = function() {
-              console.log('installingWorker.state', installingWorker.state, navigator.serviceWorker.controller);
               switch (installingWorker.state) {
                 case 'installed':
                   if (navigator.serviceWorker.controller) {
