@@ -26,6 +26,7 @@
                   break;
 
                 case 'activated':
+                  console.log('Activated.');
                   if (navigator.serviceWorker.controller) {
                     navigator.serviceWorker.controller.postMessage({ url: window.location.pathname });
                   }
