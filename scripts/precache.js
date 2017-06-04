@@ -12,7 +12,6 @@ swPrecache.generate({
   cacheId: pkg.name,
   verbose: true,
   dontCacheBustUrlsMatching: /./,
-  navigateFallback: '/shell',
   staticFileGlobs: [
     manifest.start_url,
     `${publicDir}/{bundle,vendor}.*.{js,css,gz}`,
@@ -30,8 +29,7 @@ swPrecache.generate({
     handler: 'networkFirst'
   }]
 }).then((serviceWorkerString) => {
-  fs.writeFile(`${publicDir}/sw.js`, serviceWorkerString, (err) => {
-  //fs.writeFile(`${publicDir}/sw.js`, uglifyJs.minify(serviceWorkerString).code, (err) => {
+  fs.writeFile(`${publicDir}/sw.js`, uglifyJs.minify(serviceWorkerString).code, (err) => {
     if (err) {
       return console.log(err);
     }
