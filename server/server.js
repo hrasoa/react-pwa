@@ -34,13 +34,12 @@ if (process.env.NODE_ENV !== 'production') {
   const serverRenderer = require('./serverRenderer').default;
   const vendorManifest = require('../public/vendor-manifest.json');
   const bundleManifest = require('../public/bundle-manifest.json');
-  app.use(serverRenderer({
-    assetsManifest:{
-      bundleCss: bundleManifest['bundle.css'],
-      bundleJs: bundleManifest['bundle.js'],
-      vendorJs: vendorManifest['vendor.js']
-    }
-  }));
+  const assetsManifest = {
+    bundleCss: bundleManifest['bundle.css'],
+    bundleJs: bundleManifest['bundle.js'],
+    vendorJs: vendorManifest['vendor.js']
+  };
+  app.use(serverRenderer({ assetsManifest }));
 }
 
 app.listen(config.port, config.host, () => {

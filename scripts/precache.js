@@ -12,9 +12,9 @@ swPrecache.generate({
   verbose: true,
   dontCacheBustUrlsMatching: /./,
   //dynamicUrlToDependencies: {
-  //  '/': [resolve(__dirname, '../server/views/index.ejs')]
+  //  '/shell': [resolve(__dirname, '../server/views/index.ejs')]
   //},
-  //navigateFallback: '/',
+  //navigateFallback: '/shell',
   staticFileGlobs: [
     `${publicDir}/{bundle,vendor}.*.{js,css,gz}`,
     `${publicDir}/manifest.json`

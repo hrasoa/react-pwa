@@ -53,6 +53,7 @@ export default function serverRenderer({
       res.status(200).render('index', {
         helmet: Helmet.renderStatic(),
         initialMarkup: markup,
+        shell: req.url === '/shell',
         initialState: store.getState(),
         manifest,
         assetsManifest,
