@@ -11,10 +11,6 @@ const cacheUrl = (url) => {
 };
 
 class Worker extends Component {
-  componentDidMount() {
-    cacheUrl(this.props.location.pathname);
-  }
-
   componentWillReceiveProps({ location }) {
     if (this.props.location.pathname !== location.pathname) {
       cacheUrl(location.pathname);
