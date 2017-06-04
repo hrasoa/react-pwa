@@ -29,9 +29,12 @@ swPrecache.generate({
     handler: 'networkFirst'
   }]
 }).then((serviceWorkerString) => {
-  fs.writeFile(`${publicDir}/sw.js`, uglifyJs.minify(serviceWorkerString).code, (err) => {
-    if (err) {
-      return console.log(err);
-    }
-  });
+  fs.writeFile(`${publicDir}/sw.js`, uglifyJs.minify(serviceWorkerString).code);
+});
+
+fs.readFile(resolve(__dirname, 'sw-scripts.js'), 'utf8', (err, data) => {
+  if (err) {
+    throw err;
+  }
+  fs.writeFile(`${publicDir}/sw-scripts.js`, uglifyJs.minify(data).code);
 });

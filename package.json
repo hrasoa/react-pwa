@@ -11,7 +11,7 @@
     "clean": "rm -f public/*",
     "manifest": "cp src/manifest.json public/manifest.json",
     "postinstall": "npm rebuild node-sass && npm run build:dll",
-    "precache": "cp scripts/sw-scripts.js public/sw-scripts.js && babel-node scripts/precache.js",
+    "precache": "babel-node scripts/precache.js",
     "server": "NODE_ENV=production babel-node server/server.js",
     "server:dev": "nodemon --exec 'babel-node server/server.js'",
     "start": "npm run build && npm run server",
