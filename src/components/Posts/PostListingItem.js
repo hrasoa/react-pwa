@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const PostsItem = ({ id, title }) => (
-  <div>
-    <Link to={`/posts/${id}`}>{title}</Link>
-  </div>
-);
+  <Link
+    className="c-post-listing__item"
+    title={title}
+    to={`/posts/${id}`}
+  >
+    {title}
+  </Link>);
 
 PostsItem.propTypes = {
   id: PropTypes.number.isRequired,

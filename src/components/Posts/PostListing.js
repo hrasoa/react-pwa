@@ -14,7 +14,7 @@ class PostListing extends Component {
 
   render() {
     return (
-      <ul>
+      <ul className="c-post-listing">
         {this.props.posts.map(post => (
           <li key={post.id}>
             <PostListingItem {...post} />

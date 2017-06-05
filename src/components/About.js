@@ -1,3 +1,3 @@
 import React from 'react';
 
-export default () => <div>About</div>;
+export default () => <div className="c-content">About</div>;

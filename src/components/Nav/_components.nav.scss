@@ -1,0 +1,22 @@
+.c-nav {
+  background: rgba(0, 0, 0, .9);
+  padding: 16px;
+
+  > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+    margin-right: 16px;
+  }
+}
+
+.c-nav__link {
+  color: #fff;
+  display: block;
+  text-decoration: none;
+  text-transform: uppercase;
+}

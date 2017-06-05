@@ -19,8 +19,10 @@ class Post extends Component {
         <Helmet>
           <title>{title}</title>
         </Helmet>
-        <h1>{title}</h1>
-        <div>{body}</div>
+        <div className="c-content">
+          <h1>{title}</h1>
+          <div>{body}</div>
+        </div>
       </div>
     );
   }
