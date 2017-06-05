@@ -17,6 +17,8 @@ services:
     user: devel
     expose:
       - "3000"
+    ports:
+      - "3000:3000"
     volumes:
       - ./:/var/www
     command: [npm, start]
