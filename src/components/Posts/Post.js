@@ -15,14 +15,12 @@ class Post extends Component {
   render() {
     const { title, body } = this.props.post;
     return (
-      <div>
+      <div className="c-content">
         <Helmet>
           <title>{title}</title>
         </Helmet>
-        <div className="c-content">
-          <h1>{title}</h1>
-          <div>{body}</div>
-        </div>
+        <h1>{title}</h1>
+        <p>{body}</p>
       </div>
     );
   }
