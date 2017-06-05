@@ -22,10 +22,7 @@ swPrecache.generate({
   ],
   stripPrefix: publicDir,
   runtimeCaching: [{
-    urlPattern: '/api/:entity',
-    handler: 'networkFirst'
-  }, {
-    urlPattern: '/api/:entity/:id',
+    urlPattern: '/',
     handler: 'networkFirst'
   }, {
     urlPattern: '/posts/:id',
@@ -33,6 +30,12 @@ swPrecache.generate({
   }, {
     urlPattern: '/about',
     handler: 'cacheFirst'
+  }, {
+    urlPattern: '/api/:entity',
+    handler: 'networkFirst'
+  }, {
+    urlPattern: '/api/:entity/:id',
+    handler: 'networkFirst'
   }, {
     urlPattern: new RegExp('https://fonts.googleapis.com/(.*)'),
     handler: 'cacheFirst'
