@@ -15,8 +15,6 @@ services:
     image: hrasoa/node
     working_dir: /var/www
     user: devel
-    environment:
-      NODE_ENV: production
     expose:
       - "3000"
     volumes:
