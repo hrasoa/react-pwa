@@ -31,6 +31,9 @@ swPrecache.generate({
     urlPattern: '/posts/:id',
     handler: 'networkFirst'
   }, {
+    urlPattern: '/about',
+    handler: 'cacheFirst'
+  }, {
     urlPattern: new RegExp('https://fonts.googleapis.com/(.*)'),
     handler: 'cacheFirst'
   }, {
