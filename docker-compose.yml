@@ -6,8 +6,9 @@ services:
       - app
     volumes:
       - ./nginx/nginx.conf:/nginx.conf
+      - ./ssl:/etc/ssl
     ports:
-      - "8001:80"
+      - "8888:443"
     command: [nginx, -c, /nginx.conf]
 
   app:
@@ -15,9 +16,11 @@ services:
     working_dir: /var/www
     user: devel
     environment:
-      - NODE_ENV: production
+      NODE_ENV: production
     expose:
       - "3000"
+    ports:
+      - "3000:3000"
     volumes:
       - ./:/var/www
     command: [npm, start]
