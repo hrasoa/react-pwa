@@ -27,6 +27,15 @@ swPrecache.generate({
   }, {
     urlPattern: '/api/:entity/:id',
     handler: 'networkFirst'
+  }, {
+    urlPattern: '/posts/:id',
+    handler: 'networkFirst'
+  }, {
+    urlPattern: new RegExp('https://fonts.googleapis.com/(.*)'),
+    handler: 'cacheFirst'
+  }, {
+    urlPattern: new RegExp('https://fonts.gstatic.com/(.*)'),
+    handler: 'cacheFirst'
   }]
 }).then((serviceWorkerString) => {
   fs.writeFile(`${publicDir}/sw.js`, uglifyJs.minify(serviceWorkerString).code);
