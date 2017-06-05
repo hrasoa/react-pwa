@@ -1,6 +1,8 @@
 import express from 'express';
 import favicon from 'serve-favicon';
+import path from 'path';
 import helmet from 'helmet';
+import fs from 'fs';
 import gzipStatic from 'connect-gzip-static';
 import { resolve } from 'path';
 import apiRouter from './api/index';
@@ -31,13 +33,19 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(webpackHotMiddleware(bundler.compilers.find(compiler => compiler.name === 'client')));
   app.use(webpackHotServerMiddleware(bundler));
 } else {
+  const webpackConfig = require('../webpack/webpack.config.prod');
   const serverRenderer = require('./serverRenderer').default;
   const vendorManifest = require('../public/vendor-manifest.json');
   const bundleManifest = require('../public/bundle-manifest.json');
+  const criticalCss = fs.readFileSync(path.join(
+    webpackConfig.output.path,
+    'critical.css'
+  ), { encoding: 'utf8' });
   const assetsManifest = {
     bundleCss: bundleManifest['bundle.css'],
     bundleJs: bundleManifest['bundle.js'],
-    vendorJs: vendorManifest['vendor.js']
+    vendorJs: vendorManifest['vendor.js'],
+    criticalCss
   };
   app.use(serverRenderer({ assetsManifest }));
 }

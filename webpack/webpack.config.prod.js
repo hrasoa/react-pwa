@@ -4,6 +4,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const HappyPack = require('happypack');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const extractBundle = new ExtractTextPlugin('[name].[chunkhash].css');
+const extractCritical = new ExtractTextPlugin('critical.css');
 
 module.exports = {
   cache: true,
@@ -15,7 +17,7 @@ module.exports = {
     filename: '[name].[chunkhash].js',
     library: '[name]'
   },
-  devtool: 'cheap-source-map',
+  devtool: 'hidden-source-map',
   module: {
     rules: [
       {
@@ -24,8 +26,16 @@ module.exports = {
         include: resolve(__dirname, '../src')
       },
       {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
+        test: /style\.scss$/,
+        use: extractBundle.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'sass-loader']
+        }),
+        include: resolve(__dirname, '../src')
+      },
+      {
+        test: /critical\.scss$/,
+        use: extractCritical.extract({
           fallback: 'style-loader',
           use: ['css-loader', 'sass-loader']
         }),
@@ -42,9 +52,8 @@ module.exports = {
     new HappyPack({
       loaders: [ 'babel-loader', 'eslint-loader' ]
     }),
-    new ExtractTextPlugin({
-      filename: '[name].[chunkhash].css'
-    }),
+    extractCritical,
+    extractBundle,
     new webpack.DllReferencePlugin({
       context: process.cwd(),
       manifest: require(resolve(__dirname, '../dll/vendor-manifest.json'))

@@ -7,6 +7,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import reducers from './reducers/index';
+
+import './critical.scss';
 import './style.scss';
 
 /* eslint-disable no-underscore-dangle */
