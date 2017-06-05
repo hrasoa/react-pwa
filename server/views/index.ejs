@@ -10,7 +10,7 @@
   <% if (prod === true) { %>
   <link rel="stylesheet" href="/<%- assetsManifest.bundleCss -%>">
   <script type="text/javascript">
-    if ('serviceWorker' in navigator) {
+    if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('/sw.js').then(function(reg) {
           reg.onupdatefound = function() {
