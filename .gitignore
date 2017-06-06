@@ -1,6 +1,5 @@
 .happypack
 .idea
-ssl/
 node_modules/
 public/
 npm-debug.log

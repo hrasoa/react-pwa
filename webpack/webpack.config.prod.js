@@ -1,19 +1,24 @@
 const webpack = require('webpack');
-const { resolve } = require('path');
+const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const HappyPack = require('happypack');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const extractBundle = new ExtractTextPlugin('[name].[chunkhash].css');
 const extractCritical = new ExtractTextPlugin('critical.css');
+const extractConfig = {
+  fallback: 'style-loader',
+  use: ['css-loader', 'sass-loader']
+};
+const srcDir = path.resolve(__dirname, '../src');
 
 module.exports = {
   cache: true,
   entry: {
-    bundle: resolve(__dirname, '../src/index.js')
+    bundle: path.join(srcDir, 'index.js')
   },
   output: {
-    path: resolve(__dirname, '../public'),
+    path: path.resolve(__dirname, '../public'),
     filename: '[name].[chunkhash].js',
     library: '[name]'
   },
@@ -23,23 +28,17 @@ module.exports = {
       {
         test: /\.js$/,
         use: ['happypack/loader'],
-        include: resolve(__dirname, '../src')
+        include: srcDir
       },
       {
         test: /style\.scss$/,
-        use: extractBundle.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
-        }),
-        include: resolve(__dirname, '../src')
+        use: extractBundle.extract(extractConfig),
+        include: srcDir
       },
       {
         test: /critical\.scss$/,
-        use: extractCritical.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
-        }),
-        include: resolve(__dirname, '../src')
+        use: extractCritical.extract(extractConfig),
+        include: srcDir
       }
     ]
   },
@@ -56,7 +55,7 @@ module.exports = {
     extractBundle,
     new webpack.DllReferencePlugin({
       context: process.cwd(),
-      manifest: require(resolve(__dirname, '../dll/vendor-manifest.json'))
+      manifest: require(path.resolve(__dirname, '../dll/vendor-manifest.json'))
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
