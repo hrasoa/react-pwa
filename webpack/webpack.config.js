@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const { resolve } = require('path');
+const path = require('path');
 const HappyPack = require('happypack');
 const webpackProdConfig = require('./webpack.config.prod');
 const webpackDllConfig = require('./webpack.dll');
@@ -8,6 +8,7 @@ const devVendor = [
   'react-hot-loader'
 ];
 const vendor = [].concat(dllVendor, devVendor);
+const srcDir = path.resolve(__dirname, '../src');
 
 module.exports = [{
   name: 'client',
@@ -17,7 +18,7 @@ module.exports = [{
       'react-hot-loader/patch',
       'webpack-hot-middleware/client',
       'webpack/hot/only-dev-server',
-      resolve(__dirname, '../src/index.js')
+      path.join(srcDir, 'index.js')
     ],
     vendor: vendor
   },
@@ -38,12 +39,12 @@ module.exports = [{
       {
         test: /\.js$/,
         use: ['happypack/loader'],
-        include: resolve(__dirname, '../src')
+        include: srcDir
       },
       {
         test: /\.scss$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
-        include: resolve(__dirname, '../src')
+        include: srcDir
       }
     ]
   },
@@ -61,7 +62,7 @@ module.exports = [{
 }, {
   name: 'server',
   target: 'node',
-  entry: resolve(__dirname, '../server/serverRenderer.js'),
+  entry: path.resolve(__dirname, '../server/serverRenderer.js'),
   output: {
     path: webpackProdConfig.output.path,
     filename: 'server.js',
