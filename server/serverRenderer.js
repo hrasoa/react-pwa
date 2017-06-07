@@ -4,7 +4,6 @@ import ReactDOMServer from 'react-dom/server';
 import { matchPath, StaticRouter } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
-import thunkMiddleware from 'redux-thunk';
 import reducers from '../src/reducers/index';
 import config from './config';
 import manifest from '../src/manifest.json';
