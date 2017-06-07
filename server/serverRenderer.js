@@ -8,23 +8,13 @@ import { matchRoutes, renderRoutes } from 'react-router-config';
 import thunkMiddleware from 'redux-thunk';
 import reducers from '../src/reducers/index';
 import config from './config';
-import routes from '../src/routes/index';
 import manifest from '../src/manifest.json';
+import App from '../src/components/App';
 
 const store = createStore(
   reducers,
   applyMiddleware(thunkMiddleware)
 );
-
-const loadBranchData = location => {
-  const branch = matchRoutes(routes, location);
-  const promises = branch.map(({ route, match }) => {
-    return route && route.component.fetchData
-      ? store.dispatch(route.component.fetchData({ ...match, serverUrl: config.serverUrl }))
-      : Promise.resolve(null)
-  });
-  return Promise.all(promises);
-};
 
 const defaultAssetsManifest = {
   bundleCss: 'bundle.css',
@@ -39,14 +29,14 @@ export default function serverRenderer({
 }) {
   return (req, res, next) => {
     const context = {};
-    loadBranchData(req.url).then(response => {
+
       const markup = ReactDOMServer.renderToString(
         <Provider store={store}>
           <StaticRouter
             location={req.url}
             context={context}
           >
-            {renderRoutes(routes)}
+            <App />
           </StaticRouter>
         </Provider>
       );
@@ -67,6 +57,5 @@ export default function serverRenderer({
         });
         res.end();
       }
-    });
   }
 };

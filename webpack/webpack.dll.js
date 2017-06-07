@@ -13,7 +13,6 @@ module.exports = {
       'react-dom',
       'react-helmet',
       'react-redux',
-      'react-router-config',
       'react-router-dom',
       'redux',
       'redux-thunk'
