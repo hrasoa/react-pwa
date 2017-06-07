@@ -12,10 +12,9 @@
   ],
   "rules": {
     "comma-dangle": [2, "never"],
-    "no-unused-vars": ["error", { "args": "none" }],
+    "no-unused-vars": [2, { "args": "none" }],
     "jsx-a11y/no-static-element-interactions": 0,
-    "jsx-a11y/img-has-alt": "off",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
     "react/prop-types": [2, { "ignore": [
       "children",
       "route",
