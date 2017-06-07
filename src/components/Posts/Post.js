@@ -1,36 +1,28 @@
 import { Helmet } from 'react-helmet';
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-class Post extends Component {
-  componentDidMount() {
-    this.props.fetchSinglePost();
-  }
+const Post = ({ id, title, body }) => (
+  <div className="c-content">
+    <Helmet>
+      <title>{title}</title>
+      <link rel="canonical" href={`http://example.com/posts/${id}`} />
+    </Helmet>
+    <h1>{title}</h1>
+    <p>{body}</p>
+  </div>
+);
 
-  render() {
-    const { id, title, body } = this.props.post;
-    return (
-      <div className="c-content">
-        <Helmet>
-          <title>{title}</title>
-          <link rel="canonical" href={`http://example.com/posts/${id}`} />
-        </Helmet>
-        <h1>{title}</h1>
-        <p>{body}</p>
-      </div>
-    );
-  }
-}
+Post.defaultProps = {
+  title: '',
+  body: '',
+  id: 0
+};
 
 Post.propTypes = {
-  post: PropTypes.shape({
-    title: PropTypes.string,
-    body: PropTypes.string,
-    id: PropTypes.number,
-    lastViewed: PropTypes.number,
-    userId: PropTypes.number
-  }).isRequired,
-  fetchSinglePost: PropTypes.func.isRequired
+  title: PropTypes.string,
+  body: PropTypes.string,
+  id: PropTypes.number
 };
 
 export default Post;

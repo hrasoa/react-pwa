@@ -8,6 +8,8 @@ module.exports = {
   entry: {
     vendor: [
       'axios',
+      'babel-polyfill',
+      'lodash',
       'prop-types',
       'react',
       'react-dom',
@@ -15,6 +17,7 @@ module.exports = {
       'react-redux',
       'react-router-dom',
       'redux',
+      'redux-saga',
       'redux-thunk'
     ]
   },

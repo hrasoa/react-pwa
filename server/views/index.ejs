@@ -51,7 +51,7 @@
 </head>
 <body>
   <div id="root"><%- initialMarkup -%></div>
-  <script>window.__INITIAL_STATE__ = <%- JSON.stringify(initialState) -%>;</script>
+  <script>window.__INITIAL_STATE__ = <%- initialState -%>;</script>
   <script type="text/javascript" src="/<%- assetsManifest.vendorJs -%>"></script>
   <script type="text/javascript" src="/<%- assetsManifest.bundleJs -%>"></script>
 </body>
