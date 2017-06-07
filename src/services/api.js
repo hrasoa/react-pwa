@@ -3,7 +3,7 @@ import {
   schema,
   normalize
 } from 'normalizr';
-import config from '../../server/config';
+import config from '../../config';
 
 function callApi(endpoint, entitySchema) {
   const fullUrl = `${((typeof window === 'undefined') ? config.serverUrl : '')}/api/${endpoint}`;

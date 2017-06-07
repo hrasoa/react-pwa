@@ -12,7 +12,7 @@
   ],
   "rules": {
     "comma-dangle": [2, "never"],
-    "max-len": [2, { "code": 120 }],
+    "no-unused-vars": ["error", { "args": "none" }],
     "jsx-a11y/no-static-element-interactions": 0,
     "jsx-a11y/img-has-alt": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
@@ -21,6 +21,6 @@
       "route",
       "location",
       "className"
-    ] }]
+    ]}]
   }
 }

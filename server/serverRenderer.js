@@ -1,11 +1,8 @@
 import { Helmet } from 'react-helmet';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { matchPath, StaticRouter } from 'react-router-dom';
-import { applyMiddleware, createStore } from 'redux';
+import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import reducers from '../src/reducers/index';
-import config from './config';
 import manifest from '../src/manifest.json';
 import App from '../src/components/App';
 import configureStore from '../src/store/configureStore';
@@ -22,7 +19,7 @@ export default function serverRenderer({
   serverStats,
   assetsManifest = defaultAssetsManifest
 }) {
-  return (req, res, next) => {
+  return (req, res) => {
     const store = configureStore();
     const context = {};
     const rootComp = (
@@ -55,11 +52,10 @@ export default function serverRenderer({
         res.end();
       }
     }).catch((e) => {
-      console.log(e.message);
       res.status(500).send(e.message);
     });
 
     ReactDOMServer.renderToString(rootComp);
     store.close();
-  }
-};
+  };
+}
