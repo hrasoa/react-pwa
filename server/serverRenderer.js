@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet';
+import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import manifest from '../src/manifest.json';
 import App from '../src/components/App';
 import configureStore from '../src/store/configureStore';
+import manifest from '../src/manifest.json';
 import rootSaga from '../src/sagas/index';
 
 const defaultAssetsManifest = {

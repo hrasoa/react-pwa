@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import App from './components/App';
 import configureStore from './store/configureStore';
 import rootSaga from './sagas/index';
 
@@ -18,11 +17,14 @@ delete window.__INITIAL_STATE__;
 /* eslint-enable */
 
 const render = () => {
+  /* eslint-disable global-require */
+  const Root = require('./components/App').default;
+  /* eslint-enable */
   ReactDOM.render(
     <AppContainer>
       <Provider store={store}>
         <BrowserRouter>
-          <App />
+          <Root />
         </BrowserRouter>
       </Provider>
     </AppContainer>,
@@ -31,3 +33,13 @@ const render = () => {
 };
 
 render();
+
+if (module.hot) {
+  module.hot.accept('./components/App', render);
+  module.hot.accept('./reducers/index', () => {
+    /* eslint-disable global-require */
+    const nextRootReducer = require('./reducers/index').default;
+    /* eslint-enable */
+    store.replaceReducer(nextRootReducer);
+  });
+}

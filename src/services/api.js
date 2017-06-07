@@ -1,8 +1,8 @@
-import axios from 'axios';
 import {
-  schema,
-  normalize
+  normalize,
+  schema
 } from 'normalizr';
+import axios from 'axios';
 import config from '../../config';
 
 function callApi(endpoint, entitySchema) {

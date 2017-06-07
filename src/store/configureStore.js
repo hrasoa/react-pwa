@@ -21,15 +21,6 @@ export default function configureStore(initialState) {
     ))
   );
 
-  if (module.hot) {
-    module.hot.accept('../reducers/index', () => {
-      /* eslint-disable global-require */
-      const nextRootReducer = require('../reducers/index').default;
-      /* eslint-enable */
-      store.replaceReducer(nextRootReducer);
-    });
-  }
-
   store.runSaga = sagaMiddleware.run;
   store.close = () => store.dispatch(END);
   return store;

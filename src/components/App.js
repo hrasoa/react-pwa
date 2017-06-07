@@ -4,10 +4,10 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-import About from './About';
-import Nav from './Nav/Nav';
 import Home from '../containers/Home';
 import PostPage from '../containers/Posts/PostPage';
+import About from './About';
+import Nav from './Nav/Nav';
 import NotFound from './NotFound';
 import Worker from './Worker';
 
