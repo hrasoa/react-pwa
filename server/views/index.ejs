@@ -19,10 +19,8 @@
           reg.onupdatefound = function() {
             var installingWorker = reg.installing;
             installingWorker.onstatechange = function() {
-              if (installingWorker.state === 'activated') {
-                if (navigator.serviceWorker.controller) {
-                  navigator.serviceWorker.controller.postMessage({ url: window.location.pathname });
-                }
+              if (installingWorker.state === 'activated' && navigator.serviceWorker.controller) {
+                navigator.serviceWorker.controller.postMessage({ url: window.location.pathname });
               }
             };
           };
