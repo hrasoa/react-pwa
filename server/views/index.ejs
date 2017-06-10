@@ -19,25 +19,10 @@
           reg.onupdatefound = function() {
             var installingWorker = reg.installing;
             installingWorker.onstatechange = function() {
-              switch (installingWorker.state) {
-                case 'installed':
-                  if (navigator.serviceWorker.controller) {
-                    console.log('New or updated content is available.');
-                  } else {
-                    console.log('Content is now available offline!');
-                  }
-                  break;
-
-                case 'activated':
-                  console.log('Activated.');
-                  if (navigator.serviceWorker.controller) {
-                    navigator.serviceWorker.controller.postMessage({ url: window.location.pathname });
-                  }
-                  break;
-
-                case 'redundant':
-                  console.error('The installing service worker became redundant.');
-                  break;
+              if (installingWorker.state === 'activated') {
+                if (navigator.serviceWorker.controller) {
+                  navigator.serviceWorker.controller.postMessage({ url: window.location.pathname });
+                }
               }
             };
           };
