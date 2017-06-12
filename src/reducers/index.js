@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import merge from 'lodash/merge';
+import merge from 'lodash.merge';
 
 // Updates an entity cache in response to any action with response.entities.
 function entities(state = { posts: {} }, action) {

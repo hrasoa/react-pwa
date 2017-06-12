@@ -8,9 +8,9 @@ module.exports = {
   entry: {
     vendor: [
       'axios',
-      'babel-polyfill',
-      'lodash',
+      'lodash.merge',
       'prop-types',
+      'normalizr',
       'react',
       'react-dom',
       'react-helmet',

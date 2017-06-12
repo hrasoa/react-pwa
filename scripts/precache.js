@@ -43,12 +43,15 @@ swPrecache.generate({
     handler: 'cacheFirst'
   }]
 }).then((serviceWorkerString) => {
-  fs.writeFile(`${publicDir}/sw.js`, uglifyJs.minify(serviceWorkerString).code);
+  //fs.writeFile(`${publicDir}/sw.js`, uglifyJs.minify(serviceWorkerString).code);
+  fs.writeFile(`${publicDir}/sw.js`, serviceWorkerString);
 });
 
 fs.readFile(resolve(__dirname, 'sw-scripts.js'), 'utf8', (err, data) => {
   if (err) {
-    throw err;
+    console.log(err);
   }
-  fs.writeFile(`${publicDir}/sw-scripts.js`, uglifyJs.minify(data).code);
+  //console.log('typeof data', uglifyJs.minify(data));
+  //fs.writeFile(`${publicDir}/sw-scripts.js`, uglifyJs.minify(data).code);
+  fs.writeFile(`${publicDir}/sw-scripts.js`, data);
 });

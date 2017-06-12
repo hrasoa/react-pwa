@@ -6,6 +6,7 @@ const HappyPack = require('happypack');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const extractBundle = new ExtractTextPlugin('[name].[chunkhash].css');
 const extractCritical = new ExtractTextPlugin('critical.css');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const extractConfig = {
   fallback: 'style-loader',
   use: ['css-loader', 'sass-loader']
@@ -70,6 +71,10 @@ module.exports = {
     }),
     new ManifestPlugin({
       fileName: 'bundle-manifest.json'
+    }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      reportFilename: 'report.html'
     })
   ]
 };

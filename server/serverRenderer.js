@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import App from '../src/components/App';
 import configureStore from '../src/store/configureStore';
@@ -40,7 +40,7 @@ export default function serverRenderer({
         });
         res.end();
       } else {
-        const markup = ReactDOMServer.renderToString(rootComp);
+        const markup = renderToString(rootComp);
         res.status(200).render('index', {
           helmet: Helmet.renderStatic(),
           initialMarkup: markup,
@@ -55,7 +55,7 @@ export default function serverRenderer({
       res.status(500).send(e.message);
     });
 
-    ReactDOMServer.renderToString(rootComp);
+    renderToString(rootComp);
     store.close();
   };
 }
