@@ -18,6 +18,7 @@ module.exports = [{
       'react-hot-loader/patch',
       'webpack-hot-middleware/client',
       'webpack/hot/only-dev-server',
+      'regenerator-runtime/runtime',
       path.join(srcDir, 'index.js')
     ],
     vendor: vendor

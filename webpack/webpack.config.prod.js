@@ -16,7 +16,10 @@ const srcDir = path.resolve(__dirname, '../src');
 module.exports = {
   cache: true,
   entry: {
-    bundle: path.join(srcDir, 'index.js')
+    bundle: [
+      'regenerator-runtime/runtime',
+      path.join(srcDir, 'index.js')
+    ]
   },
   output: {
     path: path.resolve(__dirname, '../public'),

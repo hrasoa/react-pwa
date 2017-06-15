@@ -8,6 +8,6 @@ root = true
 charset = utf-8
 end_of_line = lf
 
-[*.{scss,js,ejs]
+[*.{scss,js,ejs}]
 indent_style = space
 indent_size = 2

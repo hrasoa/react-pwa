@@ -17,7 +17,8 @@ module.exports = {
       'react-redux',
       'react-router-dom',
       'redux',
-      'redux-saga'
+      'redux-saga',
+      'regenerator-runtime/runtime'
     ]
   },
   output: {
