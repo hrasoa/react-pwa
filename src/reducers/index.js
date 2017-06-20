@@ -13,10 +13,9 @@ function entities(state = {}, action) {
 function pagination(state = {}, action) {
   switch (action.type) {
     case 'HOME_SUCCESS':
-      return merge({}, state, Object.keys(action.response.result).reduce((acc, key) => {
-        acc[key] = { ids: action.response.result[key] };
-        return acc;
-      }, {}));
+      return merge({}, state, Object.keys(action.response.result).reduce((acc, key) =>
+        ({ ...acc, [key]: { ids: action.response.result[key] } }), {}
+      ));
 
     default:
       return state;
