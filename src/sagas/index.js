@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 import {
   take,
   put,
@@ -11,7 +12,7 @@ import * as actions from '../actions/index';
 import getPost from '../reducers/selectors/index';
 
 
-const { post } = actions;
+const { post, home } = actions;
 
 
 function* fetchEntity(entity, apiFn, id) {
@@ -26,9 +27,9 @@ function* fetchEntity(entity, apiFn, id) {
 
 
 export const fetchPost = fetchEntity.bind(null, post, api.fetchPost);
+export const fetchHome = fetchEntity.bind(null, home, api.fetchHome);
 
 
-// load user unless it is cached
 function* loadPost(id, requiredFields) {
   const loadedPost = yield select(getPost, id);
   if (!loadedPost || requiredFields.some(key => !(key in loadedPost))) {
@@ -36,15 +37,27 @@ function* loadPost(id, requiredFields) {
   }
 }
 
+function* loadHome() {
+  yield call(fetchHome, null);
+}
+
 function* watchLoadPostPage() {
-  while (true) { // eslint-disable-line no-constant-condition
+  while (true) {
     const { id, requiredFields = [] } = yield take(actions.LOAD_POST_PAGE);
     yield fork(loadPost, id, requiredFields);
   }
 }
 
+function* watchLoadHomePage() {
+  while (true) {
+    yield take(actions.LOAD_HOME_PAGE);
+    yield fork(loadHome);
+  }
+}
+
 export default function* root() {
   yield all([
-    fork(watchLoadPostPage)
+    fork(watchLoadPostPage),
+    fork(watchLoadHomePage)
   ]);
 }

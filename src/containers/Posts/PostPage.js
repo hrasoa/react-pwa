@@ -47,8 +47,4 @@ const mapStateToProps = (state, { match }) => {
   };
 };
 
-export default withRouter(connect(
-  mapStateToProps, {
-    loadPostPage
-  }
-)(PostPage));
+export default withRouter(connect(mapStateToProps, { loadPostPage })(PostPage));

@@ -9,6 +9,21 @@ function entities(state = { posts: {} }, action) {
   return state;
 }
 
+
+function pagination(state = {}, action) {
+  switch (action.type) {
+    case 'HOME_SUCCESS':
+      return merge({}, state, Object.keys(action.response.result).reduce((acc, key) => {
+        acc[key] = { ids: action.response.result[key] };
+        return acc;
+      }, {}));
+
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
-  entities
+  entities,
+  pagination
 });

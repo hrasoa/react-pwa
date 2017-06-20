@@ -13,7 +13,16 @@ function callApi(endpoint, entitySchema) {
 }
 
 const postSchema = new schema.Entity('posts');
+const pictureSchema = new schema.Entity('pictures');
+const postsSchema = new schema.Array(postSchema);
+const picturesSchema = new schema.Array(pictureSchema);
+const homeSchema = new schema.Object({
+  latestPosts: postsSchema,
+  latestPictures: picturesSchema
+});
 
-export const toto = '1';
 
 export const fetchPost = id => callApi(`posts/${id}`, postSchema);
+export const fetchPosts = () => callApi('posts', postsSchema);
+export const fetchPictures = () => callApi('pictures', picturesSchema);
+export const fetchHome = () => callApi('home', homeSchema);
