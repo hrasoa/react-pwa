@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 import merge from 'lodash.merge';
+import * as ActionTypes from '../actions/index';
+import paginate from './paginate';
 
 // Updates an entity cache in response to any action with response.entities.
 function entities(state = {}, action) {
@@ -9,18 +11,30 @@ function entities(state = {}, action) {
   return state;
 }
 
-
-function pagination(state = {}, action) {
-  switch (action.type) {
-    case 'HOME_SUCCESS':
-      return merge({}, state, Object.keys(action.response.result).reduce((acc, key) =>
-        ({ ...acc, [key]: { ids: action.response.result[key] } }), {}
-      ));
-
-    default:
-      return state;
-  }
-}
+const pagination = combineReducers({
+  latestPosts: paginate({
+    mapActionResults: action => ({
+      ...action,
+      response: { ...action.response, result: action.response.result.latestPosts }
+    }),
+    types: [
+      ActionTypes.HOME.REQUEST,
+      ActionTypes.HOME.SUCCESS,
+      ActionTypes.HOME.FAILURE
+    ]
+  }),
+  latestPictures: paginate({
+    mapActionResults: action => ({
+      ...action,
+      response: { ...action.response, result: action.response.result.latestPictures }
+    }),
+    types: [
+      ActionTypes.HOME.REQUEST,
+      ActionTypes.HOME.SUCCESS,
+      ActionTypes.HOME.FAILURE
+    ]
+  })
+});
 
 export default combineReducers({
   entities,

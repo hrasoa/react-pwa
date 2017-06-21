@@ -12,7 +12,7 @@ import * as actions from '../actions/index';
 import getPost from '../reducers/selectors/index';
 
 
-const { post, home } = actions;
+const { home, post } = actions;
 
 
 function* fetchEntity(entity, apiFn, id) {
