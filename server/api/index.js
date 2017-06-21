@@ -9,8 +9,16 @@ const getPagination = (url, params = {}) => {
   const page = parseInt(params.query && params.query._page || 1, 10);
   const start = (page - 1) * perPage;
   return axios.get(url)
-    .then(response =>
-      response.data.slice(start, start + perPage));
+    .then(response => {
+      const data = response.data.slice(start, start + perPage);
+      if (params.query && params.query.fl) {
+        return data.map(item => params.query.fl.split(',').reduce((acc, field) => {
+          acc[field] = item[field];
+          return acc;
+        }, {}));
+      }
+      return data;
+    });
 };
 
 const getPosts = getPagination.bind(null, 'https://jsonplaceholder.typicode.com/posts');
@@ -36,8 +44,8 @@ router.get('/pictures', (req, res) => {
 });
 
 router.get('/home', (req, res) => {
-  const posts = getPosts();
-  const pictures = getPictures();
+  const posts = getPosts({ query: { fl: 'id,title' } });
+  const pictures = getPictures({ query: { fl: 'id,filename' } });
   Promise.all([ posts, pictures ]).then(results => {
     res.send({
       latestPosts: results[0],
