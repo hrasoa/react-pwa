@@ -1,0 +1,16 @@
+.c-picture-listing {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: inline-block;
+    width: 25%;
+  }
+
+  img {
+    display: block;
+    margin: 2px;
+    max-width: 100%;
+  }
+}
