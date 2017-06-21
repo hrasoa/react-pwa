@@ -5,7 +5,7 @@ import {
   Switch
 } from 'react-router-dom';
 import HomePage from '../containers/HomePage';
-import PostPage from '../containers/Posts/PostPage';
+import PostPage from '../containers/PostPage';
 import About from './About';
 import Nav from './Nav/Nav';
 import NotFound from './NotFound';

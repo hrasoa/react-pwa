@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { loadPostPage } from '../../actions/index';
-import Post from '../../components/Posts/Post';
+import { loadPostPage } from '../actions/index';
+import Post from '../components/Posts/Post';
 
 class PostPage extends Component {
   componentWillMount() {
