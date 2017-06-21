@@ -7,9 +7,10 @@ const router = express.Router();
 const getPagination = (url, params = {}) => {
   const perPage = parseInt(params.query && params.query._perPage || 10, 10);
   const page = parseInt(params.query && params.query._page || 1, 10);
+  const start = (page - 1) * perPage;
   return axios.get(url)
     .then(response =>
-      response.data.slice((page - 1) * perPage, (page - 1) * perPage + perPage));
+      response.data.slice(start, start + perPage));
 };
 
 const getPosts = getPagination.bind(null, 'https://jsonplaceholder.typicode.com/posts');
