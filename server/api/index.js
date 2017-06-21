@@ -4,21 +4,16 @@ import axios from 'axios';
 
 const router = express.Router();
 
-const getPosts = (params = {}) => {
+const getPagination = (url, params = {}) => {
   const perPage = parseInt(params.query && params.query._perPage || 10, 10);
   const page = parseInt(params.query && params.query._page || 1, 10);
-  return axios.get('https://jsonplaceholder.typicode.com/posts')
+  return axios.get(url)
     .then(response =>
       response.data.slice((page - 1) * perPage, (page - 1) * perPage + perPage));
 };
 
-const getPictures = (params = {}) => {
-  const perPage = parseInt(params.query && params.query._perPage || 10, 10);
-  const page = parseInt(params.query && params.query._page || 1, 10);
-  return axios.get('https://unsplash.it/list')
-    .then(response =>
-      response.data.slice((page - 1) * perPage, (page - 1) * perPage + perPage));
-};
+const getPosts = getPagination.bind(null, 'https://jsonplaceholder.typicode.com/posts');
+const getPictures = getPagination.bind(null, 'https://unsplash.it/list');
 
 router.get('/posts', (req, res) => {
   getPosts(url.parse(req.url, true)).then(data => {
