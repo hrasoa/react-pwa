@@ -13,18 +13,20 @@ import Worker from './Worker';
 
 export default () => (
   <Worker>
-    <div className="o-container">
+    <div>
       <Helmet>
         <title>My App</title>
         <link rel="canonical" href="http://example.com" />
       </Helmet>
       <Nav />
-      <Switch>
-        <Route path="/" exact component={HomePage} />
-        <Route path="/about" exact component={About} />
-        <Route path="/posts/:id" exact component={PostPage} />
-        <Route component={NotFound} />
-      </Switch>
+      <div className="o-container">
+        <Switch>
+          <Route path="/" exact component={HomePage} />
+          <Route path="/about" exact component={About} />
+          <Route path="/posts/:id" exact component={PostPage} />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
     </div>
   </Worker>
 );
