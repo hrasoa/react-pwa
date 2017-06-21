@@ -1,28 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import PostListingItem from './PostListingItem';
 
-class PostListing extends Component {
-  componentDidMount() {
-    this.props.fetchPosts();
-  }
-
-  render() {
-    return (
-      <ul className="c-post-listing">
-        {this.props.posts.map(post => (
-          <li key={post.id}>
-            <PostListingItem {...post} />
-          </li>)
-        )}
-      </ul>
-    );
-  }
-}
+const PostListing = ({ latestPosts: { ids }, posts }) => (
+  <ul className="c-post-listing">
+    {ids && ids.map(postId => (
+      <li key={postId}>
+        <PostListingItem {...posts[postId]} />
+      </li>)
+    )}
+  </ul>
+);
 
 PostListing.propTypes = {
-  fetchPosts: PropTypes.func.isRequired,
-  posts: PropTypes.arrayOf(PropTypes.object).isRequired
+  latestPosts: PropTypes.shape({
+    ids: PropTypes.array
+  }).isRequired,
+  posts: PropTypes.shape({
+    id: PropTypes.number
+  }).isRequired
 };
 
 export default PostListing;

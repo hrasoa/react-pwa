@@ -1,13 +1,29 @@
+import url from 'url';
 import express from 'express';
 import axios from 'axios';
 
 const router = express.Router();
 
+const getPosts = (params = {}) => {
+  const perPage = parseInt(params.query && params.query._perPage || 10, 10);
+  const page = parseInt(params.query && params.query._page || 1, 10);
+  return axios.get('https://jsonplaceholder.typicode.com/posts')
+    .then(response =>
+      response.data.slice((page - 1) * perPage, (page - 1) * perPage + perPage));
+};
+
+const getPictures = (params = {}) => {
+  const perPage = parseInt(params.query && params.query._perPage || 10, 10);
+  const page = parseInt(params.query && params.query._page || 1, 10);
+  return axios.get('https://unsplash.it/list')
+    .then(response =>
+      response.data.slice((page - 1) * perPage, (page - 1) * perPage + perPage));
+};
+
 router.get('/posts', (req, res) => {
-  axios.get('https://jsonplaceholder.typicode.com/posts')
-    .then(response => {
-      res.send(response.data.map(({ id, title }) => ({ id, title })));
-    });
+  getPosts(url.parse(req.url, true)).then(data => {
+    res.send(data);
+  });
 });
 
 router.get('/posts/:id', (req, res) => {
@@ -18,18 +34,14 @@ router.get('/posts/:id', (req, res) => {
 });
 
 router.get('/pictures', (req, res) => {
-  axios.get('https://unsplash.it/list')
-    .then(response => {
-      res.send(response.data);
-    });
+  getPictures(url.parse(req.url, true)).then(data => {
+    res.send(data);
+  });
 });
 
 router.get('/home', (req, res) => {
-  const posts = axios.get('https://jsonplaceholder.typicode.com/posts')
-    .then(response => response.data.map(({ id, title }) => ({ id, title })));
-  const pictures = axios.get('https://unsplash.it/list')
-    .then(response => response.data);
-
+  const posts = getPosts();
+  const pictures = getPictures();
   Promise.all([ posts, pictures ]).then(results => {
     res.send({
       latestPosts: results[0],

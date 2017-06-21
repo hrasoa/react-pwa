@@ -13,16 +13,10 @@ const Post = ({ id, title, body }) => (
   </div>
 );
 
-Post.defaultProps = {
-  title: '',
-  body: '',
-  id: 0
-};
-
 Post.propTypes = {
-  title: PropTypes.string,
-  body: PropTypes.string,
-  id: PropTypes.number
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired
 };
 
 export default Post;

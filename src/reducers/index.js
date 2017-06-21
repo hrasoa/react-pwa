@@ -4,7 +4,7 @@ import * as ActionTypes from '../actions/index';
 import paginate from './paginate';
 
 // Updates an entity cache in response to any action with response.entities.
-function entities(state = {}, action) {
+function entities(state = { posts: {}, pictures: {} }, action) {
   if (action.response && action.response.entities) {
     return merge({}, state, action.response.entities);
   }

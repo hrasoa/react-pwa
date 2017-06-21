@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { loadHomePage } from '../actions/index';
 import Home from '../components/Home';
 
@@ -19,7 +18,7 @@ HomePage.propTypes = {
   loadHomePage: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   const {
     entities: { posts, pictures },
     pagination: { latestPosts, latestPictures }
@@ -33,4 +32,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps, { loadHomePage })(HomePage));
+export default connect(mapStateToProps, { loadHomePage })(HomePage);
