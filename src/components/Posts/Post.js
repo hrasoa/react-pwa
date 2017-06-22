@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Post = ({ id, title, body }) => (
+const Post = ({ post: { id, title, body } }) => (
   <div className="c-content">
     <Helmet>
       <title>{title}</title>
@@ -14,9 +14,9 @@ const Post = ({ id, title, body }) => (
 );
 
 Post.propTypes = {
-  title: PropTypes.string.isRequired,
-  body: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired
+  post: PropTypes.shape({
+    id: PropTypes.number
+  }).isRequired
 };
 
 export default Post;

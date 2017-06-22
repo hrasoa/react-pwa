@@ -17,21 +17,12 @@ class PostPage extends Component {
   }
 
   render() {
-    const post = this.props.post;
-    return <Post {...post} />;
+    return <Post {...this.props} />;
   }
 }
 
-PostPage.defaultProps = {
-  id: 0,
-  post: {}
-};
-
 PostPage.propTypes = {
-  id: PropTypes.number,
-  post: PropTypes.shape({
-    id: PropTypes.number
-  }),
+  id: PropTypes.number.isRequired,
   loadPostPage: PropTypes.func.isRequired
 };
 
@@ -43,7 +34,7 @@ const mapStateToProps = (state, { match }) => {
 
   return {
     id,
-    post: posts[id]
+    post: posts[id] || {}
   };
 };
 

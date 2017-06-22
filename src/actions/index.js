@@ -32,7 +32,7 @@ export const home = {
 export const LOAD_POST_PAGE = 'LOAD_POST_PAGE';
 export const LOAD_HOME_PAGE = 'LOAD_HOME_PAGE';
 
-export const loadPostPage = (id, requiredFields = []) =>
+export const loadPostPage = (id, requiredFields = ['id', 'title', 'body']) =>
   action(LOAD_POST_PAGE, { id, requiredFields });
 
 export const loadHomePage = () =>
