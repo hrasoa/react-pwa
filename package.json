@@ -71,6 +71,7 @@
     "nodemon": "^1.11.0",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.17.0",
+    "stylelint-webpack-plugin": "^0.7.1",
     "sw-precache": "^5.1.1",
     "uglify-js": "git://github.com/mishoo/UglifyJS2#harmony-v2.8.22",
     "webpack": "^2.5.1",

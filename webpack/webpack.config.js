@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const HappyPack = require('happypack');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 const webpackProdConfig = require('./webpack.config.prod');
 const webpackDllConfig = require('./webpack.dll');
 const dllVendor = webpackDllConfig.entry.vendor;
@@ -55,6 +56,9 @@ module.exports = [{
     }),
     new HappyPack({
       loaders: ['babel-loader', 'eslint-loader']
+    }),
+    new StyleLintPlugin({
+      configFile: '.stylelintrc'
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
