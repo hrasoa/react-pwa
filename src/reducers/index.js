@@ -11,12 +11,19 @@ function entities(state = { posts: {}, pictures: {} }, action) {
   return state;
 }
 
+const getResultByKey = (action, key) => {
+  if (!action.response || !action.response.result) {
+    return action;
+  }
+  return {
+    ...action,
+    response: { ...action.response, result: action.response.result[key] }
+  };
+};
+
 const pagination = combineReducers({
   latestPosts: paginate({
-    mapActionResults: action => ({
-      ...action,
-      response: { ...action.response, result: action.response.result.latestPosts }
-    }),
+    mapActionResults: action => getResultByKey(action, 'latestPosts'),
     types: [
       ActionTypes.HOME.REQUEST,
       ActionTypes.HOME.SUCCESS,
@@ -24,10 +31,7 @@ const pagination = combineReducers({
     ]
   }),
   latestPictures: paginate({
-    mapActionResults: action => ({
-      ...action,
-      response: { ...action.response, result: action.response.result.latestPictures }
-    }),
+    mapActionResults: action => getResultByKey(action, 'latestPictures'),
     types: [
       ActionTypes.HOME.REQUEST,
       ActionTypes.HOME.SUCCESS,

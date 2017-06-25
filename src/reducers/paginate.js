@@ -45,7 +45,6 @@ export default function paginate({ types, mapActionResults = action => action })
     switch (action.type) {
       case requestType:
       case failureType:
-        return merge({}, state, updatePagination(state, action));
       case successType:
         return merge({}, state, updatePagination(state, mapActionResults(action)));
       default:
