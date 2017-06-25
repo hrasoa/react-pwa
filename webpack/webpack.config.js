@@ -57,9 +57,7 @@ module.exports = [{
     new HappyPack({
       loaders: ['babel-loader', 'eslint-loader']
     }),
-    new StyleLintPlugin({
-      configFile: '.stylelintrc'
-    }),
+    new StyleLintPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
