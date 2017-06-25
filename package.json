@@ -31,6 +31,7 @@
     "express": "^4.14.0",
     "helmet": "^3.6.1",
     "lodash.merge": "^4.6.0",
+    "lodash.union": "^4.6.0",
     "normalizr": "^3.2.3",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",

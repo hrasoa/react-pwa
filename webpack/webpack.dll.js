@@ -9,6 +9,7 @@ module.exports = {
     vendor: [
       'axios',
       'lodash.merge',
+      'lodash.union',
       'prop-types',
       'normalizr',
       'react',
