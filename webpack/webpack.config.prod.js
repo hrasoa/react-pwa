@@ -10,7 +10,19 @@ const extractCritical = new ExtractTextPlugin('critical.css');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const extractConfig = {
   fallback: 'style-loader',
-  use: ['css-loader', 'sass-loader']
+  use: [
+    'css-loader',
+    {
+      loader: 'postcss-loader',
+      options: {
+        plugins: [
+          require('autoprefixer'),
+          require('cssnano')
+        ]
+      }
+    },
+    'sass-loader'
+  ]
 };
 const srcDir = path.resolve(__dirname, '../src');
 

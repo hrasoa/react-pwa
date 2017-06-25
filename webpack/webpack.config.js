@@ -51,9 +51,9 @@ module.exports = [{
           {
             loader: 'postcss-loader',
             options: {
-              config: {
-                path: path.resolve(__dirname, 'postcss.config.js')
-              }
+              plugins: [
+                require('autoprefixer')
+              ]
             }
           },
           'sass-loader'
