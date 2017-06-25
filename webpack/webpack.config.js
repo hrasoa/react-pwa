@@ -45,7 +45,19 @@ module.exports = [{
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              config: {
+                path: path.resolve(__dirname, 'postcss.config.js')
+              }
+            }
+          },
+          'sass-loader'
+        ],
         include: srcDir
       }
     ]

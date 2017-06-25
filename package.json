@@ -45,6 +45,7 @@
     "serve-favicon": "^2.4.3"
   },
   "devDependencies": {
+    "autoprefixer": "^7.1.1",
     "babel-cli": "^6.16.0",
     "babel-eslint": "^7.0.0",
     "babel-jest": "^20.0.3",
@@ -69,6 +70,7 @@
     "jest": "^20.0.4",
     "node-sass": "^4.5.2",
     "nodemon": "^1.11.0",
+    "postcss-loader": "^2.0.6",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.17.0",
     "stylelint-webpack-plugin": "^0.7.1",
