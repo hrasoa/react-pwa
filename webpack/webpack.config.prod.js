@@ -4,6 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const HappyPack = require('happypack');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 const extractBundle = new ExtractTextPlugin('[name].[chunkhash].css');
 const extractCritical = new ExtractTextPlugin('critical.css');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -55,6 +56,7 @@ module.exports = {
     new HappyPack({
       loaders: [ 'babel-loader', 'eslint-loader' ]
     }),
+    new StyleLintPlugin(),
     extractCritical,
     extractBundle,
     new webpack.DllReferencePlugin({
