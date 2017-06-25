@@ -2,7 +2,9 @@ import url from 'url';
 import express from 'express';
 import axios from 'axios';
 
+
 const router = express.Router();
+
 
 const getPaginated = (url, params = {}) => {
   const perPage = parseInt(params.query && params.query._perPage || 10, 10);
@@ -21,14 +23,17 @@ const getPaginated = (url, params = {}) => {
     });
 };
 
+
 const getPosts = getPaginated.bind(null, 'https://jsonplaceholder.typicode.com/posts');
 const getPictures = getPaginated.bind(null, 'https://unsplash.it/list');
+
 
 router.get('/posts', (req, res) => {
   getPosts(url.parse(req.url, true)).then(data => {
     res.send(data);
   });
 });
+
 
 router.get('/posts/:id', (req, res) => {
   axios.get(`https://jsonplaceholder.typicode.com/posts/${req.params.id}`)
@@ -37,11 +42,13 @@ router.get('/posts/:id', (req, res) => {
     });
 });
 
+
 router.get('/pictures', (req, res) => {
   getPictures(url.parse(req.url, true)).then(data => {
     res.send(data);
   });
 });
+
 
 router.get('/home', (req, res) => {
   const posts = getPosts({ query: { fl: 'id,title' } });
