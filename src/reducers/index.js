@@ -3,6 +3,7 @@ import merge from 'lodash.merge';
 import * as ActionTypes from '../actions/index';
 import paginate from './paginate';
 
+
 // Updates an entity cache in response to any action with response.entities.
 function entities(state = { posts: {}, pictures: {} }, action) {
   if (action.response && action.response.entities) {
@@ -10,6 +11,7 @@ function entities(state = { posts: {}, pictures: {} }, action) {
   }
   return state;
 }
+
 
 const getResultByKey = (action, key) => {
   if (!action.response || !action.response.result) {
@@ -20,6 +22,7 @@ const getResultByKey = (action, key) => {
     response: { ...action.response, result: action.response.result[key] }
   };
 };
+
 
 const pagination = combineReducers({
   latestPosts: paginate({

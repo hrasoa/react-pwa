@@ -41,6 +41,7 @@ function* loadPost(id, requiredFields) {
   }
 }
 
+
 function* loadHome() {
   const loadedLatestPosts = yield select(getLatestPosts);
   const loadedLatestPictures = yield select(getLatestPictures);
@@ -52,6 +53,7 @@ function* loadHome() {
   }
 }
 
+
 function* watchLoadPostPage() {
   while (true) {
     const { id, requiredFields = [] } = yield take(actions.LOAD_POST_PAGE);
@@ -59,12 +61,14 @@ function* watchLoadPostPage() {
   }
 }
 
+
 function* watchLoadHomePage() {
   while (true) {
     yield take(actions.LOAD_HOME_PAGE);
     yield fork(loadHome);
   }
 }
+
 
 export default function* root() {
   yield all([
