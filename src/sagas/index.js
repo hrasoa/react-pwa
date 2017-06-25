@@ -9,7 +9,11 @@ import {
 } from 'redux-saga/effects';
 import api from '../services/index';
 import * as actions from '../actions/index';
-import getPost from '../reducers/selectors/index';
+import {
+  getPost,
+  getLatestPictures,
+  getLatestPosts
+} from '../reducers/selectors';
 
 
 const { home, post } = actions;
@@ -38,7 +42,14 @@ function* loadPost(id, requiredFields) {
 }
 
 function* loadHome() {
-  yield call(fetchHome, null);
+  const loadedLatestPosts = yield select(getLatestPosts);
+  const loadedLatestPictures = yield select(getLatestPictures);
+  if (
+    !loadedLatestPosts || !loadedLatestPosts.pageCount ||
+    !loadedLatestPictures || !loadedLatestPictures.pageCount
+  ) {
+    yield call(fetchHome, null);
+  }
 }
 
 function* watchLoadPostPage() {
