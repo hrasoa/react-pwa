@@ -45,10 +45,7 @@ function* loadPost(id, requiredFields) {
 function* loadHome() {
   const loadedLatestPosts = yield select(getLatestPosts);
   const loadedLatestPictures = yield select(getLatestPictures);
-  if (
-    !loadedLatestPosts || !loadedLatestPosts.pageCount ||
-    !loadedLatestPictures || !loadedLatestPictures.pageCount
-  ) {
+  if (!loadedLatestPosts.pageCount || !loadedLatestPictures.pageCount) {
     yield call(fetchHome, null);
   }
 }

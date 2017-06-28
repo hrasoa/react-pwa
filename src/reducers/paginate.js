@@ -8,6 +8,13 @@ export default function paginate({
   mapActionToKey,
   mapActionResults = action => action
 }) {
+  const defaultState = {
+    isFetching: false,
+    nextPageUrl: null,
+    pageCount: 0,
+    ids: []
+  };
+
   if (!Array.isArray(types) || types.length !== 3) {
     throw new Error('Expected types to be an array of three elements.');
   }
@@ -18,12 +25,7 @@ export default function paginate({
 
   const [requestType, successType, failureType] = types;
 
-  function updatePagination(state = {
-    isFetching: false,
-    nextPageUrl: undefined,
-    pageCount: 0,
-    ids: []
-  }, action) {
+  function updatePagination(state = defaultState, action) {
     switch (action.type) {
       case requestType:
         return merge({}, state, {
@@ -46,7 +48,7 @@ export default function paginate({
     }
   }
 
-  return function updatePaginationByKey(state = {}, action) {
+  return (state = mapActionToKey ? {} : defaultState, action) => {
     switch (action.type) {
       case requestType:
       case failureType:
