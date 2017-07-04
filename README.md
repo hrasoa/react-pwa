@@ -20,7 +20,7 @@ or
 
 | | Dev | Production
 --- | --- | ---
-Hot Module Reload | :+1: |
+Hot Module Replacement | :+1: |
 Server Side Rendering | :+1: | :+1:
 Chunknames | | :+1:
 Service Worker (assets, offline support) | | :+1:
