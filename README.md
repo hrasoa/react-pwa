@@ -1,18 +1,13 @@
 # React Progressive Web Application
 
-### Install
+### Getting started
 
-    $ yarn 
-
-or
-
-    $ npm install
-
-### Run dev environment
-
+    $ git clone git@github.com:hrasoa/react-pwa.git app
+    $ cd app
+    $ yarn (or npm i)
     $ npm run start:dev
     
-### Run production build
+### Run the production build
 
     $ npm run build && npm start
     
