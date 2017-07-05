@@ -2,8 +2,7 @@ import merge from 'lodash.merge';
 
 export default function loader({
   types,
-  mapActionToKey,
-  mapActionResults = action => action
+  mapActionToKey
 }) {
   const defaultState = {
     isFetching: false,
@@ -52,10 +51,10 @@ export default function loader({
         if (mapActionToKey) {
           const key = mapActionToKey(action);
           return merge({}, state, {
-            [key]: updateLoader(state[key], mapActionResults(action))
+            [key]: updateLoader(state[key], action)
           });
         }
-        return merge({}, state, updateLoader(state, mapActionResults(action)));
+        return merge({}, state, updateLoader(state, action));
       default:
         return state;
     }
