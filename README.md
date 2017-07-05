@@ -1,6 +1,6 @@
 # React Progressive Web Application
 
-### Getting started
+## Getting started
 
     $ git clone git@github.com:hrasoa/react-pwa.git app
     $ cd app
@@ -11,7 +11,7 @@
 
     $ npm run build && npm start
     
-### Features per environment
+## Features per environment
 
 | | Dev | Production
 --- | --- | ---
