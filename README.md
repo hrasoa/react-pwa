@@ -7,7 +7,7 @@
     $ yarn
     $ npm run start:dev
     
-### Run the production build
+Run the production build:
 
     $ npm run build && npm start
     
