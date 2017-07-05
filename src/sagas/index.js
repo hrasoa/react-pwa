@@ -20,12 +20,12 @@ const { home, post } = actions;
 
 
 function* fetchEntity(entity, apiFn, id) {
-  yield put(entity.request(id));
+  yield put(entity.request({ id }));
   const { response, error } = yield call(apiFn, id);
   if (response) {
-    yield put(entity.success(id, response));
+    yield put(entity.success({ id, response }));
   } else {
-    yield put(entity.failure(id, error));
+    yield put(entity.failure({ id, error }));
   }
 }
 

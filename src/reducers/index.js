@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import merge from 'lodash.merge';
 import * as ActionTypes from '../actions/index';
+import loader from './loader';
 import paginate from './paginate';
 
 
@@ -24,6 +25,18 @@ const getResultByKey = (action, key) => {
 };
 
 
+const ui = combineReducers({
+  postContent: loader({
+    mapActionToKey: action => action.id,
+    types: [
+      ActionTypes.POST.REQUEST,
+      ActionTypes.POST.SUCCESS,
+      ActionTypes.POST.FAILURE
+    ]
+  })
+});
+
+
 const pagination = combineReducers({
   latestPosts: paginate({
     mapActionResults: action => getResultByKey(action, 'latestPosts'),
@@ -43,7 +56,9 @@ const pagination = combineReducers({
   })
 });
 
+
 export default combineReducers({
   entities,
-  pagination
+  pagination,
+  ui
 });

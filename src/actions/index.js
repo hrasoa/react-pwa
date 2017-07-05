@@ -21,16 +21,16 @@ export const HOME = createRequestTypes('HOME');
 
 
 export const post = {
-  request: id => action(POST[REQUEST], { id }),
-  success: (id, response) => action(POST[SUCCESS], { id, response }),
-  failure: (id, error) => action(POST[FAILURE], { id, error })
+  request: ({ id }) => action(POST[REQUEST], { id }),
+  success: ({ id, response }) => action(POST[SUCCESS], { id, response }),
+  failure: ({ id, error }) => action(POST[FAILURE], { id, error })
 };
 
 
 export const home = {
-  request: id => action(HOME[REQUEST], { id }),
-  success: (id, response) => action(HOME[SUCCESS], { id, response }),
-  failure: (id, error) => action(HOME[FAILURE], { id, error })
+  request: () => action(HOME[REQUEST]),
+  success: ({ response }) => action(HOME[SUCCESS], { response }),
+  failure: ({ error }) => action(HOME[FAILURE], { error })
 };
 
 
