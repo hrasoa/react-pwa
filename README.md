@@ -4,7 +4,7 @@
 
     $ git clone git@github.com:hrasoa/react-pwa.git app
     $ cd app
-    $ yarn (or npm i)
+    $ yarn
     $ npm run start:dev
     
 ### Run the production build
