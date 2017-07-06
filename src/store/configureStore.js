@@ -1,3 +1,4 @@
+/* eslint-disable global-require, no-underscore-dangle */
 import {
   applyMiddleware,
   createStore,
@@ -7,10 +8,8 @@ import createSagaMiddleware, { END } from 'redux-saga';
 import rootReducer from '../reducers/index';
 
 export default function configureStore(initialState) {
-  /* eslint-disable no-underscore-dangle */
   const composeEnhancers = (typeof window !== 'undefined' &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
-  /* eslint-enable */
 
   const sagaMiddleware = createSagaMiddleware();
   const store = createStore(
@@ -20,6 +19,13 @@ export default function configureStore(initialState) {
       sagaMiddleware
     ))
   );
+
+  if (module.hot) {
+    module.hot.accept('../reducers/index', () => {
+      const nextRootReducer = require('../reducers/index').default;
+      store.replaceReducer(nextRootReducer);
+    });
+  }
 
   store.runSaga = sagaMiddleware.run;
   store.close = () => store.dispatch(END);

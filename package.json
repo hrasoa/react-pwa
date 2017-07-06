@@ -10,6 +10,7 @@
     "build:pw": "npm run manifest && npm run precache",
     "clean": "rm -f public/*",
     "manifest": "cp src/manifest.json public/manifest.json",
+    "postinstall": "npm run build:dll",
     "precache": "babel-node scripts/precache.js",
     "start": "NODE_ENV=production babel-node server/server.js",
     "start:dev": "nodemon --exec 'babel-node server/server.js'",
@@ -42,6 +43,7 @@
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "redux-saga": "^0.15.3",
+    "regenerator-runtime": "^0.10.5",
     "serve-favicon": "^2.4.3"
   },
   "devDependencies": {

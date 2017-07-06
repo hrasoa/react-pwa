@@ -30,7 +30,6 @@ module.exports = {
   cache: true,
   entry: {
     bundle: [
-      'regenerator-runtime/runtime',
       path.join(srcDir, 'index.js')
     ]
   },
