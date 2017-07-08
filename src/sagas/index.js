@@ -25,7 +25,7 @@ function* fetchEntity(entity, apiFn, id) {
   const source = api.getTokenSource();
   try {
     yield put(entity.request({ id }));
-    const { response, error } = yield call(apiFn, { id, token: source.token });
+    const { response, error } = yield call(apiFn, { id, cancelToken: source.token });
     if (response) {
       yield put(entity.success({ id, response }));
     } else {

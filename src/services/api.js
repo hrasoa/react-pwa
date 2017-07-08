@@ -6,11 +6,9 @@ import axios from 'axios';
 import config from '../../config';
 
 
-function callApi(endpoint, entitySchema, token) {
+function callApi(endpoint, entitySchema, cancelToken) {
   const fullUrl = `${((typeof window === 'undefined') ? config.serverUrl : '')}/api/${endpoint}`;
-  return axios.get(fullUrl, {
-    cancelToken: token
-  })
+  return axios.get(fullUrl, { cancelToken })
     .then(response => ({ response: normalize(response.data, entitySchema) }))
     .catch(error => ({ error: error.message || 'Something bad happened' }));
 }
@@ -32,7 +30,7 @@ const homeSchema = new schema.Object({
 });
 
 
-export const fetchPost = ({ id, token }) => callApi(`posts/${id}`, postSchema, token);
-export const fetchPosts = ({ token }) => callApi('posts', postsSchema, token);
-export const fetchPictures = ({ token }) => callApi('pictures', picturesSchema, token);
-export const fetchHome = ({ token }) => callApi('home', homeSchema, token);
+export const fetchPost = ({ id, cancelToken }) => callApi(`posts/${id}`, postSchema, cancelToken);
+export const fetchPosts = ({ cancelToken }) => callApi('posts', postsSchema, cancelToken);
+export const fetchPictures = ({ cancelToken }) => callApi('pictures', picturesSchema, cancelToken);
+export const fetchHome = ({ cancelToken }) => callApi('home', homeSchema, cancelToken);
