@@ -74,7 +74,9 @@ function* watchLoadPostPage() {
 function* watchLoadHomePage() {
   while (true) {
     yield take(actions.LOAD_HOME_PAGE);
-    yield fork(loadHome);
+    const task = yield fork(loadHome);
+    yield take(actions.LEAVE_HOME_PAGE);
+    yield cancel(task);
   }
 }
 

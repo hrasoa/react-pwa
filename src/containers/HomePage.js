@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { loadHomePage } from '../actions/index';
+import {
+  loadHomePage,
+  leaveHomePage
+} from '../actions/index';
 import Home from '../components/Home';
 
 class HomePage extends Component {
   componentWillMount() {
     this.props.loadHomePage();
+  }
+
+  componentWillUnmount() {
+    this.props.leaveHomePage();
   }
 
   render() {
@@ -15,7 +22,8 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
-  loadHomePage: PropTypes.func.isRequired
+  loadHomePage: PropTypes.func.isRequired,
+  leaveHomePage: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
@@ -32,4 +40,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { loadHomePage })(HomePage);
+export default connect(mapStateToProps, {
+  loadHomePage,
+  leaveHomePage
+})(HomePage);
