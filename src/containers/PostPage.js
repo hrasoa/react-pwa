@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { loadPostPage } from '../actions/index';
+import {
+  loadPostPage,
+  leavePostPage
+} from '../actions/index';
 import Post from '../components/Posts/Post';
 
 class PostPage extends Component {
@@ -16,6 +19,10 @@ class PostPage extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.leavePostPage();
+  }
+
   render() {
     return <Post {...this.props} />;
   }
@@ -23,7 +30,8 @@ class PostPage extends Component {
 
 PostPage.propTypes = {
   id: PropTypes.number.isRequired,
-  loadPostPage: PropTypes.func.isRequired
+  loadPostPage: PropTypes.func.isRequired,
+  leavePostPage: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, { match }) => {
@@ -38,4 +46,7 @@ const mapStateToProps = (state, { match }) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps, { loadPostPage })(PostPage));
+export default withRouter(connect(mapStateToProps, {
+  loadPostPage,
+  leavePostPage
+})(PostPage));

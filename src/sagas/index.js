@@ -1,5 +1,7 @@
 /* eslint-disable no-constant-condition */
 import {
+  cancel,
+  cancelled,
   take,
   put,
   call,
@@ -20,12 +22,20 @@ const { home, post } = actions;
 
 
 function* fetchEntity(entity, apiFn, id) {
-  yield put(entity.request({ id }));
-  const { response, error } = yield call(apiFn, id);
-  if (response) {
-    yield put(entity.success({ id, response }));
-  } else {
-    yield put(entity.failure({ id, error }));
+  const source = api.getTokenSource();
+  try {
+    yield put(entity.request({ id }));
+    const { response, error } = yield call(apiFn, { id, token: source.token });
+    if (response) {
+      yield put(entity.success({ id, response }));
+    } else {
+      yield put(entity.failure({ id, error }));
+    }
+  } finally {
+    if (yield cancelled()) {
+      source.cancel();
+      yield put(entity.failure({ id }));
+    }
   }
 }
 
@@ -54,7 +64,9 @@ function* loadHome() {
 function* watchLoadPostPage() {
   while (true) {
     const { id, requiredFields = [] } = yield take(actions.LOAD_POST_PAGE);
-    yield fork(loadPost, id, requiredFields);
+    const task = yield fork(loadPost, id, requiredFields);
+    yield take(actions.LEAVE_POST_PAGE);
+    yield cancel(task);
   }
 }
 
