@@ -5,12 +5,12 @@ import {
 } from 'redux-saga/effects';
 import rootSaga from './index';
 
-const sagas = [rootSaga];
 
 export const CANCEL_SAGAS_HMR = 'CANCEL_SAGAS_HMR';
 
+
 function createAbortableSaga(saga) {
-  if (process.env.NODE_ENV === 'development') {
+  if (module.hot) {
     return function* main() {
       const sagaTask = yield fork(saga);
       yield take(CANCEL_SAGAS_HMR);
@@ -20,9 +20,11 @@ function createAbortableSaga(saga) {
   return saga;
 }
 
-const SagaManager = {
+
+const sagaManager = {
   startSagas(sagaMiddleware) {
-    sagas.map(createAbortableSaga).forEach(saga => sagaMiddleware.run(saga));
+    const saga = createAbortableSaga(rootSaga);
+    return sagaMiddleware.run(saga);
   },
 
   cancelSagas(store) {
@@ -32,4 +34,4 @@ const SagaManager = {
   }
 };
 
-export default SagaManager;
+export default sagaManager;

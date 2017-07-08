@@ -6,7 +6,6 @@ import { StaticRouter } from 'react-router-dom';
 import App from '../src/components/App';
 import configureStore from '../src/store/configureStore';
 import manifest from '../src/manifest.json';
-import rootSaga from '../src/sagas/index';
 
 const defaultAssetsManifest = {
   bundleCss: 'bundle.css',
@@ -33,7 +32,7 @@ export default function serverRenderer({
       </Provider>
     );
 
-    store.runSaga(rootSaga).done.then(() => {
+    store.runSaga().done.then(() => {
       if (context.url) {
         res.writeHead(301, {
           Location: context.url

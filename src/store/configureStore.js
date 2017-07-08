@@ -6,9 +6,9 @@ import {
 } from 'redux';
 import createSagaMiddleware, { END } from 'redux-saga';
 import rootReducer from '../reducers/index';
-import SagaManager from '../sagas/sagaManager';
+import sagaManager from '../sagas/sagaManager';
 
-export default function configureStore(initialState) {
+export default function configureStore(initialState, start) {
   const composeEnhancers = (typeof window !== 'undefined' &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
@@ -21,9 +21,6 @@ export default function configureStore(initialState) {
     ))
   );
 
-  // run sagas
-  SagaManager.startSagas(sagaMiddleware);
-
   if (module.hot) {
     module.hot.accept('../reducers/index', () => {
       const nextRootReducer = require('../reducers/index').default;
@@ -31,12 +28,12 @@ export default function configureStore(initialState) {
     });
 
     module.hot.accept('../sagas/sagaManager', () => {
-      SagaManager.cancelSagas(store);
+      sagaManager.cancelSagas(store);
       require('../sagas/sagaManager').default.startSagas(sagaMiddleware);
     });
   }
 
-  store.runSaga = sagaMiddleware.run;
+  store.runSaga = sagaManager.startSagas.bind(null, sagaMiddleware);
   store.close = () => store.dispatch(END);
 
   return store;

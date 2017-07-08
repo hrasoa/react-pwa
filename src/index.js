@@ -5,14 +5,13 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import configureStore from './store/configureStore';
-import rootSaga from './sagas/index';
 import AppContainer from './containers/AppContainer';
 
 import './critical.scss';
 import './style.scss';
 
 const store = configureStore(window.__INITIAL_STATE__);
-store.runSaga(rootSaga);
+store.runSaga();
 delete window.__INITIAL_STATE__;
 
 const render = () => {
