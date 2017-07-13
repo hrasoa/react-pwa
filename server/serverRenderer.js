@@ -13,12 +13,23 @@ const defaultAssetsManifest = {
   vendorJs: 'vendor.js'
 };
 
+const isProd = process.env.NODE_ENV === 'production';
+
 export default function serverRenderer({
   clientStats,
   serverStats,
   assetsManifest = defaultAssetsManifest
 }) {
   return (req, res) => {
+    if (isProd === false) {
+      res.status(200).render('index', {
+        initialMarkup: '',
+        assetsManifest,
+        isProd
+      });
+      return res.end();
+    }
+
     const store = configureStore();
     const context = {};
     const rootComp = (
@@ -46,7 +57,7 @@ export default function serverRenderer({
           initialState: JSON.stringify(store.getState()),
           manifest,
           assetsManifest,
-          prod: process.env.NODE_ENV === 'production'
+          isProd
         });
         res.end();
       }
@@ -55,6 +66,6 @@ export default function serverRenderer({
     });
 
     renderToString(rootComp);
-    store.close();
+    return store.close();
   };
 }
