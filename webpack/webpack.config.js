@@ -26,6 +26,7 @@ module.exports = [{
   output: {
     path: webpackProdConfig.output.path,
     filename: '[name].js',
+    chunkFilename: '[name].js',
     publicPath: '/'
   },
   devtool: 'source-map',
@@ -79,7 +80,8 @@ module.exports = [{
   entry: path.resolve(__dirname, '../server/serverRenderer.js'),
   output: {
     path: webpackProdConfig.output.path,
-    filename: 'server.js',
+    filename: '[name].server.js',
+    chunkFilename: '[name].server.js',
     libraryTarget: 'commonjs2'
   },
   module: {

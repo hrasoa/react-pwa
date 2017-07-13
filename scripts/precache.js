@@ -13,7 +13,7 @@ swPrecache.generate({
   verbose: true,
   dontCacheBustUrlsMatching: /./,
   staticFileGlobs: [
-    `${publicDir}/{bundle,vendor}.*.{js,css,gz}`,
+    `${publicDir}/*.{js,css,gz}`,
     `${publicDir}/manifest.json`
   ],
   importScripts: [

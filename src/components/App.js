@@ -7,7 +7,7 @@ import {
 import HomePage from '../containers/HomePage';
 import PostPage from '../containers/PostPage';
 import Worker from '../containers/Worker';
-import About from './About';
+import About from './AsyncAbout/index';
 import Nav from './Nav/Nav';
 import NotFound from './NotFound';
 

@@ -36,6 +36,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../public'),
     filename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].js',
     library: '[name]'
   },
   devtool: 'hidden-source-map',

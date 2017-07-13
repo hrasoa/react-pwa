@@ -13,6 +13,8 @@ module.exports = {
       'prop-types',
       'normalizr',
       'react',
+      'react-async-bootstrapper',
+      'react-async-component',
       'react-dom',
       'react-helmet',
       'react-redux',
