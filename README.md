@@ -16,7 +16,7 @@ To run the production build:
 | | Dev | Production
 --- | --- | ---
 Hot Module Replacement | :+1: |
-Server Side Rendering | :+1: | :+1:
+Server Side Rendering | | :+1:
 Chunknames | | :+1:
 Service Worker (precache, offline support) | | :+1:
 Minify + gzip | | :+1:
