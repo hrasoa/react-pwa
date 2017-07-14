@@ -4,12 +4,12 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-import HomePage from '../containers/HomePage';
-import PostPage from '../containers/PostPage';
+import HomePage from '../containers/AsyncHomePage/index';
+import PostPage from '../containers/AsyncPostPage/index';
 import Worker from '../containers/Worker';
 import About from './AsyncAbout/index';
 import Nav from './Nav/Nav';
-import NotFound from './NotFound';
+import NotFound from './AsyncNotFound/index';
 
 export default () => (
   <Worker>

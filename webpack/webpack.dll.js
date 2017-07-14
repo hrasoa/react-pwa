@@ -1,4 +1,4 @@
-const { resolve } = require('path');
+const path = require('path');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
@@ -32,7 +32,7 @@ module.exports = {
   plugins: [
     new webpack.DllPlugin({
       context: process.cwd(),
-      path: resolve(__dirname, '../dll/[name]-manifest.json'),
+      path: path.resolve(__dirname, '../dll/[name]-manifest.json'),
       name: '[name]'
     }),
     new webpack.optimize.UglifyJsPlugin({

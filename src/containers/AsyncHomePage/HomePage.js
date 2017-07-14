@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import {
   loadHomePage,
   leaveHomePage
-} from '../actions/index';
-import Home from '../components/Home';
+} from '../../actions/index';
+import Home from '../../components/Home';
 
 class HomePage extends Component {
   componentWillMount() {

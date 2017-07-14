@@ -5,8 +5,8 @@ import { withRouter } from 'react-router-dom';
 import {
   loadPostPage,
   leavePostPage
-} from '../actions/index';
-import Post from '../components/Posts/Post';
+} from '../../actions/index';
+import Post from '../../components/Posts/Post';
 
 class PostPage extends Component {
   componentWillMount() {

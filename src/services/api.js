@@ -3,7 +3,7 @@ import {
   schema
 } from 'normalizr';
 import axios from 'axios';
-import config from '../../config';
+import config from '../config';
 
 
 function callApi(endpoint, entitySchema, cancelToken) {

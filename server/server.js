@@ -6,7 +6,7 @@ import fs from 'fs';
 import gzipStatic from 'connect-gzip-static';
 import { resolve } from 'path';
 import apiRouter from './api/index';
-import config from '../config';
+import config from '../src/config';
 
 const app = express();
 

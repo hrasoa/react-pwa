@@ -1,7 +1,6 @@
 import swPrecache from 'sw-precache';
 import { resolve } from 'path';
 import fs from 'fs';
-import uglifyJs from 'uglify-js';
 import webpackConfig from '../webpack/webpack.config.prod';
 import pkg from '../package.json';
 import manifest from '../src/manifest.json';
