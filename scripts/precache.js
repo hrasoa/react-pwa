@@ -1,11 +1,11 @@
 import swPrecache from 'sw-precache';
 import { resolve } from 'path';
 import fs from 'fs';
-import webpackConfig from '../webpack/webpack.config.prod';
+import webpackConfig from '../webpack/config';
 import pkg from '../package.json';
 import manifest from '../src/manifest.json';
 
-const publicDir = webpackConfig.output.path;
+const publicDir = webpackConfig.paths.output;
 
 swPrecache.generate({
   cacheId: pkg.name,
@@ -42,15 +42,5 @@ swPrecache.generate({
     handler: 'cacheFirst'
   }]
 }).then((serviceWorkerString) => {
-  //fs.writeFile(`${publicDir}/sw.js`, uglifyJs.minify(serviceWorkerString).code);
   fs.writeFile(`${publicDir}/sw.js`, serviceWorkerString);
-});
-
-fs.readFile(resolve(__dirname, 'sw-scripts.js'), 'utf8', (err, data) => {
-  if (err) {
-    console.log(err);
-  }
-  //console.log('typeof data', uglifyJs.minify(data));
-  //fs.writeFile(`${publicDir}/sw-scripts.js`, uglifyJs.minify(data).code);
-  fs.writeFile(`${publicDir}/sw-scripts.js`, data);
 });

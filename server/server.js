@@ -21,6 +21,9 @@ app.set('views', resolve(__dirname, 'views'));
 app.get('/manifest.json', function(req, res) {
   res.sendFile(path.join(webpackCommonConfig.paths.src, 'manifest.json'))
 });
+app.get('/sw-scripts.js', function(req, res) {
+  res.sendFile(path.join(resolve(__dirname, '../scripts/sw-scripts.js')));
+});
 
 if (process.env.NODE_ENV !== 'production') {
   const webpack = require('webpack');

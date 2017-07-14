@@ -6,7 +6,7 @@ const cacheUrl = (url) => {
     'serviceWorker' in navigator &&
     navigator.serviceWorker.controller
   ) {
-    navigator.serviceWorker.controller.postMessage({ url });
+    navigator.serviceWorker.controller.postMessage({ action: 'navigate', url });
   }
 };
 
