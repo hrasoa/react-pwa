@@ -18,6 +18,9 @@ app.use(express.static('public'));
 app.use(favicon(webpackCommonConfig.paths.favicon));
 app.set('view engine', 'ejs');
 app.set('views', resolve(__dirname, 'views'));
+app.get('/manifest.json', function(req, res) {
+  res.sendFile(path.join(webpackCommonConfig.paths.src, 'manifest.json'))
+});
 
 if (process.env.NODE_ENV !== 'production') {
   const webpack = require('webpack');
