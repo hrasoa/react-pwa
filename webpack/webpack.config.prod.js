@@ -8,6 +8,7 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const extractBundle = new ExtractTextPlugin('[name].[chunkhash].css');
 const extractCritical = new ExtractTextPlugin('critical.css');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const commonConfig = require('./config');
 const extractConfig = {
   fallback: 'style-loader',
   use: [
@@ -24,21 +25,20 @@ const extractConfig = {
     'sass-loader'
   ]
 };
-const srcDir = path.resolve(__dirname, '../src');
 
 module.exports = {
   cache: true,
   entry: {
     bundle: [
-      path.join(srcDir, 'index.js')
+      commonConfig.paths.entry
     ]
   },
   output: {
-    path: path.resolve(__dirname, '../public'),
+    path: commonConfig.paths.output,
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].js',
     library: '[name]',
-    publicPath: '/'
+    publicPath: commonConfig.paths.publicPath
   },
   devtool: 'hidden-source-map',
   module: {
@@ -46,17 +46,17 @@ module.exports = {
       {
         test: /\.js$/,
         use: ['happypack/loader'],
-        include: srcDir
+        include: commonConfig.paths.src
       },
       {
         test: /style\.scss$/,
         use: extractBundle.extract(extractConfig),
-        include: srcDir
+        include: commonConfig.paths.src
       },
       {
         test: /critical\.scss$/,
         use: extractCritical.extract(extractConfig),
-        include: srcDir
+        include: commonConfig.paths.src
       }
     ]
   },
@@ -74,7 +74,7 @@ module.exports = {
     extractBundle,
     new webpack.DllReferencePlugin({
       context: process.cwd(),
-      manifest: require(path.resolve(__dirname, '../dll/vendor-manifest.json'))
+      manifest: require(commonConfig.paths.dllManifest)
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
@@ -88,7 +88,7 @@ module.exports = {
       minRatio: 0.8
     }),
     new ManifestPlugin({
-      fileName: 'bundle-manifest.json'
+      fileName: commonConfig.fileNames.bundleManifest
     }),
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',

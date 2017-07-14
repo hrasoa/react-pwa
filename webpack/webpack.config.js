@@ -2,14 +2,10 @@ const webpack = require('webpack');
 const path = require('path');
 const HappyPack = require('happypack');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
-const webpackProdConfig = require('./webpack.config.prod');
-const webpackDllConfig = require('./webpack.dll');
-const dllVendor = webpackDllConfig.entry.vendor;
-const devVendor = [
-  'react-hot-loader'
-];
-const vendor = [].concat(dllVendor, devVendor);
-const srcDir = path.resolve(__dirname, '../src');
+const commonConfig = require('./config');
+const prodVendor = commonConfig.vendors.production;
+const devVendor = commonConfig.vendors.dev;
+const vendor = [].concat(prodVendor, devVendor);
 
 module.exports = [{
   name: 'client',
@@ -19,29 +15,29 @@ module.exports = [{
       'react-hot-loader/patch',
       'webpack-hot-middleware/client',
       'webpack/hot/only-dev-server',
-      path.join(srcDir, 'index.js')
+      commonConfig.paths.entry
     ],
     vendor: vendor
   },
   output: {
-    path: webpackProdConfig.output.path,
+    path: commonConfig.paths.output,
     filename: '[name].js',
     chunkFilename: '[name].js',
-    publicPath: '/'
+    publicPath: commonConfig.paths.publicPath
   },
   devtool: 'source-map',
   devServer: {
     historyApiFallback: true,
     hot: true,
     publicPath: '/',
-    contentBase: webpackProdConfig.output.path
+    contentBase: commonConfig.paths.output
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         use: ['happypack/loader'],
-        include: srcDir
+        include: commonConfig.paths.src
       },
       {
         test: /\.scss$/,
@@ -58,7 +54,7 @@ module.exports = [{
           },
           'sass-loader'
         ],
-        include: srcDir
+        include: commonConfig.paths.src
       }
     ]
   },
@@ -79,7 +75,7 @@ module.exports = [{
   target: 'node',
   entry: path.resolve(__dirname, '../server/serverRenderer.js'),
   output: {
-    path: webpackProdConfig.output.path,
+    path: commonConfig.paths.output,
     filename: '[name].server.js',
     chunkFilename: '[name].server.js',
     libraryTarget: 'commonjs2'

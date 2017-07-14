@@ -7,14 +7,15 @@ import gzipStatic from 'connect-gzip-static';
 import { resolve } from 'path';
 import apiRouter from './api/index';
 import config from '../src/config';
+import webpackCommonConfig from '../webpack/config';
 
 const app = express();
 
 app.use(helmet());
 app.use('/api', apiRouter);
-app.use(gzipStatic(resolve(__dirname, '../public')));
+app.use(gzipStatic(webpackCommonConfig.paths.output));
 app.use(express.static('public'));
-app.use(favicon(resolve(__dirname, '../src/favicon.ico')));
+app.use(favicon(webpackCommonConfig.paths.favicon));
 app.set('view engine', 'ejs');
 app.set('views', resolve(__dirname, 'views'));
 
@@ -27,18 +28,17 @@ if (process.env.NODE_ENV !== 'production') {
   const bundler = webpack(webpackConfig);
   app.use(webpackDevMiddleware(bundler, {
     hot: true,
-    publicPath: '/',
+    publicPath: webpackCommonConfig.paths.publicPath,
     stats: 'minimal'
   }));
   app.use(webpackHotMiddleware(bundler.compilers.find(compiler => compiler.name === 'client')));
   app.use(webpackHotServerMiddleware(bundler));
 } else {
-  const webpackConfig = require('../webpack/webpack.config.prod');
   const serverRenderer = require('./serverRenderer').default;
-  const vendorManifest = require('../public/vendor-manifest.json');
-  const bundleManifest = require('../public/bundle-manifest.json');
+  const vendorManifest = require(webpackCommonConfig.paths.vendorManifest);
+  const bundleManifest = require(webpackCommonConfig.paths.bundleManifest);
   const criticalCss = fs.readFileSync(path.join(
-    webpackConfig.output.path,
+    webpackCommonConfig.paths.output,
     'critical.css'
   ), { encoding: 'utf8' });
   const assetsManifest = {

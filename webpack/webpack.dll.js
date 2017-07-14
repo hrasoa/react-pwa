@@ -2,37 +2,21 @@ const path = require('path');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const webpackProdConfig = require('./webpack.config.prod');
+const commonConfig = require('./config');
 
 module.exports = {
   entry: {
-    vendor: [
-      'axios',
-      'lodash.merge',
-      'lodash.union',
-      'prop-types',
-      'normalizr',
-      'react',
-      'react-async-bootstrapper',
-      'react-async-component',
-      'react-dom',
-      'react-helmet',
-      'react-redux',
-      'react-router-dom',
-      'redux',
-      'redux-saga',
-      'regenerator-runtime/runtime'
-    ]
+    vendor: commonConfig.vendors.production
   },
   output: {
-    path: webpackProdConfig.output.path,
+    path: commonConfig.paths.output,
     filename: '[name].[chunkhash].js',
     library: '[name]'
   },
   plugins: [
     new webpack.DllPlugin({
       context: process.cwd(),
-      path: path.resolve(__dirname, '../dll/[name]-manifest.json'),
+      path: commonConfig.paths.dllManifest,
       name: '[name]'
     }),
     new webpack.optimize.UglifyJsPlugin({
@@ -47,7 +31,7 @@ module.exports = {
       minRatio: 0.8
     }),
     new ManifestPlugin({
-      fileName: 'vendor-manifest.json'
+      fileName: commonConfig.fileNames.vendorManifest
     })
   ]
 };
