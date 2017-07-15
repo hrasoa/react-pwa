@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <% if (isProd === true) { %>
   <meta name="theme-color" content="<%- manifest.theme_color -%>" />
   <%- helmet.meta.toString() %>
   <%- helmet.title.toString() %>
+  <% if (isProd === true) { %>
   <style><%- assetsManifest.criticalCss -%></style>
   <link rel="preload" as="style" href="/<%- assetsManifest.bundleCss -%>" onload="this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="/<%- assetsManifest.bundleCss -%>"></noscript>
