@@ -40,7 +40,7 @@ export default function serverRenderer({
       </AsyncComponentProvider>
     );
 
-    return asyncBootstrapper(rootComp).then(() => {
+    asyncBootstrapper(rootComp).then(() => {
       store.runSaga().done.then(() => {
         if (context.url) {
           res.writeHead(301, {
