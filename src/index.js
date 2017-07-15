@@ -34,9 +34,8 @@ const App = Root => (
 
 const render = () => {
   import(/* webpackMode: "eager" */ './components/App').then((module) => {
-    const NewRoot = module.default;
     ReactDOM.render(
-      App(NewRoot),
+      App(module.default),
       document.getElementById('root')
     );
   });
