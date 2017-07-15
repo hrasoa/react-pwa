@@ -1,8 +1,8 @@
 {
   "name": "react-pwa",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "React progressive web application",
+  "main": "src/index.js",
   "scripts": {
     "build": "npm run clean && npm run build:vendor && npm run build:bundle && npm run precache",
     "build:bundle": "NODE_ENV=production webpack -p --config webpack/webpack.config.prod.js",
