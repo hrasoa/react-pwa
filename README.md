@@ -17,7 +17,7 @@ To run the production build:
 --- | --- | ---
 Hot Module Replacement | :+1: |
 Async Components | :+1: | :+1:
-Server Side Rendering | | :+1:
+Server Side Rendering | :+1: | :+1:
 Chunkhashes | | :+1:
 Service Worker (precache, offline support) | | :+1:
 Minify + gzip | | :+1:

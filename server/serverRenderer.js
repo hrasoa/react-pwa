@@ -23,15 +23,6 @@ export default function serverRenderer({
   assetsManifest = defaultAssetsManifest
 }) {
   return (req, res) => {
-    if (isProd === false) {
-      res.status(200).render('index', {
-        initialMarkup: '',
-        assetsManifest,
-        isProd
-      });
-      return res.end();
-    }
-
     const store = configureStore();
     const asyncContext = createAsyncContext();
     const context = {};

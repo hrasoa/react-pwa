@@ -34,12 +34,10 @@
 </head>
 <body>
   <div id="root"><%- initialMarkup -%></div>
-  <% if (isProd === true) { %>
   <script>
     window.__ASYNC_COMPONENTS_STATE__ = <%- asyncComponentsState -%>;
     window.__INITIAL_STATE__ = <%- initialState -%>;
   </script>
-  <% } %>
   <script src="/<%- assetsManifest.vendorJs -%>"></script>
   <script src="/<%- assetsManifest.bundleJs -%>"></script>
 </body>
