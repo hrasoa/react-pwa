@@ -1,12 +1,12 @@
 {
-  "name": "rsk",
+  "name": "react-pwa",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run clean && npm run build:dll && npm run build:app && npm run precache",
-    "build:app": "NODE_ENV=production webpack -p --config webpack/webpack.config.prod.js",
-    "build:dll": "NODE_ENV=production webpack -p --config webpack/webpack.dll.js",
+    "build": "npm run clean && npm run build:vendor && npm run build:bundle && npm run precache",
+    "build:bundle": "NODE_ENV=production webpack -p --config webpack/webpack.config.prod.js",
+    "build:vendor": "NODE_ENV=production webpack -p --config webpack/webpack.dll.js",
     "clean": "rimraf public/*",
     "precache": "babel-node scripts/precache.js",
     "start": "NODE_ENV=production babel-node server/server.js",
@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hrasoa/rsk.git"
+    "url": "git+https://github.com/hrasoa/react-pwa.git"
   },
   "author": "Haja Rasoahaingo <haja.rasoah@gmail.com>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/hrasoa/rsk/issues"
+    "url": "https://github.com/hrasoa/react-pwa/issues"
   },
-  "homepage": "https://github.com/hrasoa/rsk#readme",
+  "homepage": "https://github.com/hrasoa/react-pwa#readme",
   "dependencies": {
     "axios": "^0.15.0",
     "ejs": "^2.5.2",
