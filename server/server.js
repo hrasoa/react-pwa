@@ -4,7 +4,6 @@ import path from 'path';
 import helmet from 'helmet';
 import fs from 'fs';
 import gzipStatic from 'connect-gzip-static';
-import { resolve } from 'path';
 import apiRouter from './api/index';
 import config from '../src/config';
 import webpackCommonConfig from '../webpack/config';
@@ -17,13 +16,7 @@ app.use(gzipStatic(webpackCommonConfig.paths.output));
 app.use(express.static('public'));
 app.use(favicon(webpackCommonConfig.paths.favicon));
 app.set('view engine', 'ejs');
-app.set('views', resolve(__dirname, 'views'));
-app.get('/manifest.json', function(req, res) {
-  res.sendFile(path.join(webpackCommonConfig.paths.src, 'manifest.json'))
-});
-app.get('/sw-scripts.js', function(req, res) {
-  res.sendFile(path.join(resolve(__dirname, '../scripts/sw-scripts.js')));
-});
+app.set('views', path.resolve(__dirname, 'views'));
 
 if (process.env.NODE_ENV !== 'production') {
   const webpack = require('webpack');
@@ -53,6 +46,12 @@ if (process.env.NODE_ENV !== 'production') {
     vendorJs: vendorManifest['vendor.js'],
     criticalCss
   };
+  app.get('/manifest.json', (req, res) => {
+    res.sendFile(path.join(webpackCommonConfig.paths.src, 'manifest.json'))
+  });
+  app.get('/sw-scripts.js', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../scripts/sw-scripts.js'));
+  });
   app.use(serverRenderer({ assetsManifest }));
 }
 
