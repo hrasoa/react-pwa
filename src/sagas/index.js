@@ -33,7 +33,7 @@ function* fetchEntity(entity, apiFn, id) {
     }
   } finally {
     if (yield cancelled()) {
-      source.cancel();
+      yield source.cancel();
       yield put(entity.failure({ id }));
     }
   }
