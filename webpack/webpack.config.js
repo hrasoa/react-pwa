@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const HappyPack = require('happypack');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const commonConfig = require('./config');
 const prodVendor = commonConfig.vendors.production;
@@ -36,7 +35,17 @@ module.exports = [{
     rules: [
       {
         test: /\.js$/,
-        use: ['happypack/loader'],
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              plugins: [
+                "react-hot-loader/babel"
+              ]
+            }
+          },
+          'eslint-loader'
+        ],
         include: commonConfig.paths.src
       },
       {
@@ -62,9 +71,6 @@ module.exports = [{
     new webpack.optimize.CommonsChunkPlugin({
       name: ['vendor']
     }),
-    new HappyPack({
-      loaders: ['babel-loader', 'eslint-loader']
-    }),
     new StyleLintPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
@@ -78,13 +84,24 @@ module.exports = [{
     path: commonConfig.paths.output,
     filename: '[name].server.js',
     chunkFilename: '[name].server.js',
-    libraryTarget: 'commonjs2'
+    libraryTarget: 'commonjs2',
+    publicPath: commonConfig.paths.publicPath
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        use: ['babel-loader', 'eslint-loader'],
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              plugins: [
+                "dynamic-import-node"
+              ]
+            }
+          },
+          'eslint-loader'
+        ],
         exclude: /node_modules/
       }
     ]

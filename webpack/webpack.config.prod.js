@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const HappyPack = require('happypack');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const extractBundle = new ExtractTextPlugin('[name].[chunkhash].css');
@@ -45,7 +44,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: ['happypack/loader'],
+        use: [ 'babel-loader', 'eslint-loader' ],
         include: commonConfig.paths.src
       },
       {
@@ -65,9 +64,6 @@ module.exports = {
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
-    }),
-    new HappyPack({
-      loaders: [ 'babel-loader', 'eslint-loader' ]
     }),
     new StyleLintPlugin(),
     extractCritical,

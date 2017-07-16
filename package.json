@@ -9,7 +9,7 @@
     "build:vendor": "NODE_ENV=production webpack -p --config webpack/webpack.dll.js",
     "clean": "rimraf public/*",
     "precache": "babel-node scripts/precache.js",
-    "start": "NODE_ENV=production babel-node server/server.js",
+    "start": "NODE_ENV=production babel-node --plugins=syntax-dynamic-import,dynamic-import-node server/server.js",
     "start:dev": "nodemon --exec 'babel-node server/server.js'",
     "test": "jest"
   },

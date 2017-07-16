@@ -5,13 +5,11 @@
         "browsers": ["last 2 versions"]
       }
     }],
-    "es2015",
+    ["es2015", {"modules": false}],
     "react",
     "stage-3"
   ],
   "plugins": [
-    "syntax-dynamic-import",
-    "dynamic-import-node",
-    "react-hot-loader/babel"
+    "syntax-dynamic-import"
   ]
 }
