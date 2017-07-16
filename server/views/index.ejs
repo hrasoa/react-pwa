@@ -20,7 +20,10 @@
             var installingWorker = reg.installing;
             installingWorker.onstatechange = function() {
               if (installingWorker.state === 'activated' && navigator.serviceWorker.controller) {
-                navigator.serviceWorker.controller.postMessage({ url: window.location.pathname });
+                navigator.serviceWorker.controller.postMessage({
+                  action: 'navigate',
+                  url: window.location.pathname
+                });
               }
             };
           };
