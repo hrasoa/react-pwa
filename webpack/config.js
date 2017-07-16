@@ -33,6 +33,7 @@ module.exports = {
       'lodash.union',
       'prop-types',
       'normalizr',
+      're-reselect',
       'react',
       'react-async-bootstrapper',
       'react-async-component',
@@ -43,8 +44,7 @@ module.exports = {
       'redux',
       'redux-saga',
       'regenerator-runtime/runtime',
-      'reselect',
-      're-reselect'
+      'reselect'
     ]
   },
   fileNames: fileNames
