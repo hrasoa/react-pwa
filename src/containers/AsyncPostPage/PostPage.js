@@ -7,6 +7,7 @@ import {
   leavePostPage
 } from '../../actions/index';
 import Post from '../../components/Posts/Post';
+import { getPost } from '../../selectors/index';
 
 class PostPage extends Component {
   componentWillMount() {
@@ -36,13 +37,9 @@ PostPage.propTypes = {
 
 const mapStateToProps = (state, { match }) => {
   const id = parseInt(match.params.id, 10);
-  const {
-    entities: { posts }
-  } = state;
-
   return {
     id,
-    post: posts[id] || {}
+    post: getPost(state, id)
   };
 };
 

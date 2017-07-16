@@ -2,23 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PostListingItem from './PostListingItem';
 
-const PostListing = ({ latestPosts: { ids }, posts }) => (
+const PostListing = ({ latestPosts }) => (
   <ul className="c-post-listing">
-    {ids && ids.map(postId => (
-      <li key={postId}>
-        <PostListingItem {...posts[postId]} />
+    {latestPosts.map(post => (
+      <li key={post.id}>
+        <PostListingItem {...post} />
       </li>)
     )}
   </ul>
 );
 
 PostListing.propTypes = {
-  latestPosts: PropTypes.shape({
-    ids: PropTypes.array
-  }).isRequired,
-  posts: PropTypes.shape({
-    id: PropTypes.number
-  }).isRequired
+  latestPosts: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default PostListing;

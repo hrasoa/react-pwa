@@ -42,7 +42,9 @@ module.exports = {
       'react-router-dom',
       'redux',
       'redux-saga',
-      'regenerator-runtime/runtime'
+      'regenerator-runtime/runtime',
+      'reselect',
+      're-reselect'
     ]
   },
   fileNames: fileNames

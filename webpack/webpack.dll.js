@@ -14,10 +14,10 @@ module.exports = {
     library: '[name]'
   },
   plugins: [
-    new webpack.DllPlugin({
-      context: process.cwd(),
-      path: commonConfig.paths.dllManifest,
-      name: '[name]'
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
@@ -29,6 +29,11 @@ module.exports = {
       test: /\.(js|css)$/,
       threshold: 10240,
       minRatio: 0.8
+    }),
+    new webpack.DllPlugin({
+      context: process.cwd(),
+      path: commonConfig.paths.dllManifest,
+      name: '[name]'
     }),
     new ManifestPlugin({
       fileName: commonConfig.fileNames.vendorManifest

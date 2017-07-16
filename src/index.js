@@ -33,7 +33,10 @@ const App = Root => (
 );
 
 const render = () => {
-  import(/* webpackMode: "eager" */ './components/App').then((module) => {
+  import(
+    /* webpackMode: "eager" */
+    './components/App'
+  ).then((module) => {
     ReactDOM.render(
       App(module.default),
       document.getElementById('root')

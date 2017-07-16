@@ -6,6 +6,10 @@ import {
   leaveHomePage
 } from '../../actions/index';
 import Home from '../../components/Home';
+import {
+  getLatestPosts,
+  getLatestPictures
+} from '../../selectors/index';
 
 class HomePage extends Component {
   componentWillMount() {
@@ -26,19 +30,10 @@ HomePage.propTypes = {
   leaveHomePage: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => {
-  const {
-    entities: { posts, pictures },
-    pagination: { latestPosts, latestPictures }
-  } = state;
-
-  return {
-    latestPosts,
-    latestPictures,
-    posts,
-    pictures
-  };
-};
+const mapStateToProps = state => ({
+  latestPosts: getLatestPosts(state),
+  latestPictures: getLatestPictures(state)
+});
 
 export default connect(mapStateToProps, {
   loadHomePage,
