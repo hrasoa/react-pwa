@@ -11,5 +11,17 @@
   ],
   "plugins": [
     "syntax-dynamic-import"
-  ]
+  ],
+  "env": {
+    "web": {
+      "plugins": [
+        "react-hot-loader/babel"
+      ]
+    },
+    "node": {
+      "plugins": [
+        "dynamic-import-node"
+      ]
+    }
+  }
 }

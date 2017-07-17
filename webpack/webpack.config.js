@@ -37,11 +37,9 @@ module.exports = [{
         test: /\.js$/,
         use: [
           {
-            loader: 'babel-loader',
+            loader:'babel-loader',
             options: {
-              plugins: [
-                "react-hot-loader/babel"
-              ]
+              forceEnv: 'web'
             }
           },
           'eslint-loader'
@@ -93,11 +91,9 @@ module.exports = [{
         test: /\.js$/,
         use: [
           {
-            loader: 'babel-loader',
+            loader:'babel-loader',
             options: {
-              plugins: [
-                "dynamic-import-node"
-              ]
+              forceEnv: 'web'
             }
           },
           'eslint-loader'
