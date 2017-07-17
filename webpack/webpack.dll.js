@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const commonConfig = require('./config');
 
 module.exports = {
@@ -37,6 +38,10 @@ module.exports = {
     }),
     new ManifestPlugin({
       fileName: commonConfig.fileNames.vendorManifest
+    }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      reportFilename: 'report-vendor.html'
     })
   ]
 };
