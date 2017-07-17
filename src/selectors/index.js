@@ -15,6 +15,7 @@ export const getPost = createCachedSelector(
   (state, id) => id
 );
 
+
 export const getLatestPosts = createCachedSelector(
   postsSelector,
   latestPostsSelector,
@@ -22,6 +23,7 @@ export const getLatestPosts = createCachedSelector(
 )(
   state => 'latestPosts'
 );
+
 
 export const getLatestPictures = createCachedSelector(
   picturesSelector,
