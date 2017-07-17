@@ -93,7 +93,7 @@ module.exports = [{
           {
             loader:'babel-loader',
             options: {
-              forceEnv: 'web'
+              forceEnv: 'node'
             }
           },
           'eslint-loader'
