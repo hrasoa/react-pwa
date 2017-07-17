@@ -6,6 +6,18 @@ const prodVendor = commonConfig.vendors.production;
 const devVendor = commonConfig.vendors.dev;
 const vendor = [].concat(prodVendor, devVendor);
 
+function jsLoader(env) {
+  return [
+    {
+      loader: 'babel-loader',
+      options: {
+        forceEnv: env
+      }
+    },
+    'eslint-loader'
+  ]
+}
+
 module.exports = [{
   name: 'client',
   target: 'web',
@@ -35,15 +47,7 @@ module.exports = [{
     rules: [
       {
         test: /\.js$/,
-        use: [
-          {
-            loader:'babel-loader',
-            options: {
-              forceEnv: 'web'
-            }
-          },
-          'eslint-loader'
-        ],
+        use: jsLoader('web'),
         include: commonConfig.paths.src
       },
       {
@@ -89,15 +93,7 @@ module.exports = [{
     rules: [
       {
         test: /\.js$/,
-        use: [
-          {
-            loader:'babel-loader',
-            options: {
-              forceEnv: 'node'
-            }
-          },
-          'eslint-loader'
-        ],
+        use: jsLoader('node'),
         exclude: /node_modules/
       }
     ]
