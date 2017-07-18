@@ -32,17 +32,17 @@ const App = Root => (
   </AsyncComponentProvider>
 );
 
-const render = () => {
-  import(
+async function render() {
+  const module = await import(
     /* webpackMode: "eager" */
     './components/App'
-  ).then((module) => {
-    ReactDOM.render(
-      App(module.default),
-      document.getElementById('root')
-    );
-  });
-};
+  );
+
+  ReactDOM.render(
+    App(module.default),
+    document.getElementById('root')
+  );
+}
 
 asyncBootstrapper(App(RootApp)).then(render);
 
