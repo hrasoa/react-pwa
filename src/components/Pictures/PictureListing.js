@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PictureListingItem from './PictureListingItem';
 
-const PictureListing = ({ latestPictures }) => (
+const PictureListing = ({ latestPictures: { items } }) => (
   <ul className="c-picture-listing">
-    {latestPictures.map(picture => (
+    {items.map(picture => (
       <li key={picture.id}>
         <PictureListingItem {...picture} />
       </li>)
@@ -13,7 +13,9 @@ const PictureListing = ({ latestPictures }) => (
 );
 
 PictureListing.propTypes = {
-  latestPictures: PropTypes.arrayOf(PropTypes.object).isRequired
+  latestPictures: PropTypes.shape({
+    items: PropTypes.array
+  }).isRequired
 };
 
 export default PictureListing;

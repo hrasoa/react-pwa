@@ -1,4 +1,5 @@
 import createCachedSelector from 're-reselect';
+import { createSelector } from 'reselect';
 
 
 const postsSelector = state => state.entities.posts;
@@ -16,19 +17,21 @@ export const getPost = createCachedSelector(
 );
 
 
-export const getLatestPosts = createCachedSelector(
+export const getLatestPosts = createSelector(
   postsSelector,
   latestPostsSelector,
-  (posts, latestPosts) => latestPosts.ids.map(id => posts[id])
-)(
-  state => 'latestPosts'
+  (posts, latestPosts) => ({
+    ...latestPosts,
+    items: latestPosts.ids.map(id => posts[id])
+  })
 );
 
 
-export const getLatestPictures = createCachedSelector(
+export const getLatestPictures = createSelector(
   picturesSelector,
   latestPicturesSelector,
-  (pictures, latestPictures) => latestPictures.ids.map(id => pictures[id])
-)(
-  state => 'latestPictures'
+  (pictures, latestPictures) => ({
+    ...latestPictures,
+    items: latestPictures.ids.map(id => pictures[id])
+  })
 );
