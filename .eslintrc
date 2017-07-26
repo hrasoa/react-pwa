@@ -5,6 +5,8 @@
   ],
   "globals": {
     "document": true,
+    "describe": true,
+    "it": true,
     "navigator": true,
     "window": true
   },

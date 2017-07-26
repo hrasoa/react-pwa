@@ -25,7 +25,7 @@ const getResultByKey = (action, key) => {
 };
 
 
-const ui = combineReducers({
+export const ui = combineReducers({
   postContent: loader({
     mapActionToKey: action => action.id,
     types: [
@@ -37,7 +37,7 @@ const ui = combineReducers({
 });
 
 
-const pagination = combineReducers({
+export const pagination = combineReducers({
   latestPosts: paginate({
     mapActionResults: action => getResultByKey(action, 'latestPosts'),
     types: [
