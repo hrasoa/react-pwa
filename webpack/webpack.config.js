@@ -26,6 +26,7 @@ module.exports = [{
       'react-hot-loader/patch',
       'webpack-hot-middleware/client',
       'webpack/hot/only-dev-server',
+      'regenerator-runtime/runtime',
       commonConfig.paths.entry
     ],
     vendor: vendor

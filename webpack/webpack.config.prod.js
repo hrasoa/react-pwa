@@ -29,6 +29,7 @@ module.exports = {
   cache: true,
   entry: {
     bundle: [
+      'regenerator-runtime/runtime',
       commonConfig.paths.entry
     ]
   },
