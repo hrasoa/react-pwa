@@ -42,5 +42,7 @@ swPrecache.generate({
     handler: 'cacheFirst'
   }]
 }).then((serviceWorkerString) => {
-  fs.writeFile(`${publicDir}/sw.js`, serviceWorkerString);
+  fs.writeFile(`${publicDir}/sw.js`, serviceWorkerString, (err) => {
+    if (err) throw err;
+  });
 });

@@ -20,20 +20,4 @@ describe('selectors', () => {
       ]
     });
   });
-
-  it('should memoize latest posts', () => {
-    let state = {
-      entities: {
-        posts: {
-          1: { id: 1, title: 'Post 1' },
-          2: { id: 2, title: 'Post 2' }
-        }
-      },
-      pagination: {
-        latestPosts: { pageCount: 0, ids: ['1', '2'] }
-      }
-    };
-
-
-  });
 });
