@@ -89,10 +89,12 @@ function* watchLoadHomePage() {
 
 function* watchLogin() {
   while (true) {
-    const { username, password } = yield take(actions.LOGIN.REQUEST);
+    const { username, password } = yield take(actions.LOGIN_USER);
     const task = yield fork(authorize, username, password);
-    yield take([actions.LOGOUT, actions.LOGIN.FAILURE]);
-    yield cancel(task);
+    const { type } = yield take([actions.LOGOUT_USER, actions.LOGIN.FAILURE]);
+    if (type === actions.LOGOUT_USER) {
+      yield cancel(task);
+    }
   }
 }
 

@@ -39,7 +39,7 @@ export const ui = combineReducers({
       case ActionTypes.LOGIN.SUCCESS:
         return action.response.result;
 
-      case ActionTypes.LOGOUT:
+      case ActionTypes.LOGOUT_USER:
       case ActionTypes.LOGIN.FAILURE:
         return null;
 
