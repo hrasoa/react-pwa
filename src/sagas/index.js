@@ -91,7 +91,7 @@ function* watchLogin() {
   while (true) {
     const { username, password } = yield take(actions.LOGIN.REQUEST);
     const task = yield fork(authorize, username, password);
-    yield take(['LOGOUT', actions.LOGIN.FAILURE]);
+    yield take([actions.LOGOUT, actions.LOGIN.FAILURE]);
     yield cancel(task);
   }
 }

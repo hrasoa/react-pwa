@@ -46,6 +46,7 @@ export const LOAD_POST_PAGE = 'LOAD_POST_PAGE';
 export const LEAVE_POST_PAGE = 'LEAVE_POST_PAGE';
 export const LOAD_HOME_PAGE = 'LOAD_HOME_PAGE';
 export const LEAVE_HOME_PAGE = 'LEAVE_HOME_PAGE';
+export const LOGOUT = 'LOGOUT';
 
 
 export const loadPostPage = (id, requiredFields = ['id', 'title', 'body']) =>
@@ -58,3 +59,4 @@ export const leaveHomePage = () => action(LEAVE_HOME_PAGE);
 
 
 export const loginRequest = (username, password) => action(LOGIN[REQUEST], { username, password });
+export const logoutRequest = () => action(LOGOUT);
