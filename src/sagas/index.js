@@ -21,20 +21,20 @@ import {
 const { home, post, login } = actions;
 
 
-function* fetchEntity(entity, apiFn, id) {
+function* fetchEntity(entity, apiFn, payload) {
   const source = api.getTokenSource();
   try {
-    yield put(entity.request({ id }));
-    const { response, error } = yield call(apiFn, { id, cancelToken: source.token });
+    yield put(entity.request(payload));
+    const { response, error } = yield call(apiFn, { ...payload, cancelToken: source.token });
     if (response) {
-      yield put(entity.success({ id, response }));
+      yield put(entity.success({ ...payload, response }));
     } else {
-      yield put(entity.failure({ id, error }));
+      yield put(entity.failure({ ...payload, error }));
     }
   } finally {
     if (yield cancelled()) {
       yield source.cancel();
-      yield put(entity.failure({ id }));
+      yield put(entity.failure(payload));
     }
   }
 }
@@ -42,12 +42,13 @@ function* fetchEntity(entity, apiFn, id) {
 
 export const fetchPost = fetchEntity.bind(null, post, api.fetchPost);
 export const fetchHome = fetchEntity.bind(null, home, api.fetchHome);
+export const fetchAuth = fetchEntity.bind(null, login, api.authorize);
 
 
 function* loadPost(id, requiredFields) {
   const loadedPost = yield select(getPost, id);
   if (!loadedPost || requiredFields.some(key => !(key in loadedPost))) {
-    yield call(fetchPost, id);
+    yield call(fetchPost, { id });
   }
 }
 
@@ -62,16 +63,7 @@ function* loadHome() {
 
 
 function* authorize(username, password) {
-  try {
-    const { response, error } = yield call(api.authorize, username, password);
-    if (response) {
-      yield put(login.success({ response }));
-    } else {
-      yield put(login.failure({ error }));
-    }
-  } catch (error) {
-    yield put(login.failure({}));
-  }
+  yield call(fetchAuth, { username, password });
 }
 
 

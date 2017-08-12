@@ -43,5 +43,5 @@ export const fetchPost = ({ id, cancelToken }) => callApi(`posts/${id}`, postSch
 export const fetchPosts = ({ cancelToken }) => callApi('posts', postsSchema, { cancelToken });
 export const fetchPictures = ({ cancelToken }) => callApi('pictures', picturesSchema, { cancelToken });
 export const fetchHome = ({ cancelToken }) => callApi('home', homeSchema, { cancelToken });
-export const authorize = (username, password) =>
-  callApi('login', userSchema, { method: 'post', data: { username, password } });
+export const authorize = ({ username, password, cancelToken }) =>
+  callApi('login', userSchema, { method: 'post', data: { username, password }, cancelToken });
