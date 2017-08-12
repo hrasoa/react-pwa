@@ -6,17 +6,14 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom';
-import {
-  getIsConnected,
-  getConnectedUser
-} from '../selectors/index';
+import { getIsConnected } from '../selectors/index';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props => (
       rest.isConnected ? (
-        <Component {...props} connectedUser={rest.connectedUser} />
+        <Component {...props} />
       ) : (
         <Redirect
           to={{ pathname: '/login', state: { from: props.location } }}
@@ -31,7 +28,6 @@ PrivateRoute.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  connectedUser: getConnectedUser(state),
   isConnected: getIsConnected(state)
 });
 

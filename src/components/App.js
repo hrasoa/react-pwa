@@ -8,9 +8,9 @@ import HomePage from '../containers/AsyncHomePage/index';
 import PostPage from '../containers/AsyncPostPage/index';
 import LoginPage from '../containers/AsyncLoginPage/index';
 import PrivateRoute from '../containers/PrivateRoute';
+import Profile from '../containers/AsyncProfile/index';
 import Worker from '../containers/Worker';
 import About from './AsyncAbout/index';
-import Profile from './Profile';
 import Nav from './Nav/Nav';
 import NotFound from './AsyncNotFound/index';
 
