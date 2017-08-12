@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const BabiliPlugin = require("babili-webpack-plugin");
 const ManifestPlugin = require('webpack-manifest-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const extractBundle = new ExtractTextPlugin('[name].[chunkhash].css');
@@ -73,10 +74,7 @@ module.exports = {
       context: process.cwd(),
       manifest: require(commonConfig.paths.dllManifest)
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      minimize: true
-    }),
+    new BabiliPlugin(),
     new CompressionPlugin({
       asset: '[path].gz[query]',
       algorithm: 'gzip',
