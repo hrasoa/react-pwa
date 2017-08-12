@@ -18,7 +18,7 @@ import {
 } from '../selectors/index';
 
 
-const { home, post } = actions;
+const { home, post, login } = actions;
 
 
 function* fetchEntity(entity, apiFn, id) {
@@ -61,6 +61,16 @@ function* loadHome() {
 }
 
 
+function* authorize(username, password) {
+  try {
+    const { response } = yield call(api.authorize, username, password);
+    yield put(login.success({ response }));
+  } catch (error) {
+    yield put(login.failure({}));
+  }
+}
+
+
 function* watchLoadPostPage() {
   while (true) {
     const { id, requiredFields = [] } = yield take(actions.LOAD_POST_PAGE);
@@ -81,9 +91,20 @@ function* watchLoadHomePage() {
 }
 
 
+function* watchLogin() {
+  while (true) {
+    const { username, password } = yield take(actions.LOGIN.REQUEST);
+    const task = yield fork(authorize, username, password);
+    yield take(['LOGOUT', actions.LOGIN.FAILURE]);
+    yield cancel(task);
+  }
+}
+
+
 export default function* root() {
   yield all([
     fork(watchLoadPostPage),
-    fork(watchLoadHomePage)
+    fork(watchLoadHomePage),
+    fork(watchLogin)
   ]);
 }

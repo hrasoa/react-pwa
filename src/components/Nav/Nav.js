@@ -22,6 +22,15 @@ export default () => (
           About
         </Link>
       </li>
+      <li>
+        <Link
+          className="c-nav__link"
+          title="Login"
+          to="/login"
+        >
+          Login
+        </Link>
+      </li>
     </ul>
   </nav>
 );

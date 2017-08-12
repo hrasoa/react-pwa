@@ -6,7 +6,7 @@ import paginate from './paginate';
 
 
 // Updates an entity cache in response to any action with response.entities.
-function entities(state = { posts: {}, pictures: {} }, action) {
+function entities(state = {}, action) {
   if (action.response && action.response.entities) {
     return merge({}, state, action.response.entities);
   }
@@ -33,7 +33,19 @@ export const ui = combineReducers({
       ActionTypes.POST.SUCCESS,
       ActionTypes.POST.FAILURE
     ]
-  })
+  }),
+  me: (state = null, action) => {
+    switch (action.type) {
+      case ActionTypes.LOGIN.SUCCESS:
+        return action.response.result;
+
+      case ActionTypes.LOGIN.FAILURE:
+        return null;
+
+      default:
+        return state;
+    }
+  }
 });
 
 

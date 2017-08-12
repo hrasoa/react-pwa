@@ -18,12 +18,20 @@ export function action(type, payload = {}) {
 
 export const POST = createRequestTypes('POST');
 export const HOME = createRequestTypes('HOME');
+export const LOGIN = createRequestTypes('LOGIN');
 
 
 export const post = {
   request: ({ id }) => action(POST[REQUEST], { id }),
   success: ({ id, response }) => action(POST[SUCCESS], { id, response }),
   failure: ({ id, error }) => action(POST[FAILURE], { id, error })
+};
+
+
+export const login = {
+  request: ({ email, password }) => action(LOGIN[REQUEST], { email, password }),
+  success: ({ response }) => action(LOGIN[SUCCESS], { response }),
+  failure: ({ error }) => action(LOGIN[FAILURE], { error })
 };
 
 
@@ -47,3 +55,6 @@ export const leavePostPage = () => action(LEAVE_POST_PAGE);
 
 export const loadHomePage = () => action(LOAD_HOME_PAGE);
 export const leaveHomePage = () => action(LEAVE_HOME_PAGE);
+
+
+export const loginRequest = (username, password) => action(LOGIN[REQUEST], { username, password });

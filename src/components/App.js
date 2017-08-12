@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import HomePage from '../containers/AsyncHomePage/index';
 import PostPage from '../containers/AsyncPostPage/index';
+import LoginPage from '../containers/AsyncLoginPage/index';
 import Worker from '../containers/Worker';
 import About from './AsyncAbout/index';
 import Nav from './Nav/Nav';
@@ -22,6 +23,7 @@ export default () => (
       <Switch>
         <Route path="/" exact component={HomePage} />
         <Route path="/about" exact component={About} />
+        <Route path="/login" exact component={LoginPage} />
         <Route path="/posts/:id" exact component={PostPage} />
         <Route component={NotFound} />
       </Switch>

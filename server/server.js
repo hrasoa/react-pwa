@@ -1,4 +1,5 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 import favicon from 'serve-favicon';
 import path from 'path';
 import helmet from 'helmet';
@@ -11,12 +12,13 @@ import webpackCommonConfig from '../webpack/config';
 const app = express();
 
 app.use(helmet());
-app.use('/api', apiRouter);
+app.use(bodyParser.json());
 app.use(gzipStatic(webpackCommonConfig.paths.output));
 app.use(express.static('public'));
 app.use(favicon(webpackCommonConfig.paths.favicon));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
+app.use('/api', apiRouter);
 
 if (process.env.NODE_ENV !== 'production') {
   const webpack = require('webpack');

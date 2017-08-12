@@ -2,9 +2,9 @@ import createCachedSelector from 're-reselect';
 import { createSelector } from 'reselect';
 
 
-const postsSelector = state => state.entities.posts;
-const picturesSelector = state => state.entities.pictures;
-const postSelector = (state, id) => state.entities.posts[id] || {};
+const postsSelector = state => state.entities.posts || {};
+const picturesSelector = state => state.entities.pictures || {};
+const postSelector = (state, id) => (state.entities.posts && state.entities.posts[id]) || {};
 const latestPostsSelector = state => state.pagination.latestPosts;
 const latestPicturesSelector = state => state.pagination.latestPictures;
 

@@ -38,10 +38,11 @@ router.get('/posts', async (req, res) => {
 
 router.get('/posts/:id', async (req, res) => {
   try {
-    const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${req.params.id}`);
+    const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${req.params.id}`)
+      .catch((error) => { throw new Error(error); });
     res.send(response.data);
-  } catch(e) {
-    console.log(e);
+  } catch (e) {
+    res.send({ error: e.message });
   }
 });
 
@@ -58,6 +59,15 @@ router.get('/home', async (req, res) => {
   const latestPosts = await posts;
   const latestPictures = await pictures;
   res.send({ latestPosts, latestPictures });
+});
+
+
+router.post('/login', (req, res) => {
+  res.send({
+    id: 809090,
+    username: req.body.username,
+    firstName: 'Dummy first name'
+  });
 });
 
 
