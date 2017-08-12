@@ -32,7 +32,7 @@ const getPictures = getPaginated.bind(null, 'https://unsplash.it/list');
 
 router.get('/posts', async (req, res) => {
   const data = await getPosts(url.parse(req.url, true));
-  res.send(data);
+  res.json(data);
 });
 
 
@@ -40,16 +40,16 @@ router.get('/posts/:id', async (req, res) => {
   try {
     const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${req.params.id}`)
       .catch((error) => { throw new Error(error); });
-    res.send(response.data);
+    res.json(response.data);
   } catch (e) {
-    res.send({ error: e.message });
+    res.status(404).json({ message: e.message });
   }
 });
 
 
 router.get('/pictures', async (req, res) => {
   const data = await getPictures(url.parse(req.url, true));
-  res.send(data);
+  res.json(data);
 });
 
 
@@ -58,16 +58,23 @@ router.get('/home', async (req, res) => {
   const pictures = getPictures({ query: { fl: 'id,filename' } });
   const latestPosts = await posts;
   const latestPictures = await pictures;
-  res.send({ latestPosts, latestPictures });
+  res.json({ latestPosts, latestPictures });
 });
 
 
 router.post('/login', (req, res) => {
-  res.send({
-    id: 809090,
-    username: req.body.username,
-    firstName: 'Dummy first name'
-  });
+  try {
+    if (req.body.password !== '123') {
+      throw new Error('Invalid password');
+    }
+    res.json({
+      id: 809090,
+      username: req.body.username,
+      firstName: 'Dummy first name'
+    });
+  } catch (e) {
+    res.status(400).json({ message: e.message });
+  }
 });
 
 

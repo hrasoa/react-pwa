@@ -63,8 +63,12 @@ function* loadHome() {
 
 function* authorize(username, password) {
   try {
-    const { response } = yield call(api.authorize, username, password);
-    yield put(login.success({ response }));
+    const { response, error } = yield call(api.authorize, username, password);
+    if (response) {
+      yield put(login.success({ response }));
+    } else {
+      yield put(login.failure({ error }));
+    }
   } catch (error) {
     yield put(login.failure({}));
   }

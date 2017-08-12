@@ -16,7 +16,9 @@ function callApi(endpoint, entitySchema, options) {
 
   return axios(requestOptions)
     .then(response => ({ response: normalize(response.data, entitySchema) }))
-    .catch(error => ({ error: error.message || 'Something bad happened' }));
+    .catch(error => ({
+      error: (error.response && error.response.data && error.response.data.message) || 'Something bad happened'
+    }));
 }
 
 
