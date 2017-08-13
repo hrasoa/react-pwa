@@ -88,7 +88,7 @@ function* watchLoadHomePage() {
 }
 
 
-function* watchLogin() {
+function* loginFlow() {
   while (true) {
     const { username, password } = yield take(actions.LOGIN_USER);
     const task = yield fork(authorize, username, password);
@@ -105,6 +105,6 @@ export default function* root() {
   yield all([
     fork(watchLoadPostPage),
     fork(watchLoadHomePage),
-    fork(watchLogin)
+    fork(loginFlow)
   ]);
 }
