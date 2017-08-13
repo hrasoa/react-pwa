@@ -1,4 +1,5 @@
 /* eslint-disable no-constant-condition */
+import { push } from 'react-router-redux';
 import {
   cancel,
   cancelled,
@@ -94,6 +95,7 @@ function* watchLogin() {
     const { type } = yield take([actions.LOGOUT_USER, actions.LOGIN.FAILURE]);
     if (type === actions.LOGOUT_USER) {
       yield cancel(task);
+      yield put(push('/'));
     }
   }
 }

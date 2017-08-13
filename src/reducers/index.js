@@ -70,8 +70,8 @@ export const pagination = combineReducers({
 });
 
 
-export default combineReducers({
+export default {
   entities,
   pagination,
   ui
-});
+};

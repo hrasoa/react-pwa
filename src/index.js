@@ -1,8 +1,13 @@
 /* eslint-disable no-underscore-dangle */
+import createHistory from 'history/createBrowserHistory';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import {
+  ConnectedRouter,
+  routerReducer,
+  routerMiddleware
+} from 'react-router-redux';
 import { AsyncComponentProvider } from 'react-async-component';
 import asyncBootstrapper from 'react-async-bootstrapper';
 import configureStore from './store/configureStore';
@@ -11,9 +16,15 @@ import RootApp from './components/App';
 import './critical.scss';
 import './style.scss';
 
+const history = createHistory();
+const middleware = routerMiddleware(history);
 
 const rehydrateState = window.__ASYNC_COMPONENTS_STATE__;
-const store = configureStore(window.__INITIAL_STATE__);
+const store = configureStore(
+  window.__INITIAL_STATE__,
+  { router: routerReducer },
+  [middleware]
+);
 store.runSaga();
 delete window.__ASYNC_COMPONENTS_STATE__;
 delete window.__INITIAL_STATE__;
@@ -23,9 +34,9 @@ const App = Root => (
   <AsyncComponentProvider rehydrateState={rehydrateState}>
     <AppContainer>
       <Provider store={store}>
-        <BrowserRouter>
+        <ConnectedRouter history={history}>
           <Root />
-        </BrowserRouter>
+        </ConnectedRouter>
       </Provider>
     </AppContainer>
   </AsyncComponentProvider>

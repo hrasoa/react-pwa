@@ -29,6 +29,7 @@ module.exports = {
     ],
     production: [
       'axios',
+      'history',
       'lodash.merge',
       'lodash.union',
       'prop-types',
@@ -41,6 +42,7 @@ module.exports = {
       'react-helmet',
       'react-redux',
       'react-router-dom',
+      'react-router-redux',
       'redux',
       'redux-saga',
       'regenerator-runtime/runtime',
