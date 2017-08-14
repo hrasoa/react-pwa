@@ -41,12 +41,10 @@ router.get('/home', async (req, res) => {
   try {
     const { data } = await sendQuery(`
       query {
-        posts { id, title }
+        latestPosts: posts { id, title }
       }
     `);
-    res.json({
-      latestPosts: data.posts
-    });
+    res.json(data);
   } catch (e) {
     res.status(400).json({ errors: [{ message: e.message }] });
   }
