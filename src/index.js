@@ -3,6 +3,7 @@ import createHistory from 'history/createBrowserHistory';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import {
   ConnectedRouter,
   routerReducer,
@@ -29,14 +30,17 @@ store.runSaga();
 delete window.__ASYNC_COMPONENTS_STATE__;
 delete window.__INITIAL_STATE__;
 
-
-const App = Root => (
+const App = (Root, connectedRoute = false) => (
   <AsyncComponentProvider rehydrateState={rehydrateState}>
     <AppContainer>
       <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <Root />
-        </ConnectedRouter>
+        {connectedRoute ?
+          <ConnectedRouter history={history}>
+            <Root />
+          </ConnectedRouter> :
+          <BrowserRouter>
+            <Root />
+          </BrowserRouter>}
       </Provider>
     </AppContainer>
   </AsyncComponentProvider>
@@ -49,7 +53,7 @@ async function render() {
   );
 
   ReactDOM.render(
-    App(module.default),
+    App(module.default, true),
     document.getElementById('root')
   );
 }

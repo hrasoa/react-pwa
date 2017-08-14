@@ -42,7 +42,7 @@ export const getLatestPictures = createSelector(
 export const getConnectedUser = createSelector(
   usersSelector,
   meSelector,
-  (users, me) => (me && users && users[me]) || {}
+  (users, me) => (me && users[me]) || {}
 );
 
 
