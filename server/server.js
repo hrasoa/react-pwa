@@ -23,10 +23,8 @@ app.use(express.static('public'));
 app.use(favicon(webpackCommonConfig.paths.favicon));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
-app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
-app.use('/api', apiRouter);
 
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 
 if (process.env.NODE_ENV !== 'production') {
   const webpack = require('webpack');
@@ -35,6 +33,9 @@ if (process.env.NODE_ENV !== 'production') {
   const webpackHotMiddleware = require('webpack-hot-middleware');
   const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
   const bundler = webpack(webpackConfig);
+
+  app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+
   app.use(webpackDevMiddleware(bundler, {
     hot: true,
     publicPath: webpackCommonConfig.paths.publicPath,
@@ -64,6 +65,8 @@ if (process.env.NODE_ENV !== 'production') {
   });
   app.use(serverRenderer({ assetsManifest }));
 }
+
+app.use('/api', apiRouter);
 
 app.listen(config.port, config.host, () => {
   console.info('Express listening on port', config.port);
