@@ -23,7 +23,7 @@ app.use(express.static('public'));
 app.use(favicon(webpackCommonConfig.paths.favicon));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
-
+app.use('/api', apiRouter);
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 
 if (process.env.NODE_ENV !== 'production') {
@@ -65,8 +65,6 @@ if (process.env.NODE_ENV !== 'production') {
   });
   app.use(serverRenderer({ assetsManifest }));
 }
-
-app.use('/api', apiRouter);
 
 app.listen(config.port, config.host, () => {
   console.info('Express listening on port', config.port);
