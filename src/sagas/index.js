@@ -14,8 +14,7 @@ import api from '../services/index';
 import * as actions from '../actions/index';
 import {
   getPost,
-  getLatestPosts,
-  getLatestPictures
+  getLatestPosts
 } from '../selectors/index';
 
 
@@ -56,8 +55,7 @@ function* loadPost(id, requiredFields) {
 
 function* loadHome() {
   const loadedLatestPosts = yield select(getLatestPosts);
-  const loadedLatestPictures = yield select(getLatestPictures);
-  if (!loadedLatestPosts.pageCount || !loadedLatestPictures.pageCount) {
+  if (!loadedLatestPosts.pageCount) {
     yield call(fetchHome);
   }
 }

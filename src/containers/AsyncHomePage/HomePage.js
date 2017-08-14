@@ -6,10 +6,7 @@ import {
   leaveHomePage
 } from '../../actions/index';
 import Home from '../../components/Home';
-import {
-  getLatestPosts,
-  getLatestPictures
-} from '../../selectors/index';
+import { getLatestPosts } from '../../selectors/index';
 
 class HomePage extends Component {
   componentWillMount() {
@@ -31,8 +28,7 @@ HomePage.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  latestPosts: getLatestPosts(state),
-  latestPictures: getLatestPictures(state)
+  latestPosts: getLatestPosts(state)
 });
 
 export default connect(mapStateToProps, {
