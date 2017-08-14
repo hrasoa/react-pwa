@@ -58,14 +58,6 @@ export const pagination = combineReducers({
       ActionTypes.HOME.SUCCESS,
       ActionTypes.HOME.FAILURE
     ]
-  }),
-  latestPictures: paginate({
-    mapActionResults: action => getResultByKey(action, 'latestPictures'),
-    types: [
-      ActionTypes.HOME.REQUEST,
-      ActionTypes.HOME.SUCCESS,
-      ActionTypes.HOME.FAILURE
-    ]
   })
 });
 
