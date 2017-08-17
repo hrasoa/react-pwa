@@ -1,12 +1,23 @@
 import url from 'url';
 import express from 'express';
 import axios from 'axios';
+import ApolloClient, { createNetworkInterface } from 'apollo-client';
+import gql from 'graphql-tag';
 import config from '../../src/config';
 const router = express.Router();
 
+const client = new ApolloClient({
+  networkInterface: {
+    query: ({ query, variables, operationName }) =>
+      axios.post(`${config.serverUrl}/graphql`, { query, variables, operationName })
+        .then(response => response.data)
+        .catch(error => error)
+  }
+});
+
 
 const sendQuery = async (query) => {
-  const response = await axios.post(`${config.serverUrl}/graphql`, {query})
+  const response = await client.query({ query })
     .catch((error) => {
       throw new Error(error);
     });
@@ -14,13 +25,28 @@ const sendQuery = async (query) => {
 };
 
 
-const getPosts = sendQuery.bind(null, 'query { posts { id, title } }');
-
-
 router.get('/posts', async (req, res) => {
   try {
-    const { data } = await getPosts();
-    res.json(data.posts);
+    const query = gql`
+      {
+        posts(first: 20) {
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
+          totalCount
+          edges {
+            cursor
+            node {
+              id
+              title
+            }
+          }
+        }
+      }
+    `;
+    const { posts } = await sendQuery(query);
+    res.json(posts);
   } catch (e) {
     res.status(400).json({ errors: [{ message: e.message }] });
   }
