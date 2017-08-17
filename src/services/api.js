@@ -29,19 +29,15 @@ export const getTokenSource = () => {
 
 
 const postSchema = new schema.Entity('posts');
-const pictureSchema = new schema.Entity('pictures');
 const userSchema = new schema.Entity('users');
 const postsSchema = new schema.Array(postSchema);
-const picturesSchema = new schema.Array(pictureSchema);
 const homeSchema = new schema.Object({
-  latestPosts: postsSchema,
-  latestPictures: picturesSchema
+  latestPosts: postsSchema
 });
 
 
 export const fetchPost = ({ id, cancelToken }) => callApi(`posts/${id}`, postSchema, { cancelToken });
 export const fetchPosts = ({ cancelToken }) => callApi('posts', postsSchema, { cancelToken });
-export const fetchPictures = ({ cancelToken }) => callApi('pictures', picturesSchema, { cancelToken });
 export const fetchHome = ({ cancelToken }) => callApi('home', homeSchema, { cancelToken });
 export const authorize = ({ username, password, cancelToken }) =>
   callApi('login', userSchema, { method: 'post', data: { username, password }, cancelToken });
