@@ -29,18 +29,12 @@ router.get('/posts', async (req, res) => {
   try {
     const query = gql`
       {
-        posts(first: 20) {
-          pageInfo {
-            endCursor
-            hasNextPage
-          }
+        posts {
+          pageInfo { endCursor, hasNextPage }
           totalCount
           edges {
             cursor
-            node {
-              id
-              title
-            }
+            node { id, title }
           }
         }
       }
@@ -65,9 +59,13 @@ router.get('/posts/:id', async (req, res) => {
 
 router.get('/home', async (req, res) => {
   try {
-    const { data } = await sendQuery(`
-      query {
-        latestPosts: posts { id, title }
+    const data = await sendQuery(gql`
+      {
+        latestPosts: posts(first: 20) {
+          edges {
+            node { id, title }
+          }
+        }
       }
     `);
     res.json(data);
