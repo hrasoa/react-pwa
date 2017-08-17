@@ -27,19 +27,16 @@ const sendQuery = async (query) => {
 
 router.get('/posts', async (req, res) => {
   try {
-    const query = gql`
-      {
-        posts {
-          pageInfo { endCursor, hasNextPage }
-          totalCount
-          edges {
-            cursor
-            node { id, title }
-          }
+    const { posts } = await sendQuery(gql`{
+      posts {
+        pageInfo { endCursor, hasNextPage }
+        totalCount
+        edges {
+          cursor
+          node { id, title }
         }
       }
-    `;
-    const { posts } = await sendQuery(query);
+    }`);
     res.json(posts);
   } catch (e) {
     res.status(400).json({ errors: [{ message: e.message }] });
@@ -59,15 +56,13 @@ router.get('/posts/:id', async (req, res) => {
 
 router.get('/home', async (req, res) => {
   try {
-    const data = await sendQuery(gql`
-      {
-        latestPosts: posts(first: 20) {
-          edges {
-            node { id, title }
-          }
+    const data = await sendQuery(gql`{
+      latestPosts: posts(first: 20) {
+        edges {
+          node { id, title }
         }
       }
-    `);
+    }`);
     res.json(data);
   } catch (e) {
     res.status(400).json({ errors: [{ message: e.message }] });
