@@ -1,36 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const links = [
+  { title: 'Home', to: '/' },
+  { title: 'About', to: '/about' },
+  { title: 'Login', to: '/login' },
+  { title: 'Private', to: '/private' }
+];
+
 export default () => (
   <nav className="c-nav">
     <ul>
-      <li>
-        <Link
-          className="c-nav__link"
-          title="Home"
-          to="/"
-        >
-          Home
-        </Link>
-      </li>
-      <li>
-        <Link
-          className="c-nav__link"
-          title="About"
-          to="/about"
-        >
-          About
-        </Link>
-      </li>
-      <li>
-        <Link
-          className="c-nav__link"
-          title="Login"
-          to="/login"
-        >
-          Login
-        </Link>
-      </li>
+      {links.map(link => (
+        <li key={link.to}>
+          <Link
+            className="c-nav__link"
+            title={link.title}
+            to={link.to}
+          >
+            {link.title}
+          </Link>
+        </li>
+      ))}
     </ul>
   </nav>
 );

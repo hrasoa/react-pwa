@@ -2,7 +2,7 @@ import { asyncComponent } from 'react-async-component';
 
 export default asyncComponent({
   resolve: () => import(
-    /* webpackChunkName: "home-page" */
+    /* webpackChunkName: "home" */
     './HomePage'
   )
 });

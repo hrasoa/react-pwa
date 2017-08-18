@@ -29,11 +29,8 @@ function callApi(endpoint, entitySchema, options) {
       // then attach other data to the response
       return { response: { ...normalized, ...extra } };
     })
-    .catch(error => ({
-      error: (error.response &&
-        error.response.errors &&
-        error.response.errors[0].message) ||
-        'Something bad happened'
+    .catch(response => ({
+      error: (response.errors && response.errors[0].message) || 'Something bad happened'
     }));
 }
 

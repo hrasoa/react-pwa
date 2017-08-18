@@ -11,6 +11,7 @@ import PrivateRoute from '../containers/PrivateRoute';
 import Profile from '../containers/AsyncProfilePage/index';
 import Worker from '../containers/Worker';
 import About from './AsyncAbout/index';
+import Private from './AsyncPrivate/index';
 import Nav from './Nav/Nav';
 import NotFound from './AsyncNotFound/index';
 
@@ -28,6 +29,7 @@ export default () => (
         <Route path="/login" exact component={LoginPage} />
         <Route path="/posts/:id" exact component={PostPage} />
         <PrivateRoute path="/profile" exact component={Profile} />
+        <PrivateRoute path="/private" exact component={Private} />
         <Route component={NotFound} />
       </Switch>
     </div>
