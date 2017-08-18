@@ -83,8 +83,8 @@ const paginate = (list, { first, after }) => {
 const resolvers = {
   User: {
     postsConnection: ({ _id }, args) => {
-      const requestedPosts = posts.filter(post => post.userId === parseInt(_id, 10));
-      return paginate(requestedPosts, args);
+      const userPosts = posts.filter(post => post.userId === parseInt(_id, 10));
+      return paginate(userPosts, args);
     }
   },
   Query: {
