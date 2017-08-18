@@ -50,10 +50,13 @@ const singlePostSchema = new schema.Object({
 const homeSchema = new schema.Object({
   latestPosts: postsSchema
 });
+const singleUserSchema = new schema.Object({
+  user: userSchema
+});
 
 
 export const fetchPost = ({ id, cancelToken }) => callApi(`posts/${id}`, singlePostSchema, { cancelToken });
 export const fetchPosts = ({ cancelToken }) => callApi('posts', postsSchema, { cancelToken });
 export const fetchHome = ({ cancelToken }) => callApi('home', homeSchema, { cancelToken });
 export const authorize = ({ username, password, cancelToken }) =>
-  callApi('login', userSchema, { method: 'post', data: { username, password }, cancelToken });
+  callApi('login', singleUserSchema, { method: 'post', data: { username, password }, cancelToken });

@@ -81,11 +81,11 @@ router.post('/login', (req, res) => {
     if (req.body.password !== '123') {
       throw new Error('Invalid password');
     }
-    res.json({
+    res.json({ user: {
       id: '809090',
       username: req.body.username,
       firstName: 'Dummy first name'
-    });
+    }});
   } catch (e) {
     res.status(400).json({ errors: [{ message: e.message }] });
   }
