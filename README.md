@@ -16,7 +16,8 @@ To run the production build:
 | | Dev | Production
 --- | --- | ---
 Hot Module Replacement | :star: |
-Async Components | :star: | :star:
+GraphiQL | :star: |
+Code Split + Async Components | :star: | :star:
 Server Side Rendering | :star: | :star:
 Chunkhashes | | :star:
 Service Worker (precache, offline support) | | :star:
