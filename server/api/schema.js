@@ -51,30 +51,30 @@ schema {
 const prepare = o => ({ ...o, id: o['_id'] });
 
 const paginate = (list, { first, after }) => {
-  let requestedPosts = [...list];
+  let requiresList = [...list];
 
   if (after) {
-    const index = requestedPosts.reduce((acc, post, index) => {
-      if (post._id === parseInt(after, 10)) {
+    const index = requiresList.reduce((acc, listItem, index) => {
+      if (listItem._id === parseInt(after, 10)) {
         acc = index;
       }
       return acc;
     }, 0);
-    requestedPosts = requestedPosts.slice(index + 1);
+    requiresList = requiresList.slice(index + 1);
   }
 
   if (first) {
-    requestedPosts = requestedPosts.slice(0, first);
+    requiresList = requiresList.slice(0, first);
   }
 
   return {
-    totalCount: requestedPosts.length,
-    edges: requestedPosts.map(post => ({
-      node: prepare(post),
-      cursor: post._id
+    totalCount: requiresList.length,
+    edges: requiresList.map(listItem => ({
+      node: prepare(listItem),
+      cursor: listItem._id
     })),
     pageInfo: {
-      endCursor: requestedPosts[requestedPosts.length - 1]._id,
+      endCursor: requiresList[requiresList.length - 1]._id,
       nexPage: false
     }
   }
