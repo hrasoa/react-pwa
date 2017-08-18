@@ -8,8 +8,8 @@ const router = express.Router();
 
 const client = new ApolloClient({
   networkInterface: {
-    query: ({ query, variables, operationName }) =>
-      axios.post(`${config.serverUrl}/graphql`, { query, variables, operationName })
+    query: request =>
+      axios.post(`${config.serverUrl}/graphql`, request)
         .then(response => response.data)
         .catch(error => error)
   }
@@ -17,7 +17,7 @@ const client = new ApolloClient({
 
 
 const sendQuery = async (query) => {
-  const response = await client.query({ query })
+  const response = await client.query({ query: gql`${query}` })
     .catch((error) => {
       throw new Error(error);
     });
@@ -27,7 +27,7 @@ const sendQuery = async (query) => {
 
 router.get('/posts', async (req, res) => {
   try {
-    const data = await sendQuery(gql`{
+    const data = await sendQuery(`{
       posts {
         pageInfo { endCursor, hasNextPage }
         totalCount
@@ -46,7 +46,7 @@ router.get('/posts', async (req, res) => {
 
 router.get('/posts/:id', async (req, res) => {
   try {
-    const data = await sendQuery(gql`{
+    const data = await sendQuery(`{
       post(_id: "${req.params.id}") {
         id, title, body
       }
@@ -60,7 +60,7 @@ router.get('/posts/:id', async (req, res) => {
 
 router.get('/home', async (req, res) => {
   try {
-    const data = await sendQuery(gql`{
+    const data = await sendQuery(`{
       latestPosts: posts(first: 20) {
         totalCount
         pageInfo { endCursor, hasNextPage }
