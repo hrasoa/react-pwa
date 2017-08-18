@@ -62,6 +62,7 @@ router.get('/home', async (req, res) => {
   try {
     const data = await sendQuery(gql`{
       latestPosts: posts(first: 20) {
+        totalCount
         pageInfo { endCursor, hasNextPage }
         edges {
           node { id, title }

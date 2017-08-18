@@ -36,6 +36,8 @@ export default function paginate({
           isFetching: false,
           ids: union(state.ids, action.response.result),
           pageCount: state.pageCount + 1,
+          pageInfo: action.response.pageInfo,
+          totalCount: action.response.totalCount,
           didInvalidate: false
         });
       case failureType:

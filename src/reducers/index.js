@@ -20,7 +20,11 @@ const getResultByKey = (action, key) => {
   }
   return {
     ...action,
-    response: { ...action.response, result: action.response.result[key] }
+    response: {
+      ...action.response,
+      ...action.response[key],
+      result: action.response.result[key]
+    }
   };
 };
 
