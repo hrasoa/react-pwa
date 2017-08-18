@@ -15,9 +15,25 @@ function callApi(endpoint, entitySchema, options) {
   };
 
   return axios(requestOptions)
-    .then(response => ({ response: normalize(response.data, entitySchema) }))
+    .then((response) => {
+      // first lets create the normalized tree
+      const data = {};
+      const extra = {};
+      Object.keys(response.data).forEach((dataKey) => {
+        const { edges, ...rest } = response.data[dataKey];
+        data[dataKey] = edges ? edges.map(edge => edge.node) : rest;
+        extra[dataKey] = rest;
+      });
+      const normalized = normalize(data, entitySchema);
+
+      // then attach other data to the response
+      return { response: { ...normalized, ...extra } };
+    })
     .catch(error => ({
-      error: (error.response && error.response.data && error.response.data.message) || 'Something bad happened'
+      error: (error.response &&
+        error.response.errors &&
+        error.response.errors[0].message) ||
+        'Something bad happened'
     }));
 }
 
@@ -30,13 +46,16 @@ export const getTokenSource = () => {
 
 const postSchema = new schema.Entity('posts');
 const userSchema = new schema.Entity('users');
-const postsSchema = new schema.Array(postSchema);
+const postsSchema = [postSchema];
+const singlePostSchema = new schema.Object({
+  post: postSchema
+});
 const homeSchema = new schema.Object({
   latestPosts: postsSchema
 });
 
 
-export const fetchPost = ({ id, cancelToken }) => callApi(`posts/${id}`, postSchema, { cancelToken });
+export const fetchPost = ({ id, cancelToken }) => callApi(`posts/${id}`, singlePostSchema, { cancelToken });
 export const fetchPosts = ({ cancelToken }) => callApi('posts', postsSchema, { cancelToken });
 export const fetchHome = ({ cancelToken }) => callApi('home', homeSchema, { cancelToken });
 export const authorize = ({ username, password, cancelToken }) =>

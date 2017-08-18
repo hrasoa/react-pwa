@@ -27,7 +27,7 @@ const sendQuery = async (query) => {
 
 router.get('/posts', async (req, res) => {
   try {
-    const { posts } = await sendQuery(gql`{
+    const data = await sendQuery(gql`{
       posts {
         pageInfo { endCursor, hasNextPage }
         totalCount
@@ -37,7 +37,7 @@ router.get('/posts', async (req, res) => {
         }
       }
     }`);
-    res.json(posts);
+    res.json(data);
   } catch (e) {
     res.status(400).json({ errors: [{ message: e.message }] });
   }
@@ -46,8 +46,12 @@ router.get('/posts', async (req, res) => {
 
 router.get('/posts/:id', async (req, res) => {
   try {
-    const { data } = await sendQuery(`query { post(_id:"${req.params.id}") { id, title, body } }`);
-    res.json(data.post);
+    const data = await sendQuery(gql`{
+      post(_id: "${req.params.id}") {
+        id, title, body
+      }
+    }`);
+    res.json(data);
   } catch (e) {
     res.status(400).json({ errors: [{ message: e.message }] });
   }
@@ -58,6 +62,7 @@ router.get('/home', async (req, res) => {
   try {
     const data = await sendQuery(gql`{
       latestPosts: posts(first: 20) {
+        pageInfo { endCursor, hasNextPage }
         edges {
           node { id, title }
         }
