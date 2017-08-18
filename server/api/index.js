@@ -82,12 +82,12 @@ router.post('/login', (req, res) => {
       throw new Error('Invalid password');
     }
     res.json({
-      id: 809090,
+      id: '809090',
       username: req.body.username,
       firstName: 'Dummy first name'
     });
   } catch (e) {
-    res.status(400).json({ message: e.message });
+    res.status(400).json({ errors: [{ message: e.message }] });
   }
 });
 
