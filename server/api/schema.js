@@ -89,7 +89,13 @@ const resolvers = {
   },
   Query: {
     user: (root, { _id }) => prepare(users.filter(user => user['_id'] === parseInt(_id, 10))[0]),
-    post: (root, { _id }) => prepare(posts.filter(post => post['_id'] === parseInt(_id, 10))[0]),
+    post: (root, { _id }) => {
+      const post = posts.filter(post => post['_id'] === parseInt(_id, 10));
+      if (!post.length) {
+        throw new Error('Post not found');
+      }
+      return prepare(post[0]);
+    },
     posts: (root, args) => paginate(posts, args)
   }
 };

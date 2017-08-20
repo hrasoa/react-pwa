@@ -16,53 +16,70 @@ const client = new ApolloClient({
 });
 
 
-const sendQuery = async (req, res, { query }) => {
-  try {
-    const response = await client.query({ query: gql`${query}` })
-      .catch((error) => {
-        throw new Error(error);
-      });
-    res.json(response.data);
-  } catch (e) {
-    res.status(400).json({ errors: [{ message: e.message }] });
-  }
+const sendQuery = async ({ query }) => {
+  const response = await client.query({ query: gql`${query}` })
+    .catch((error) => {
+      throw new Error(error);
+    });
+  return response.data;
 };
 
 
-router.get('/posts', (req, res) => sendQuery(req, res, {
-  query: `{
-    posts {
-      pageInfo { endCursor, hasNextPage }
-      totalCount
-      edges {
-        cursor
-        node { id, title }
-      }
-    }
-  }`})
-);
+router.get('/posts', async (req, res) => {
+  try {
+    const data = await sendQuery({
+      query: `{
+        posts {
+          pageInfo { endCursor, hasNextPage }
+          totalCount
+          edges {
+            cursor
+            node { id, title }
+          }
+        }
+      }`
+    });
+    res.json(data);
+  } catch (e) {
+    res.status(400).json({ errors: [{ message: e.message }] });
+  }
+});
 
 
-router.get('/posts/:id', (req, res) => sendQuery(req, res, {
-  query: `{
-    post(_id: "${req.params.id}") {
-      id, title, body
-    }
-  }`})
-);
+router.get('/posts/:id', async (req, res) => {
+  try {
+    const data = await sendQuery({
+      query: `{
+        post(_id: "${req.params.id}") {
+          id, title, body
+        }
+      }`
+    });
+    res.json(data);
+  } catch (e) {
+    res.status(400).json({ errors: [{ message: e.message }] });
+  }
+});
 
 
-router.get('/home', (req, res) => sendQuery(req, res, {
-  query: `{
-    latestPosts: posts(first: 20) {
-      totalCount
-      pageInfo { endCursor, hasNextPage }
-      edges {
-        node { id, title }
-      }
-    }
-  }`})
-);
+router.get('/home', async (req, res) => {
+  try {
+    const data = await sendQuery({
+      query: `{
+        latestPosts: posts(first: 20) {
+          totalCount
+          pageInfo { endCursor, hasNextPage }
+          edges {
+            node { id, title }
+          }
+        }
+      }`
+    });
+    res.json(data);
+  } catch (e) {
+    res.status(400).json({ errors: [{ message: e.message }] });
+  }
+});
 
 
 router.post('/login', (req, res) => {
