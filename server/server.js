@@ -13,6 +13,7 @@ import apiRouter from './api/index';
 import schema from './api/schema';
 import config from '../src/config';
 import webpackCommonConfig from '../webpack/config';
+import appConfig from '../config/index';
 
 const app = express();
 
@@ -24,7 +25,17 @@ app.use(favicon(webpackCommonConfig.paths.favicon));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
 app.use('/api', apiRouter);
-app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
+
+app.use('/graphql', bodyParser.json(), (req, res) => {
+  if (req.headers['x-access-token'] !== appConfig.secretToken) {
+    res.status(403);
+  }
+  graphqlExpress({ schema })(req, res);
+});
+
+if (process.env.APP_ENV !== 'production') {
+  app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+}
 
 if (process.env.NODE_ENV !== 'production') {
   const webpack = require('webpack');
@@ -33,9 +44,6 @@ if (process.env.NODE_ENV !== 'production') {
   const webpackHotMiddleware = require('webpack-hot-middleware');
   const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
   const bundler = webpack(webpackConfig);
-
-  app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
-
   app.use(webpackDevMiddleware(bundler, {
     hot: true,
     publicPath: webpackCommonConfig.paths.publicPath,

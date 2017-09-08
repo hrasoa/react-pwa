@@ -10,8 +10,9 @@
     "build:app": "concurrently --kill-others-on-fail \"npm run build:vendor\" \"npm run build:bundle\"",
     "clean": "rimraf public/*",
     "precache": "babel-node scripts/precache.js",
-    "start": "BABEL_ENV=node NODE_ENV=production babel-node server/server.js",
-    "start:dev": "nodemon --exec 'babel-node server/server.js'",
+    "start": "BABEL_ENV=node NODE_ENV=production APP_ENV=production babel-node server/server.js",
+    "start:qa": "BABEL_ENV=node NODE_ENV=production APP_ENV=qa babel-node server/server.js",
+    "start:dev": "APP_ENV=dev nodemon --exec 'babel-node server/server.js'",
     "test": "jest"
   },
   "repository": {

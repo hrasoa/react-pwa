@@ -5,7 +5,6 @@ import {
 import axios from 'axios';
 import config from '../config';
 
-
 function callApi(endpoint, entitySchema, options) {
   const fullUrl = `${((typeof window === 'undefined') ? config.serverUrl : '')}/api/${endpoint}`;
   const requestOptions = {

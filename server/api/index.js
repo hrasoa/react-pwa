@@ -1,15 +1,18 @@
-import url from 'url';
 import express from 'express';
 import axios from 'axios';
-import ApolloClient, { createNetworkInterface } from 'apollo-client';
+import ApolloClient from 'apollo-client';
 import gql from 'graphql-tag';
 import config from '../../src/config';
+import appConfig from '../../config/index';
+
 const router = express.Router();
 
 const client = new ApolloClient({
   networkInterface: {
     query: request =>
-      axios.post(`${config.serverUrl}/graphql`, request)
+      axios.post(`${config.serverUrl}/graphql`, request, {
+        headers: { 'x-access-token': appConfig.secretToken }
+      })
         .then(response => response.data)
         .catch(error => error)
   }
