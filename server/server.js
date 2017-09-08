@@ -13,7 +13,7 @@ import apiRouter from './api/index';
 import schema from './api/schema';
 import config from '../src/config';
 import webpackCommonConfig from '../webpack/config';
-import appConfig from '../config/index';
+import appConfig from './config/index';
 
 const app = express();
 
