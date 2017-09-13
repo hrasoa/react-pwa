@@ -1,14 +1,16 @@
 const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const BabiliPlugin = require("babili-webpack-plugin");
-const ManifestPlugin = require('webpack-manifest-plugin');
+const BabiliPlugin = require('babili-webpack-plugin');
+const StatsPlugin = require('stats-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
-const extractBundle = new ExtractTextPlugin('[name].[chunkhash].css');
-const extractCritical = new ExtractTextPlugin('critical.css');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const commonConfig = require('./config');
+const prodVendor = commonConfig.vendors.production;
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
+const extractBundle = new ExtractCssChunks({
+  filename: '[name].[chunkhash].css'
+});
 const extractConfig = {
   fallback: 'style-loader',
   use: [
@@ -32,7 +34,8 @@ module.exports = {
     bundle: [
       'regenerator-runtime/runtime',
       commonConfig.paths.entry
-    ]
+    ],
+    vendor: prodVendor
   },
   output: {
     path: commonConfig.paths.output,
@@ -50,13 +53,8 @@ module.exports = {
         include: commonConfig.paths.src
       },
       {
-        test: /style\.scss$/,
-        use: extractBundle.extract(extractConfig),
-        include: commonConfig.paths.src
-      },
-      {
-        test: /critical\.scss$/,
-        use: extractCritical.extract(extractConfig),
+        test: /\.scss$/,
+        use: ExtractCssChunks.extract(extractConfig),
         include: commonConfig.paths.src
       }
     ]
@@ -68,11 +66,10 @@ module.exports = {
       }
     }),
     new StyleLintPlugin(),
-    extractCritical,
     extractBundle,
-    new webpack.DllReferencePlugin({
-      context: process.cwd(),
-      manifest: require(commonConfig.paths.dllManifest)
+    new webpack.optimize.CommonsChunkPlugin({
+      name: ['vendor'],
+      minChunks: Infinity
     }),
     new BabiliPlugin(),
     new CompressionPlugin({
@@ -82,9 +79,7 @@ module.exports = {
       threshold: 10240,
       minRatio: 0.8
     }),
-    new ManifestPlugin({
-      fileName: commonConfig.fileNames.bundleManifest
-    }),
+    new StatsPlugin('stats.json'),
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
       reportFilename: 'report.html'

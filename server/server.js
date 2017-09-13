@@ -47,31 +47,22 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(webpackDevMiddleware(bundler, {
     hot: true,
     publicPath: webpackCommonConfig.paths.publicPath,
-    stats: 'minimal'
+    stats: {
+      colors: true
+    }
   }));
   app.use(webpackHotMiddleware(bundler.compilers.find(compiler => compiler.name === 'client')));
   app.use(webpackHotServerMiddleware(bundler));
 } else {
   const serverRenderer = require('./serverRenderer').default;
-  const vendorManifest = require(webpackCommonConfig.paths.vendorManifest);
-  const bundleManifest = require(webpackCommonConfig.paths.bundleManifest);
-  const criticalCss = fs.readFileSync(path.join(
-    webpackCommonConfig.paths.output,
-    'critical.css'
-  ), { encoding: 'utf8' });
-  const assetsManifest = {
-    bundleCss: bundleManifest['bundle.css'],
-    bundleJs: bundleManifest['bundle.js'],
-    vendorJs: vendorManifest['vendor.js'],
-    criticalCss
-  };
+  const clientStats = require(path.join(webpackCommonConfig.paths.output, 'stats.json'));
   app.get('/manifest.json', (req, res) => {
     res.sendFile(path.join(webpackCommonConfig.paths.src, 'manifest.json'))
   });
   app.get('/sw-scripts.js', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../scripts/sw-scripts.js'));
   });
-  app.use(serverRenderer({ assetsManifest }));
+  app.use(serverRenderer({ clientStats }));
 }
 
 app.listen(config.port, config.host, () => {

@@ -72,7 +72,8 @@ module.exports = [{
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
-      name: ['vendor']
+      name: ['vendor'],
+      minChunks: Infinity
     }),
     new StyleLintPlugin(),
     new webpack.HotModuleReplacementPlugin(),
@@ -96,6 +97,15 @@ module.exports = [{
         test: /\.js$/,
         use: jsLoader('node'),
         exclude: /node_modules/
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader'
+        ],
+        include: commonConfig.paths.src
       }
     ]
   }

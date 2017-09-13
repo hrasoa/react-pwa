@@ -1,8 +1,5 @@
-import { asyncComponent } from 'react-async-component';
+import universal from 'react-universal-component';
 
-export default asyncComponent({
-  resolve: () => import(
-    /* webpackChunkName: "profile" */
-    './ProfilePage'
-  )
-});
+export default universal(import(
+  './ProfilePage'
+));
