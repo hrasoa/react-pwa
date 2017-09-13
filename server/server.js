@@ -20,7 +20,6 @@ const app = express();
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(gzipStatic(webpackCommonConfig.paths.output));
-app.use(express.static('public'));
 app.use(favicon(webpackCommonConfig.paths.favicon));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
@@ -45,7 +44,6 @@ if (process.env.NODE_ENV !== 'production') {
   const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
   const bundler = webpack(webpackConfig);
   app.use(webpackDevMiddleware(bundler, {
-    hot: true,
     publicPath: webpackCommonConfig.paths.publicPath,
     stats: {
       colors: true
@@ -54,6 +52,7 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(webpackHotMiddleware(bundler.compilers.find(compiler => compiler.name === 'client')));
   app.use(webpackHotServerMiddleware(bundler));
 } else {
+  app.use(express.static('public'));
   const serverRenderer = require('./serverRenderer').default;
   const clientStats = require(path.join(webpackCommonConfig.paths.output, 'stats.json'));
   app.get('/manifest.json', (req, res) => {

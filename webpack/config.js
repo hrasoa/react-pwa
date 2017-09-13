@@ -48,5 +48,5 @@ module.exports = {
       'reselect'
     ]
   },
-  fileNames: fileNames
+  fileNames
 };

@@ -35,9 +35,9 @@ const App = Root => (
 );
 
 function render() {
-  const module = require('./components/App');
+  const module = require('./components/App').default;
   ReactDOM.render(
-    App(module.default),
+    App(module),
     document.getElementById('root')
   );
 }
@@ -45,5 +45,5 @@ function render() {
 render();
 
 if (module.hot) {
-  module.hot.accept('./components/App', render);
+  module.hot.accept('./components/App.js', render);
 }

@@ -35,10 +35,11 @@ export default function serverRenderer({ clientStats }) {
         res.end();
       } else {
         const markup = renderToString(RootComp);
+        const chunkNames = flushChunkNames();
         const { js, styles, cssHash } = flushChunks(clientStats, {
           before: ['vendor'],
           after: ['bundle'],
-          chunkNames: flushChunkNames()
+          chunkNames
         });
 
         res.status(200).render('index', {
