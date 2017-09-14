@@ -5,10 +5,7 @@ import path from 'path';
 import helmet from 'helmet';
 import fs from 'fs';
 import gzipStatic from 'connect-gzip-static';
-import {
-  graphqlExpress,
-  graphiqlExpress
-} from 'apollo-server-express';
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import apiRouter from './api/index';
 import schema from './api/schema';
 import config from '../src/config';

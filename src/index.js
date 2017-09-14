@@ -10,6 +10,7 @@ import {
 } from 'react-router-redux';
 import configureStore from './store/configureStore';
 import AppContainer from './containers/AppContainer';
+import App from './components/App';
 import './critical.scss';
 import './style.scss';
 
@@ -24,26 +25,24 @@ const store = configureStore(
 store.runSaga();
 delete window.__INITIAL_STATE__;
 
-const App = Root => (
-  <AppContainer>
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <Root />
-      </ConnectedRouter>
-    </Provider>
-  </AppContainer>
-);
-
-function render() {
-  const module = require('./components/App').default;
+function render(Root) {
   ReactDOM.render(
-    App(module),
+    <AppContainer>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <Root />
+        </ConnectedRouter>
+      </Provider>
+    </AppContainer>,
     document.getElementById('root')
   );
 }
 
-render();
-
 if (module.hot) {
-  module.hot.accept('./components/App.js', render);
+  module.hot.accept('./components/App.js', () => {
+    const NewApp = require('./components/App').default;
+    render(NewApp);
+  });
 }
+
+render(App);
