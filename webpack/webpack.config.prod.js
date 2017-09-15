@@ -5,28 +5,12 @@ const BabiliPlugin = require('babili-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const commonConfig = require('./config');
 const prodVendor = commonConfig.vendors.production;
-const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const extractBundle = new ExtractCssChunks({
   filename: '[name].[chunkhash].css'
 });
-const extractConfig = {
-  fallback: 'style-loader',
-  use: [
-    'css-loader',
-    {
-      loader: 'postcss-loader',
-      options: {
-        plugins: [
-          require('autoprefixer'),
-          require('cssnano')
-        ]
-      }
-    },
-    'sass-loader'
-  ]
-};
 
 module.exports = {
   cache: true,
@@ -54,7 +38,22 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: ExtractCssChunks.extract(extractConfig),
+        use: ExtractCssChunks.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: [
+                  require('autoprefixer'),
+                  require('cssnano')
+                ]
+              }
+            },
+            'sass-loader'
+          ]
+        }),
         include: commonConfig.paths.src
       }
     ]

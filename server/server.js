@@ -33,6 +33,15 @@ if (process.env.APP_ENV !== 'production') {
   app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 }
 
+let isBuilt = false;
+
+const done = () =>
+  !isBuilt &&
+  app.listen(config.port, config.host, () => {
+    isBuilt = true;
+    console.log('BUILD COMPLETE -- Listening @ http://localhost:3000');
+  });
+
 if (process.env.NODE_ENV !== 'production') {
   const webpack = require('webpack');
   const webpackConfig = require('../webpack/webpack.config');
@@ -48,6 +57,8 @@ if (process.env.NODE_ENV !== 'production') {
   }));
   app.use(webpackHotMiddleware(bundler.compilers.find(compiler => compiler.name === 'client')));
   app.use(webpackHotServerMiddleware(bundler));
+
+  bundler.plugin('done', done);
 } else {
   app.use(express.static('public'));
   const serverRenderer = require('./serverRenderer').default;
@@ -59,8 +70,5 @@ if (process.env.NODE_ENV !== 'production') {
     res.sendFile(path.resolve(__dirname, '../scripts/sw-scripts.js'));
   });
   app.use(serverRenderer({ clientStats }));
+  done();
 }
-
-app.listen(config.port, config.host, () => {
-  console.info('Express listening on port', config.port);
-});

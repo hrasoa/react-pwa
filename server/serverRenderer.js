@@ -36,11 +36,7 @@ export default function serverRenderer({ clientStats }) {
       } else {
         const markup = renderToString(RootComp);
         const chunkNames = flushChunkNames();
-        const { js, styles, cssHash } = flushChunks(clientStats, {
-          before: ['vendor'],
-          after: ['bundle'],
-          chunkNames
-        });
+        const { js, styles, cssHash } = flushChunks(clientStats, { chunkNames });
 
         res.status(200).render('index', {
           helmet: Helmet.renderStatic(),

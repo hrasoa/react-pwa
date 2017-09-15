@@ -10,7 +10,7 @@
     "precache": "babel-node scripts/precache.js",
     "start": "NODE_ENV=production APP_ENV=production babel-node server/server.js",
     "start:qa": "NODE_ENV=production APP_ENV=qa babel-node server/server.js",
-    "start:dev": "APP_ENV=dev nodemon --exec 'babel-node server/server.js'",
+    "start:dev": "NODE_ENV=development APP_ENV=dev nodemon --exec 'babel-node server/server.js'",
     "test": "jest"
   },
   "repository": "git+https://github.com/hrasoa/react-pwa.git",

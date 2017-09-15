@@ -4,16 +4,16 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-import HomePage from '../containers/AsyncHomePage';
-import PostPage from '../containers/AsyncPostPage';
-import LoginPage from '../containers/AsyncLoginPage';
+import HomePage from '../containers/AsyncHomePage/index';
+import PostPage from '../containers/AsyncPostPage/index';
+import LoginPage from '../containers/AsyncLoginPage/index';
 import PrivateRoute from '../containers/PrivateRoute';
-import Profile from '../containers/AsyncProfilePage';
+import Profile from '../containers/AsyncProfilePage/index';
 import Worker from '../containers/Worker';
-import About from './AsyncAbout';
-import Private from './AsyncPrivate';
+import About from './AsyncAbout/index';
+import Private from './AsyncPrivate/index';
 import Nav from './Nav/Nav';
-import NotFound from './AsyncNotFound';
+import NotFound from './AsyncNotFound/index';
 
 export default () => (
   <Worker>
