@@ -21,7 +21,7 @@ module.exports = [{
     chunkFilename: '[name].js',
     publicPath: commonConfig.paths.publicPath
   },
-  devtool: 'eval',
+  devtool: 'source-map',
   module: {
     rules: [
       {

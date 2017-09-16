@@ -15,7 +15,7 @@ const extractBundle = new ExtractCssChunks({
 module.exports = {
   cache: true,
   entry: {
-    bundle: [
+    main: [
       'regenerator-runtime/runtime',
       commonConfig.paths.entry
     ],

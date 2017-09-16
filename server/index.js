@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import favicon from 'serve-favicon';
+import webpack from 'webpack';
 import path from 'path';
 import helmet from 'helmet';
 import fs from 'fs';
@@ -39,12 +40,11 @@ const done = () =>
   !isBuilt &&
   app.listen(config.port, config.host, () => {
     isBuilt = true;
-    console.log('BUILD COMPLETE -- Listening @ http://localhost:3000');
+    console.log(`BUILD COMPLETE -- Listening @ http://localhost:${config.port}`);
   });
 
 if (process.env.NODE_ENV !== 'production') {
-  const webpack = require('webpack');
-  const webpackConfig = require('../webpack/webpack.config');
+  const webpackConfig = require('../webpack/dev');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
   const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
@@ -57,11 +57,10 @@ if (process.env.NODE_ENV !== 'production') {
   }));
   app.use(webpackHotMiddleware(bundler.compilers.find(compiler => compiler.name === 'client')));
   app.use(webpackHotServerMiddleware(bundler));
-
   bundler.plugin('done', done);
 } else {
   app.use(express.static('public'));
-  const serverRenderer = require('./serverRenderer').default;
+  const serverRenderer = require('../public/main.server.js').default;
   const clientStats = require(path.join(webpackCommonConfig.paths.output, 'stats.json'));
   app.get('/manifest.json', (req, res) => {
     res.sendFile(path.join(webpackCommonConfig.paths.src, 'manifest.json'))
