@@ -12,7 +12,7 @@ import Profile from '../containers/AsyncProfilePage/index';
 import Worker from '../containers/Worker';
 import About from './AsyncAbout/index';
 import Private from './AsyncPrivate/index';
-import Nav from './Nav/Nav';
+import Nav from './Nav';
 import NotFound from './AsyncNotFound/index';
 
 export default () => (
