@@ -6,13 +6,6 @@
 
     $ git clone git@github.com:hrasoa/react-pwa.git app
     $ cd app
-    $ npm i
-    $ npm run start:dev
-    
-or if you are using yarn:
-    
-    $ git clone git@github.com:hrasoa/react-pwa.git app
-    $ cd app
     $ yarn
     $ npm run start:dev  
     
