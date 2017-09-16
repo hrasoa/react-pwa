@@ -54,7 +54,9 @@ router.get('/posts/:id', async (req, res) => {
     const data = await sendQuery({
       query: `{
         post(_id: "${req.params.id}") {
-          id, title, body
+          id
+          title
+          body
         }
       }`
     });
