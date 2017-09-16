@@ -1,11 +1,20 @@
 # React Progressive Web Application
 
+> Just another boilerplate
+
 ## Getting started
 
     $ git clone git@github.com:hrasoa/react-pwa.git app
     $ cd app
-    $ yarn
+    $ npm i
     $ npm run start:dev
+    
+or if you are using yarn:
+    
+    $ git clone git@github.com:hrasoa/react-pwa.git app
+    $ cd app
+    $ yarn
+    $ npm run start:dev  
     
 To run the production build:
 
