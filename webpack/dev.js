@@ -6,6 +6,23 @@ const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const commonConfig = require('./config');
 const extractBundle = new ExtractCssChunks();
 
+const res = p => path.resolve(__dirname, p);
+
+const nodeModules = res('../node_modules');
+// if you're specifying externals to leave unbundled, you need to tell Webpack
+// to still bundle `react-universal-component`, `webpack-flush-chunks` and
+// `require-universal-module` so that they know they are running
+// within Webpack and can properly make connections to client modules:
+const externals = fs
+  .readdirSync(nodeModules)
+  .filter(x => !/\.bin|react-universal-component|webpack-flush-chunks/.test(x))
+  .reduce((externals, mod) => {
+    externals[mod] = `commonjs ${mod}`;
+    return externals
+  }, {});
+
+externals['react-dom/server'] = 'commonjs react-dom/server';
+
 module.exports = [{
   name: 'client',
   target: 'web',
@@ -80,6 +97,7 @@ module.exports = [{
     filename: '[name].server.js',
     libraryTarget: 'commonjs2'
   },
+  externals,
   module: {
     rules: [
       {
@@ -93,7 +111,6 @@ module.exports = [{
       {
         test: /\.scss$/,
         use: [
-          'style-loader',
           'css-loader/locals',
           'sass-loader'
         ],
