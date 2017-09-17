@@ -11,7 +11,7 @@ import manifest from '../src/manifest.json';
 
 const isProd = process.env.NODE_ENV === 'production';
 
-export default function serverRenderer({ clientStats }) {
+export default function serverRenderer({ clientStats, serverStats, options = {} }) {
   return (req, res) => {
     const store = configureStore();
     const context = {};
@@ -36,12 +36,27 @@ export default function serverRenderer({ clientStats }) {
       } else {
         const markup = renderToString(RootComp);
         const chunkNames = flushChunkNames();
-        const { js, styles, cssHash } = flushChunks(clientStats, { chunkNames });
+        const flushed = flushChunks(clientStats, { chunkNames });
+        const {
+          js,
+          styles,
+          cssHash,
+          cssHashRaw,
+          stylesheets,
+          publicPath
+        } = flushed;
+        const { criticalCssRaw } = options;
+
+        const css = stylesheets
+          .filter(s => !new RegExp(s).test(cssHashRaw.main))
+          .map(s => `${publicPath}/${s}`);
 
         res.status(200).render('index', {
           helmet: Helmet.renderStatic(),
           initialMarkup: markup,
           initialState: JSON.stringify(store.getState()),
+          criticalCssRaw,
+          css,
           manifest,
           js,
           styles,

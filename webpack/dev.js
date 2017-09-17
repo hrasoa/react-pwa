@@ -4,6 +4,7 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const fs = require('fs');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const commonConfig = require('./config');
+const envConfig = require('../server/config');
 const extractBundle = new ExtractCssChunks();
 
 module.exports = [{
@@ -19,7 +20,7 @@ module.exports = [{
     path: commonConfig.paths.output,
     filename: '[name].js',
     chunkFilename: '[name].js',
-    publicPath: commonConfig.paths.publicPath
+    publicPath: envConfig.publicPath
   },
   devtool: 'source-map',
   module: {
@@ -55,6 +56,12 @@ module.exports = [{
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development'),
+        APP_ENV: JSON.stringify(process.env.APP_ENV)
+      }
+    }),
     new StyleLintPlugin(),
     extractBundle,
     new webpack.optimize.CommonsChunkPlugin({
@@ -64,12 +71,7 @@ module.exports = [{
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('development')
-      }
-    })
+    new webpack.NoEmitOnErrorsPlugin()
   ]
 }, {
   name: 'server',

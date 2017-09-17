@@ -10,8 +10,7 @@ switch (process.env.APP_ENV) {
     module.exports = merge({}, config, require('./config.qa'));
     break;
 
-  case 'production':
-  default:
+  case 'prod':
     module.exports = merge({}, config, require('./config.prod'));
     break;
 }

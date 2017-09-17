@@ -1,12 +1,14 @@
-const webpack = require('webpack');
-const path = require('path');
-const CompressionPlugin = require('compression-webpack-plugin');
 const BabiliPlugin = require('babili-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
+const path = require('path');
 const StatsPlugin = require('stats-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
+const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 const commonConfig = require('./config');
+const envConfig = require('../server/config');
 const prodVendor = commonConfig.vendors.production;
 const extractBundle = new ExtractCssChunks({
   filename: '[name].[chunkhash].css'
@@ -26,7 +28,7 @@ module.exports = {
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].js',
     library: '[name]',
-    publicPath: commonConfig.paths.publicPath
+    publicPath: envConfig.publicPath
   },
   devtool: 'hidden-source-map',
   module: {
@@ -61,7 +63,8 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
+        NODE_ENV: JSON.stringify('production'),
+        APP_ENV: JSON.stringify(process.env.APP_ENV)
       }
     }),
     new StyleLintPlugin(),
@@ -79,6 +82,9 @@ module.exports = {
       minRatio: 0.8
     }),
     new StatsPlugin('stats.json'),
+    new ManifestPlugin({
+      fileName: 'bundle.json'
+    }),
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
       reportFilename: 'report.html'

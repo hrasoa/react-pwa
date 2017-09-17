@@ -8,6 +8,11 @@
   <%- helmet.meta.toString() %>
   <%- helmet.title.toString() %>
   <% if (isProd === true) { %>
+  <style><%- criticalCssRaw -%></style>
+  <% for (var i = 0; i < css.length; i++) { %>
+  <link rel="preload" as="style" href="<%- css[i] -%>" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="<%- css[i] -%>"></noscript>
+  <% } %>
   <link rel="manifest" href="/manifest.json">
   <script type="text/javascript">
     if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
@@ -30,8 +35,9 @@
       });
     }
   </script>
-  <% } %>
+  <% } else { %>
   <%- styles -%>
+  <% } %>
 </head>
 <body>
   <div id="root"><%- initialMarkup -%></div>
