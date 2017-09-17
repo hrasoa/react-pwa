@@ -70,6 +70,9 @@ if (process.env.NODE_ENV !== 'production') {
   app.get('/workbox-sw.js', (req, res) => {
     res.sendFile(require.resolve('workbox-sw'));
   });
+  app.get('/workbox-runtime-caching.js', (req, res) => {
+    res.sendFile(require.resolve('workbox-runtime-caching'));
+  });
   const mainCss = path.join(outputPath, bundleManifest['main.css']);
   fs.readFile(mainCss, 'utf8', (err, data) => {
     if (err) throw err;
