@@ -11,6 +11,16 @@ workboxSW.router.registerRoute(
 );
 
 workboxSW.router.registerRoute(
+  '/posts/(.*)',
+  workboxSW.strategies.networkFirst()
+);
+
+workboxSW.router.registerRoute(
+  '/api/(.*)',
+  workboxSW.strategies.networkFirst()
+);
+
+workboxSW.router.registerRoute(
   '/about',
   workboxSW.strategies.cacheFirst()
 );
