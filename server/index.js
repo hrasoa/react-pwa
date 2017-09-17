@@ -67,8 +67,8 @@ if (process.env.NODE_ENV !== 'production') {
   app.get('/manifest.json', (req, res) => {
     res.sendFile(path.join(webpackCommonConfig.paths.src, 'manifest.json'))
   });
-  app.get('/sw-scripts.js', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../scripts/sw-scripts.js'));
+  app.get('/workbox-sw.js', (req, res) => {
+    res.sendFile(require.resolve('workbox-sw'));
   });
   const mainCss = path.join(outputPath, bundleManifest['main.css']);
   fs.readFile(mainCss, 'utf8', (err, data) => {

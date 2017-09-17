@@ -6,10 +6,6 @@ switch (process.env.APP_ENV) {
     module.exports = merge({}, config, require('./config.dev'));
     break;
 
-  case 'qa':
-    module.exports = merge({}, config, require('./config.qa'));
-    break;
-
   case 'prod':
     module.exports = merge({}, config, require('./config.prod'));
     break;

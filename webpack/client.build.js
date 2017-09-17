@@ -7,6 +7,7 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ManifestPlugin = require('webpack-manifest-plugin');
+const WorkboxBuildWebpackPlugin = require('workbox-webpack-plugin');
 const commonConfig = require('./config');
 const envConfig = require('../server/config');
 const prodVendor = commonConfig.vendors.production;
@@ -88,6 +89,12 @@ module.exports = {
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
       reportFilename: 'report.html'
+    }),
+    new WorkboxBuildWebpackPlugin({
+      globPatterns: ['**\/*.{js,css,map,gz}'],
+      globIgnores: ['main.server.js'],
+      swSrc: './scripts/sw.js',
+      swDest: './public/sw.js'
     })
   ]
 };
