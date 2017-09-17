@@ -17,12 +17,16 @@ workboxSW.router.registerRoute(
 
 workboxSW.router.registerRoute(
   'https://fonts.googleapis.com/(.*)',
-  workboxSW.strategies.cacheFirst()
+  workboxSW.strategies.cacheFirst({
+    cacheableResponse: { statuses: [0, 200] }
+  })
 );
 
 workboxSW.router.registerRoute(
   'https://fonts.gstatic.com/(.*)',
-  workboxSW.strategies.cacheFirst()
+  workboxSW.strategies.cacheFirst({
+    cacheableResponse: { statuses: [0, 200] }
+  })
 );
 
 const custom = new workbox.runtimeCaching.RequestWrapper();
