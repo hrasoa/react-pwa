@@ -1,4 +1,4 @@
-importScripts('/workbox-sw.prod.v2.0.1js');
+importScripts('/workbox-sw.prod.v2.0.1.js');
 importScripts('/workbox-runtime-caching.prod.v2.0.0.js');
 
 const workboxSW = new WorkboxSW({ clientsClaim: true });
