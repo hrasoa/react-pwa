@@ -28,7 +28,7 @@ workboxSW.router.registerRoute(
 );
 
 workboxSW.router.registerRoute(
-  '/api/:entity/:id',
+  '/api/:entity/:id?',
   workboxSW.strategies.networkFirst({
     cacheName: 'api'
   })
