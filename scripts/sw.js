@@ -2,6 +2,11 @@ importScripts('/workbox-sw.prod.v2.0.1.js');
 importScripts('/workbox-runtime-caching.prod.v2.0.0.js');
 
 const workboxSW = new WorkboxSW({ clientsClaim: true });
+const customRequest = new workbox.runtimeCaching.RequestWrapper();
+const fontsOptions = {
+  cacheName: 'fonts',
+  cacheableResponse: { statuses: [0, 200] }
+};
 
 workboxSW.precache([]);
 
@@ -36,24 +41,16 @@ workboxSW.router.registerRoute(
 
 workboxSW.router.registerRoute(
   'https://fonts.googleapis.com/(.*)',
-  workboxSW.strategies.cacheFirst({
-    cacheName: 'fonts',
-    cacheableResponse: { statuses: [0, 200] }
-  })
+  workboxSW.strategies.cacheFirst(fontsOptions)
 );
 
 workboxSW.router.registerRoute(
   'https://fonts.gstatic.com/(.*)',
-  workboxSW.strategies.cacheFirst({
-    cacheName: 'fonts',
-    cacheableResponse: { statuses: [0, 200] }
-  })
+  workboxSW.strategies.cacheFirst(fontsOptions)
 );
-
-const custom = new workbox.runtimeCaching.RequestWrapper();
 
 self.addEventListener('message', function(event) {
   if (event.data && event.data.action === 'navigate') {
-    custom.fetchAndCache({ request: new Request(event.data.url) });
+    customRequest.fetchAndCache({ request: new Request(event.data.url) });
   }
 });
