@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet';
 import React from 'react';
 import {
   Route,
@@ -10,6 +9,7 @@ import LoginPage from '../containers/AsyncLoginPage/index';
 import PrivateRoute from '../containers/PrivateRoute';
 import Profile from '../containers/AsyncProfilePage/index';
 import Worker from '../containers/Worker';
+import Bundle from './AsyncBundle/index';
 import About from './AsyncAbout/index';
 import Private from './AsyncPrivate/index';
 import Nav from './Nav';
@@ -17,10 +17,7 @@ import NotFound from './AsyncNotFound/index';
 
 export default () => (
   <Worker>
-    <Helmet>
-      <title>My App</title>
-      <link rel="canonical" href="http://example.com" />
-    </Helmet>
+    <Bundle />
     <Nav />
     <div className="o-container">
       <Switch>

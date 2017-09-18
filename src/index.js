@@ -12,7 +12,6 @@ import configureStore from './store/configureStore';
 import AppContainer from './containers/AppContainer';
 import App from './components/App';
 import './critical.scss';
-import './style.scss';
 
 const history = createHistory();
 const middleware = routerMiddleware(history);
