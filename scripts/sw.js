@@ -5,6 +5,10 @@ const workboxSW = new WorkboxSW({ clientsClaim: true });
 const customRequest = new workbox.runtimeCaching.RequestWrapper();
 const fontsOptions = {
   cacheName: 'fonts',
+  cacheExpiration: {
+    maxEntries: 2,
+    maxAgeSeconds: 7 * 24 * 60 * 60 // 1 week
+  },
   cacheableResponse: { statuses: [0, 200] }
 };
 
