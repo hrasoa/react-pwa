@@ -1,5 +1,6 @@
 const BabiliPlugin = require('babili-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const path = require('path');
 const StatsPlugin = require('stats-webpack-plugin');
@@ -95,6 +96,11 @@ module.exports = {
       globIgnores: ['main.server.js'],
       swSrc: './scripts/sw.js',
       swDest: './public/sw.js'
-    })
+    }),
+    new CopyWebpackPlugin([
+      { from: './src/manifest.json' },
+      { from: require.resolve('workbox-sw') },
+      { from: require.resolve('workbox-runtime-caching') }
+    ])
   ]
 };

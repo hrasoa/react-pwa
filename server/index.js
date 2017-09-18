@@ -64,15 +64,6 @@ if (process.env.NODE_ENV !== 'production') {
   const serverRenderer = require(path.join(outputPath, 'main.server.js')).default;
   const clientStats = require(path.join(outputPath, 'stats.json'));
   const bundleManifest = require(path.join(outputPath, 'bundle.json'));
-  app.get('/manifest.json', (req, res) => {
-    res.sendFile(path.join(webpackCommonConfig.paths.src, 'manifest.json'))
-  });
-  app.get('/workbox-sw.js', (req, res) => {
-    res.sendFile(require.resolve('workbox-sw'));
-  });
-  app.get('/workbox-runtime-caching.js', (req, res) => {
-    res.sendFile(require.resolve('workbox-runtime-caching'));
-  });
   const mainCss = path.join(outputPath, bundleManifest['main.css']);
   fs.readFile(mainCss, 'utf8', (err, data) => {
     if (err) throw err;
