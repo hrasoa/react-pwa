@@ -11,12 +11,7 @@ workboxSW.router.registerRoute(
 );
 
 workboxSW.router.registerRoute(
-  '/posts/(.*)',
-  workboxSW.strategies.networkFirst()
-);
-
-workboxSW.router.registerRoute(
-  '/api/(.*)',
+  '/posts/:id',
   workboxSW.strategies.networkFirst()
 );
 
@@ -26,8 +21,23 @@ workboxSW.router.registerRoute(
 );
 
 workboxSW.router.registerRoute(
+  '/login',
+  workboxSW.strategies.cacheFirst({
+    cacheName: 'content'
+  })
+);
+
+workboxSW.router.registerRoute(
+  '/api/:entity/:id',
+  workboxSW.strategies.networkFirst({
+    cacheName: 'api'
+  })
+);
+
+workboxSW.router.registerRoute(
   'https://fonts.googleapis.com/(.*)',
   workboxSW.strategies.cacheFirst({
+    cacheName: 'fonts',
     cacheableResponse: { statuses: [0, 200] }
   })
 );
@@ -35,6 +45,7 @@ workboxSW.router.registerRoute(
 workboxSW.router.registerRoute(
   'https://fonts.gstatic.com/(.*)',
   workboxSW.strategies.cacheFirst({
+    cacheName: 'fonts',
     cacheableResponse: { statuses: [0, 200] }
   })
 );
