@@ -31,7 +31,7 @@ app.use('/graphql', bodyParser.json(), (req, res) => {
   graphqlExpress({ schema })(req, res);
 });
 
-if (process.env.APP_ENV !== 'production') {
+if (process.env.APP_ENV !== 'prod') {
   app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 }
 
