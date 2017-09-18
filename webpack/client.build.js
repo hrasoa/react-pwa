@@ -83,7 +83,10 @@ module.exports = {
       threshold: 10240,
       minRatio: 0.8
     }),
-    new StatsPlugin('stats.json'),
+    new StatsPlugin('stats.json', {
+      chunkModules: true,
+      exclude: [/node_modules/]
+    }),
     new ManifestPlugin({
       fileName: 'bundle.json'
     }),
