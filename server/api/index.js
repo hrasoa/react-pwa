@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
+import apiRouter from './routes';
 import schema from './schema';
 import webpackCommonConfig from '../../webpack/config';
 import envConfig from '../config';
@@ -10,6 +11,7 @@ const app = express();
 
 app.use(helmet());
 app.use(bodyParser.json());
+app.use('/api', apiRouter);
 
 app.use('/graphql', bodyParser.json(), (req, res) => {
   if (req.headers['x-access-token'] !== envConfig.secretToken) {
