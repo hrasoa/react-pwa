@@ -1,6 +1,6 @@
 {
   "name": "react-pwa",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "React progressive web application",
   "main": "src/index.js",
   "scripts": {
