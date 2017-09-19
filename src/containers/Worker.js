@@ -8,6 +8,11 @@ const cacheUrl = (url) => {
   ) {
     navigator.serviceWorker.controller.postMessage({ action: 'navigate', url });
   }
+
+  if (typeof window !== 'undefined' && window.ga) {
+    ga('set', 'page', url);
+    ga('send', 'pageview');
+  }
 };
 
 class Worker extends Component {

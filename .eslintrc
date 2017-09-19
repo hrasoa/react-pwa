@@ -8,7 +8,8 @@
     "describe": true,
     "it": true,
     "navigator": true,
-    "window": true
+    "window": true,
+    "ga": true
   },
   "plugins": [
     "react",

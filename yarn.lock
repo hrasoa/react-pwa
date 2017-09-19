@@ -7543,6 +7543,10 @@ workbox-build@^2.0.1:
     mkdirp "^0.5.1"
     workbox-sw "^2.0.1"
 
+workbox-google-analytics@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/workbox-google-analytics/-/workbox-google-analytics-2.0.0.tgz#a2d42a8f82dd5f24b945d660fa233e82a6fa915a"
+
 workbox-runtime-caching@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/workbox-runtime-caching/-/workbox-runtime-caching-2.0.0.tgz#ee42633b72abad4153711ff3afe86921d68d4594"

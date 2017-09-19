@@ -8,11 +8,18 @@ import flushChunks from 'webpack-flush-chunks';
 import App from '../../src/components/App';
 import configureStore from '../../src/store/configureStore';
 import manifest from '../../src/manifest.json';
+import config from '../config';
 
-const isProd = process.env.NODE_ENV === 'production';
-
-export default function serverRenderer({ clientStats, serverStats, options = {} }) {
+export default function serverRenderer({
+  clientStats,
+  options = { envConfig: config }
+}) {
   return (req, res) => {
+    const {
+      isProd,
+      envConfig: { trackingID },
+      criticalCssRaw
+    } = options;
     const store = configureStore();
     const context = {};
 
@@ -45,7 +52,6 @@ export default function serverRenderer({ clientStats, serverStats, options = {} 
           stylesheets,
           publicPath
         } = flushed;
-        const { criticalCssRaw } = options;
 
         const css = stylesheets
           .filter(s => !new RegExp(s).test(cssHashRaw.main))
@@ -55,6 +61,7 @@ export default function serverRenderer({ clientStats, serverStats, options = {} 
           helmet: Helmet.renderStatic(),
           initialMarkup: markup,
           initialState: JSON.stringify(store.getState()),
+          trackingID,
           criticalCssRaw,
           css,
           manifest,

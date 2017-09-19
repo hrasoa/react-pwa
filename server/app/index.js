@@ -45,7 +45,6 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(webpackHotServerMiddleware(bundler));
   bundler.plugin('done', done);
 } else {
-  app.use(express.static('clientBuild'));
   const serverRenderer = require(path.join(outputServerPath, 'prod.render.js')).default;
   const clientStats = require(path.join(outputPath, 'stats.json'));
   const bundleManifest = require(path.join(outputPath, 'bundle.json'));
@@ -53,7 +52,9 @@ if (process.env.NODE_ENV !== 'production') {
   fs.readFile(mainCss, 'utf8', (err, data) => {
     if (err) throw err;
     app.use(serverRenderer({ clientStats, options: {
-      criticalCssRaw: data
+      criticalCssRaw: data,
+      envConfig,
+      isProd: true
     } }));
     done();
   });

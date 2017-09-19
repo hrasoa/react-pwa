@@ -101,6 +101,7 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: './src/manifest.json' },
       { from: require.resolve('workbox-sw') },
+      { from: require.resolve('workbox-google-analytics') },
       { from: require.resolve('workbox-runtime-caching') }
     ])
   ]

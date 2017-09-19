@@ -60,6 +60,7 @@
     "reselect": "^3.0.1",
     "serve-favicon": "^2.4.3",
     "webpack-flush-chunks": "^1.1.23",
+    "workbox-google-analytics": "^2.0.0",
     "workbox-runtime-caching": "^2.0.0"
   },
   "devDependencies": {
