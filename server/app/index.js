@@ -26,7 +26,7 @@ const done = () =>
   !isBuilt &&
   app.listen(3000, () => {
     isBuilt = true;
-    console.log('BUILD COMPLETE -- Listening @ http://localhost:3000');
+    console.log("\x1b[35m", 'BUILD COMPLETE -- Listening @ http://localhost:3000');
   });
 
 if (process.env.NODE_ENV !== 'production') {
