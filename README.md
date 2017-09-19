@@ -11,7 +11,7 @@
     
 To run the production build:
 
-    $ npm run build && npm start
+    $ npm run build:prod && npm start
     
 ## Features per environment
 
