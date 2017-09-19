@@ -2,12 +2,13 @@ importScripts('/workbox-sw.prod.v2.0.1.js');
 importScripts('/workbox-runtime-caching.prod.v2.0.0.js');
 importScripts('/workbox-google-analytics.prod.v2.0.0.js');
 
-workbox.googleAnalytics.initialize();
-
+workbox.googleAnalytics.initialize({
+  parameterOverrides: {
+    cd1: 'replay'
+  }
+});
 const workboxSW = new WorkboxSW({ clientsClaim: true });
-
 const customRequest = new workbox.runtimeCaching.RequestWrapper();
-
 const fontsOptions = {
   cacheName: 'fonts',
   cacheExpiration: {
