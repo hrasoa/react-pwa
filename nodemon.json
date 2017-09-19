@@ -1,7 +1,0 @@
-{
-  "watch": [
-    "server/config/",
-    "server/api/",
-    "server/server.js"
-  ]
-}
