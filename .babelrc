@@ -10,7 +10,11 @@
     "stage-2"
   ],
   "plugins": [
-    "universal-import"
+    "universal-import",
+    ["transform-runtime", {
+      "polyfill": false,
+      "regenerator": true
+    }]
   ],
   "env": {
     "development": {

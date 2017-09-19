@@ -20,7 +20,6 @@ module.exports = {
   cache: true,
   entry: {
     main: [
-      'regenerator-runtime/runtime',
       commonConfig.paths.entry
     ],
     vendor: prodVendor
@@ -65,8 +64,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-        APP_ENV: JSON.stringify(process.env.APP_ENV)
+        NODE_ENV: JSON.stringify('production')
       }
     }),
     new StyleLintPlugin(),
@@ -96,9 +94,9 @@ module.exports = {
     }),
     new WorkboxBuildWebpackPlugin({
       globPatterns: ['**\/*.{js,css,map,gz}'],
-      globIgnores: ['main.server.js'],
+      globIgnores: [],
       swSrc: './scripts/sw.js',
-      swDest: './public/sw.js'
+      swDest: './clientBuild/sw.js'
     }),
     new CopyWebpackPlugin([
       { from: './src/manifest.json' },

@@ -6,13 +6,13 @@ const fileNames = {
 };
 
 const srcPath = path.resolve(__dirname, '../src');
-const outputPath = path.resolve(__dirname, '../public');
 
 module.exports = {
   paths: {
     entry: path.join(srcPath, fileNames.entry),
     favicon: path.join(srcPath, fileNames.favicon),
-    output: outputPath,
+    output: path.resolve(__dirname, '../clientBuild'),
+    outputServer: path.resolve(__dirname, '../serverBuild'),
     src: srcPath
   },
   vendors: {
@@ -36,7 +36,6 @@ module.exports = {
       'react-universal-component',
       'redux',
       'redux-saga',
-      'regenerator-runtime/runtime',
       'reselect'
     ]
   },

@@ -2,7 +2,6 @@ import express from 'express';
 import axios from 'axios';
 import ApolloClient from 'apollo-client';
 import gql from 'graphql-tag';
-import config from '../../src/config';
 import appConfig from '../config/index';
 
 const router = express.Router();
@@ -10,7 +9,7 @@ const router = express.Router();
 const client = new ApolloClient({
   networkInterface: {
     query: request =>
-      axios.post(`${config.serverUrl}/graphql`, request, {
+      axios.post('http://0.0.0.0:3000/graphql', request, {
         headers: { 'x-access-token': appConfig.secretToken }
       })
         .then(response => response.data)

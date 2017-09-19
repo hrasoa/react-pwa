@@ -13,7 +13,6 @@ module.exports = [{
   entry: [
     'webpack-hot-middleware/client',
     'react-hot-loader/patch',
-    'regenerator-runtime/runtime',
     commonConfig.paths.entry
   ],
   output: {
@@ -76,10 +75,10 @@ module.exports = [{
 }, {
   name: 'server',
   target: 'node',
-  entry: [path.resolve(__dirname, '../server/serverRenderer.js')],
+  entry: [path.resolve(__dirname, '../server/render.js')],
   output: {
-    path: commonConfig.paths.output,
-    filename: '[name].server.js',
+    path: commonConfig.paths.outputServer,
+    filename: 'render.js',
     libraryTarget: 'commonjs2'
   },
   module: {

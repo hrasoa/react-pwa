@@ -9,12 +9,12 @@ import gzipStatic from 'connect-gzip-static';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import apiRouter from './api/index';
 import schema from './api/schema';
-import config from '../src/config';
 import webpackCommonConfig from '../webpack/config';
 import envConfig from './config';
 
 const app = express();
 const outputPath = webpackCommonConfig.paths.output;
+const outputServerPath = webpackCommonConfig.paths.outputServer;
 
 app.use(helmet());
 app.use(bodyParser.json());
@@ -39,9 +39,9 @@ let isBuilt = false;
 
 const done = () =>
   !isBuilt &&
-  app.listen(config.port, config.host, () => {
+  app.listen(3000, () => {
     isBuilt = true;
-    console.log(`BUILD COMPLETE -- Listening @ http://localhost:${config.port}`);
+    console.log('BUILD COMPLETE -- Listening @ http://localhost:3000');
   });
 
 if (process.env.NODE_ENV !== 'production') {
@@ -60,8 +60,8 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(webpackHotServerMiddleware(bundler));
   bundler.plugin('done', done);
 } else {
-  app.use(express.static('public'));
-  const serverRenderer = require(path.join(outputPath, 'main.server.js')).default;
+  app.use(express.static('clientBuild'));
+  const serverRenderer = require(path.join(outputServerPath, 'prod.render.js')).default;
   const clientStats = require(path.join(outputPath, 'stats.json'));
   const bundleManifest = require(path.join(outputPath, 'bundle.json'));
   const mainCss = path.join(outputPath, bundleManifest['main.css']);
