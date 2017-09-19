@@ -17,7 +17,7 @@ export default function serverRenderer({
   return (req, res) => {
     const {
       isProd,
-      envConfig: { trackingID },
+      envConfig: { gtmID },
       criticalCssRaw
     } = options;
     const store = configureStore();
@@ -61,7 +61,7 @@ export default function serverRenderer({
           helmet: Helmet.renderStatic(),
           initialMarkup: markup,
           initialState: JSON.stringify(store.getState()),
-          trackingID,
+          gtmID,
           criticalCssRaw,
           css,
           manifest,

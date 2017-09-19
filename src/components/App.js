@@ -8,7 +8,6 @@ import PostPage from '../containers/AsyncPostPage/index';
 import LoginPage from '../containers/AsyncLoginPage/index';
 import PrivateRoute from '../containers/PrivateRoute';
 import Profile from '../containers/AsyncProfilePage/index';
-import Worker from '../containers/Worker';
 import Bundle from './AsyncBundle/index';
 import About from './AsyncAbout/index';
 import Private from './AsyncPrivate/index';
@@ -16,7 +15,7 @@ import Nav from './Nav';
 import NotFound from './AsyncNotFound/index';
 
 export default () => (
-  <Worker>
+  <div>
     <Bundle />
     <Nav />
     <div className="o-container">
@@ -30,5 +29,5 @@ export default () => (
         <Route component={NotFound} />
       </Switch>
     </div>
-  </Worker>
+  </div>
 );

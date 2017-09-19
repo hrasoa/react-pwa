@@ -24,6 +24,17 @@ const store = configureStore(
 store.runSaga();
 delete window.__INITIAL_STATE__;
 
+history.listen((location) => {
+  if (typeof navigator !== 'undefined' &&
+    'serviceWorker' in navigator &&
+    navigator.serviceWorker.controller) {
+    navigator.serviceWorker.controller.postMessage({
+      action: 'navigate',
+      url: location.pathname
+    });
+  }
+});
+
 function render(Root) {
   ReactDOM.render(
     <AppContainer>

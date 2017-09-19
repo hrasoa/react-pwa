@@ -1,4 +1,4 @@
 module.exports = {
-  trackingID: 'UA-PROD-Y',
+  gtmID: 'GTM-PROD',
   publicPath: '/'
 };

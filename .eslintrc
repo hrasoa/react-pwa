@@ -9,7 +9,7 @@
     "it": true,
     "navigator": true,
     "window": true,
-    "ga": true
+    "dataLayer": true
   },
   "plugins": [
     "react",
