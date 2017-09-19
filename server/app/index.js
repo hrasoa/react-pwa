@@ -6,11 +6,8 @@ import path from 'path';
 import helmet from 'helmet';
 import fs from 'fs';
 import gzipStatic from 'connect-gzip-static';
-import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
-import apiRouter from './api/index';
-import schema from './api/schema';
-import webpackCommonConfig from '../webpack/config';
-import envConfig from './config';
+import webpackCommonConfig from '../../webpack/config';
+import envConfig from '../config';
 
 const app = express();
 const outputPath = webpackCommonConfig.paths.output;
@@ -22,18 +19,6 @@ app.use(gzipStatic(outputPath));
 app.use(favicon(webpackCommonConfig.paths.favicon));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
-app.use('/api', apiRouter);
-
-app.use('/graphql', bodyParser.json(), (req, res) => {
-  if (req.headers['x-access-token'] !== envConfig.secretToken) {
-    res.status(403);
-  }
-  graphqlExpress({ schema })(req, res);
-});
-
-if (process.env.APP_ENV !== 'prod') {
-  app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
-}
 
 let isBuilt = false;
 
@@ -45,7 +30,7 @@ const done = () =>
   });
 
 if (process.env.NODE_ENV !== 'production') {
-  const webpackConfig = require('../webpack/dev');
+  const webpackConfig = require('../../webpack/dev');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
   const webpackHotServerMiddleware = require('webpack-hot-server-middleware');

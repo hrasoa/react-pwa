@@ -5,9 +5,9 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { flushChunkNames } from 'react-universal-component/server';
 import flushChunks from 'webpack-flush-chunks';
-import App from '../src/components/App';
-import configureStore from '../src/store/configureStore';
-import manifest from '../src/manifest.json';
+import App from '../../src/components/App';
+import configureStore from '../../src/store/configureStore';
+import manifest from '../../src/manifest.json';
 
 const isProd = process.env.NODE_ENV === 'production';
 

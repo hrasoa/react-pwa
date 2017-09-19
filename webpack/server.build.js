@@ -8,7 +8,7 @@ const commonConfig = require('./config');
 module.exports = {
   name: 'server',
   target: 'node',
-  entry: [path.resolve(__dirname, '../server/render.js')],
+  entry: [path.resolve(__dirname, '../server/app/render.js')],
   output: {
     path: commonConfig.paths.outputServer,
     filename: 'prod.render.js',

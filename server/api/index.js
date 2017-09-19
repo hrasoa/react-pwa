@@ -1,105 +1,27 @@
 import express from 'express';
-import axios from 'axios';
-import ApolloClient from 'apollo-client';
-import gql from 'graphql-tag';
-import appConfig from '../config/index';
+import bodyParser from 'body-parser';
+import helmet from 'helmet';
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
+import schema from './schema';
+import webpackCommonConfig from '../../webpack/config';
+import envConfig from '../config';
 
-const router = express.Router();
+const app = express();
 
-const client = new ApolloClient({
-  networkInterface: {
-    query: request =>
-      axios.post('http://0.0.0.0:3000/graphql', request, {
-        headers: { 'x-access-token': appConfig.secretToken }
-      })
-        .then(response => response.data)
-        .catch(error => error)
+app.use(helmet());
+app.use(bodyParser.json());
+
+app.use('/graphql', bodyParser.json(), (req, res) => {
+  if (req.headers['x-access-token'] !== envConfig.secretToken) {
+    res.status(403);
   }
+  graphqlExpress({ schema })(req, res);
 });
 
+if (process.env.APP_ENV !== 'prod') {
+  app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+}
 
-const sendQuery = async ({ query }) => {
-  const response = await client.query({ query: gql`${query}` })
-    .catch((error) => {
-      throw new Error(error);
-    });
-  return response.data;
-};
-
-
-router.get('/posts', async (req, res) => {
-  try {
-    const data = await sendQuery({
-      query: `{
-        posts {
-          pageInfo { endCursor, hasNextPage }
-          totalCount
-          edges {
-            cursor
-            node { id, title }
-          }
-        }
-      }`
-    });
-    res.json(data);
-  } catch (e) {
-    res.status(400).json({ errors: [{ message: e.message }] });
-  }
+app.listen(3001, () => {
+  console.log('API -- Listening @ http://localhost:3001');
 });
-
-
-router.get('/posts/:id', async (req, res) => {
-  try {
-    const data = await sendQuery({
-      query: `{
-        post(_id: "${req.params.id}") {
-          id
-          title
-          body
-        }
-      }`
-    });
-    res.json(data);
-  } catch (e) {
-    res.status(400).json({ errors: [{ message: e.message }] });
-  }
-});
-
-
-router.get('/home', async (req, res) => {
-  try {
-    const data = await sendQuery({
-      query: `{
-        latestPosts: posts(first: 20) {
-          totalCount
-          pageInfo { endCursor, hasNextPage }
-          edges {
-            node { id, title }
-          }
-        }
-      }`
-    });
-    res.json(data);
-  } catch (e) {
-    res.status(400).json({ errors: [{ message: e.message }] });
-  }
-});
-
-
-router.post('/login', (req, res) => {
-  try {
-    if (req.body.password !== '123') {
-      throw new Error('Invalid password');
-    }
-    res.json({ user: {
-      id: '809090',
-      username: req.body.username,
-      firstName: 'Dummy first name'
-    }});
-  } catch (e) {
-    res.status(400).json({ errors: [{ message: e.message }] });
-  }
-});
-
-
-export default router;

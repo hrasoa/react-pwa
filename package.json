@@ -13,8 +13,11 @@
     "clean": "rimraf clientBuild/* serverBuild/*",
     "prebuild": "npm run clean",
     "prestart:dev": "npm run clean",
-    "start": "NODE_ENV=production APP_ENV=prod node serverBuild/index.js",
-    "start:dev": "NODE_ENV=development APP_ENV=dev babel-watch -L -x ./src server/index.js",
+    "start": "NODE_ENV=production APP_ENV=prod node serverBuild/app/index.js",
+    "start:dev": "cross-env NODE_ENV=development APP_ENV=dev npm run start:dev:app",
+    "start:dev:app": "concurrently --kill-others-on-fail \"npm run start:dev:server\" \"npm run start:dev:api\"",
+    "start:dev:server": "babel-watch -L -x ./src -x ./server/api server/app/index.js",
+    "start:dev:api": "babel-watch -L -x ./src -x ./server/app server/api/index.js",
     "test": "jest"
   },
   "repository": "git+https://github.com/hrasoa/react-pwa.git",
