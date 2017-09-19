@@ -3,9 +3,9 @@ const env = process.env;
 export const nodeEnv = env.NODE_ENV || 'development';
 
 export default {
-  port: env.PORT || 3001,
-  host: env.HOST || '0.0.0.0',
+  port: env.API_PORT || 3001,
+  host: env.API_HOST || '0.0.0.0',
   get serverUrl() {
-    return `http://${this.host}:${this.port}`;
+    return (typeof window === 'undefined') ? `http://${this.host}:${this.port}` : '';
   }
 };
