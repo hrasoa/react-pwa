@@ -1,7 +1,6 @@
 .happypack
 .idea
 node_modules/
-public/
 clientBuild/
 serverBuild/
 npm-debug.log
