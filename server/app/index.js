@@ -5,7 +5,6 @@ import webpack from 'webpack';
 import path from 'path';
 import helmet from 'helmet';
 import fs from 'fs';
-import gzipStatic from 'connect-gzip-static';
 import webpackCommonConfig from '../../webpack/config';
 import envConfig from '../config';
 
@@ -15,7 +14,6 @@ const outputServerPath = webpackCommonConfig.paths.outputServer;
 
 app.use(helmet());
 app.use(bodyParser.json());
-app.use(gzipStatic(outputPath));
 app.use(favicon(webpackCommonConfig.paths.favicon));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
