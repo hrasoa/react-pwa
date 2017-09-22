@@ -1,0 +1,60 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: pwa-app-production
+  labels:
+    app: MyApp
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: app
+      labels:
+        app: MyApp
+        env: production
+    spec:
+      initContainers:
+      - name: assets
+        image: gcr.io/cloud-solutions-images/pwa-nodeapp:1.0.0
+        command: ["sh", "-c"]
+        args: ["cp /var/www/clientBuild/* /assets/"]
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "100m"
+        volumeMounts:
+          - mountPath: /assets
+            name: pwa-disk
+      containers:
+      - name: nginx
+        image: gcr.io/cloud-solutions-images/pwa-frontend:1.0.0
+        command: [nginx, -c, /nginx.prod.conf, -g, "daemon off;"]
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "100m"
+        imagePullPolicy: Always
+        volumeMounts:
+          - mountPath: /usr/share/nginx/html
+            name: pwa-disk
+            readOnly: true
+        ports:
+        - name: nginx
+          containerPort: 80
+      - name: nodejs
+        image: gcr.io/cloud-solutions-images/pwa-nodeapp:1.0.0
+        command: [npm, start]
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "100m"
+        imagePullPolicy: Always
+        ports:
+        - name: app
+          containerPort: 3000
+        - name: api
+          containerPort: 3001
+      volumes:
+        - name: pwa-disk
+          emptyDir: {}

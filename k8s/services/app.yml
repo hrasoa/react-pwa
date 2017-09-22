@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: pwa-app
+spec:
+  selector:
+    app: MyApp
+  ports:
+  - name: app
+    port: 3000
+    protocol: TCP
+  - name: api
+    port: 3001
+    protocol: TCP

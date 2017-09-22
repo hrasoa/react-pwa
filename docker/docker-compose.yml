@@ -1,0 +1,23 @@
+version: "2"
+services:
+  nginx:
+    image: nginx
+    ports:
+      - "8001:80"
+    volumes:
+      - ./nginx:/etc/nginx
+    volumes_from:
+      - app
+    links:
+      - app:app
+    command: [nginx, -c, /etc/nginx/nginx.conf]
+
+  app:
+    image: hrasoa/node
+    user: devel
+    expose:
+      - "3000"
+      - "3001"
+    command: [npm, run, "start:dev"]
+    volumes:
+      - ../:/var/www

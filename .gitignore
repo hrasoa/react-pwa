@@ -1,7 +1,7 @@
 .happypack
 .idea
-node_modules/
 clientBuild/
+node_modules/
 serverBuild/
 npm-debug.log
 yarn-error.log
