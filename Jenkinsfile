@@ -8,6 +8,9 @@ node {
 
   checkout scm
 
+  state 'Versions'
+  sh("kubectl version")
+
   stage 'Build images'
   sh("docker build -t ${frontendImageTag} ./docker/nginx")
   sh("docker build -t ${nodeAppImageTag} .")
