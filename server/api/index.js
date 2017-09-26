@@ -25,5 +25,5 @@ if (process.env.APP_ENV !== 'prod') {
 }
 
 app.listen(3001, () => {
-  console.log("\x1b[35m", 'API -- Listening @ http://localhost:3001');
+  console.log("\x1b[35m", 'API -- Listening @ :3001');
 });

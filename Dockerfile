@@ -1,4 +1,4 @@
-FROM hrasoa/node
+FROM node:alpine
 
 COPY . /var/www/
 

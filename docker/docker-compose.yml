@@ -1,20 +1,21 @@
 version: "2"
 services:
   nginx:
-    image: nginx
+    image: nginx:alpine
     ports:
       - "8001:80"
     volumes:
-      - ./nginx:/etc/nginx
+      - ./nginx:/conf
     volumes_from:
       - app
     links:
       - app:app
-    command: [nginx, -c, /etc/nginx/nginx.conf]
+    command: [nginx, -c, /conf/nginx.local.conf]
 
   app:
-    image: hrasoa/node
-    user: devel
+    image: node:alpine
+    working_dir: /var/www
+    user: node
     expose:
       - "3000"
       - "3001"

@@ -1,4 +1,6 @@
 version: "2"
 services:
+  nginx:
+    command: [nginx, -c, /conf/nginx.local.prod.conf]
   app:
     command: [npm, start]

@@ -3,6 +3,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
+import Helmet from 'react-helmet';
 import HomePage from '../containers/AsyncHomePage/index';
 import PostPage from '../containers/AsyncPostPage/index';
 import LoginPage from '../containers/AsyncLoginPage/index';
@@ -16,6 +17,10 @@ import NotFound from './AsyncNotFound/index';
 
 export default () => (
   <div>
+    <Helmet>
+      <title>My App</title>
+      <link rel="canonical" href="http://example.com" />
+    </Helmet>
     <Bundle />
     <Nav />
     <div className="o-container">
