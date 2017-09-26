@@ -1,17 +1,18 @@
 # React Progressive Web Application
 
-> Just another boilerplate
+> Production ready boilerplate
 
 ## Getting started
 
     $ git clone git@github.com:hrasoa/react-pwa.git app
-    $ cd app
-    $ yarn
-    $ npm run start:dev  
-    
-To run the production build:
+    $ cd app/docker
+    $ docker-compose run app yarn
+    $ docker-compose up
 
-    $ npm run build:prod && npm start
+Test the production build:
+
+    $ docker-compose run app npm run build:prod
+    $ docker-compose -f docker-compose.yml -f production.yml up 
     
 ## Features per environment
 
