@@ -35,6 +35,7 @@ spec:
             memory: "500Mi"
             cpu: "100m"
         imagePullPolicy: Always
+        restartPolicy: Always
         volumeMounts:
           - mountPath: /usr/share/nginx/html
             name: pwa-disk
@@ -50,6 +51,7 @@ spec:
             memory: "500Mi"
             cpu: "100m"
         imagePullPolicy: Always
+        restartPolicy: Always
         ports:
         - name: app
           containerPort: 3000
