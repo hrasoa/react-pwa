@@ -12,20 +12,19 @@ spec:
       labels:
         app: MyApp
         env: production
+      annotations:
+        pod.beta.kubernetes.io/init-containers: '[
+          {
+            "name": "assets",
+            "image": "gcr.io/cloud-solutions-images/pwa-nodeapp:1.0.0",
+            "command": ["sh", "-c"]
+            "args": ["cp /var/www/clientBuild/* /assets/"]
+            "volumeMounts":
+              - "mountPath": "/assets"
+                "name": "pwa-disk"
+          }
+        ]'
     spec:
-      initContainers:
-      - name: assets
-        image: gcr.io/cloud-solutions-images/pwa-nodeapp:1.0.0
-        command: ["sh", "-c"]
-        args: ["cp /var/www/clientBuild/* /assets/"]
-        imagePullPolicy: Always
-        resources:
-          limits:
-            memory: "500Mi"
-            cpu: "100m"
-        volumeMounts:
-          - mountPath: /assets
-            name: pwa-disk
       containers:
       - name: nginx
         image: gcr.io/cloud-solutions-images/pwa-frontend:1.0.0
