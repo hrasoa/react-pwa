@@ -8,7 +8,7 @@ node {
 
   checkout scm
 
-  state 'Versions'
+  stage 'Versions'
   sh("kubectl version")
 
   stage 'Build images'
