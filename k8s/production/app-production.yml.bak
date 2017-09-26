@@ -15,16 +15,13 @@ spec:
       annotations:
         pod.beta.kubernetes.io/init-containers: '[
           {
-            "name": "assets",
-            "image": "gcr.io/cloud-solutions-images/pwa-nodeapp:1.0.0",
-            "command": ["sh", "-c"],
-            "args": ["cp /var/www/clientBuild/* /assets/"],
-            "volumeMounts": [
-              {
-                "mountPath": "/assets",
-                "name": "pwa-disk"
-              }
-            ]
+            name: assets,
+            image: node:v1,
+            command: ["sh", "-c"]
+            args: ["cp /var/www/clientBuild/* /assets/"]
+            volumeMounts:
+              - mountPath: /assets
+                name: pwa-disk
           }
         ]'
     spec:
@@ -45,7 +42,7 @@ spec:
         - name: nginx
           containerPort: 80
       - name: nodejs
-        image: gcr.io/cloud-solutions-images/pwa-nodeapp:1.0.0
+        image: node:v1
         command: [npm, start]
         resources:
           limits:
