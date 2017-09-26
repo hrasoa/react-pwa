@@ -9,7 +9,7 @@
     $ docker-compose run app yarn
     $ docker-compose up
 
-Access the with: http://localhost:8001
+Access the app with http://localhost:8001
 
 Test the production build:
 
