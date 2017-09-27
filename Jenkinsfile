@@ -1,10 +1,11 @@
 node {
   def project = 'project-180811'
   def appName = 'pwa'
-  def frontendName = "${appName}-frontend"
-  def nodeAppName = "${appName}-nodeapp"
-  def frontendImageTag = "gcr.io/${project}/${frontendName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
-  def nodeAppImageTag = "gcr.io/${project}/${nodeAppName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+  def feSvcName = "${appName}-frontend"
+  def ingSvcName = "${appName}-ingress"
+  def appSvcName = "${appName}-app"
+  def feImageTag = "gcr.io/${project}/${feSvcName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+  def appImageTag = "gcr.io/${project}/${appSvcName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
 
   checkout scm
 
@@ -12,12 +13,12 @@ node {
   sh("kubectl version")
 
   stage 'Build images'
-  sh("docker build -t ${frontendImageTag} ./docker/nginx")
-  sh("docker build -t ${nodeAppImageTag} .")
+  sh("docker build -t ${feImageTag} ./docker/nginx")
+  sh("docker build -t ${appImageTag} .")
 
   stage 'Push image to registry'
-  sh("gcloud docker -- push ${frontendImageTag}")
-  sh("gcloud docker -- push ${nodeAppImageTag}")
+  sh("gcloud docker -- push ${feImageTag}")
+  sh("gcloud docker -- push ${appImageTag}")
 
   stage "Deploy Application"
   switch (env.BRANCH_NAME) {
@@ -25,11 +26,10 @@ node {
     // Roll out to production
     case "master":
         // Change deployed image in canary to the one we just built
-        sh("sed -i.bak 's#gcr.io/cloud-solutions-images/pwa-nodeapp:1.0.0#${nodeAppImageTag}#' ./k8s/production/*.yml")
-        sh("sed -i.bak 's#gcr.io/cloud-solutions-images/pwa-frontend:1.0.0#${frontendImageTag}#' ./k8s/production/*.yml")
+        sh("sed -i.bak 's#gcr.io/cloud-solutions-images/pwa-app:1.0.0#${appImageTag}#' ./k8s/production/*.yml")
+        sh("sed -i.bak 's#gcr.io/cloud-solutions-images/pwa-frontend:1.0.0#${feImageTag}#' ./k8s/production/*.yml")
         sh("kubectl --namespace=production apply -f k8s/services/")
         sh("kubectl --namespace=production apply -f k8s/production/")
-        sh("echo http://`kubectl --namespace=production get service/${frontendName} --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > ${frontendName}")
         break
   }
 }
