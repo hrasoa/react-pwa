@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle, global-require */
 import createHistory from 'history/createBrowserHistory';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import {
   ConnectedRouter,
@@ -36,7 +36,7 @@ history.listen((location) => {
 });
 
 function render(Root) {
-  ReactDOM.render(
+  hydrate(
     <AppContainer>
       <Provider store={store}>
         <ConnectedRouter history={history}>

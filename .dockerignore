@@ -1,6 +1,5 @@
 .git
-docker
+.DS_Store
 clientBuild
-k8s
 node_modules
 serverBuild

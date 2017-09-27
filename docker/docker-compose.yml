@@ -15,7 +15,6 @@ services:
   app:
     image: node:alpine
     working_dir: /var/www
-    user: node
     expose:
       - "3000"
       - "3001"
