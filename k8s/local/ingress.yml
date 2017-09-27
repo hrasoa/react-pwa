@@ -8,7 +8,6 @@ spec:
   rules:
   - http:
       paths:
-      - path: /
-        backend:
+      - backend:
           serviceName: pwa-frontend
           servicePort: 80
