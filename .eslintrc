@@ -4,12 +4,13 @@
     "airbnb"
   ],
   "globals": {
-    "document": true,
+    "dataLayer": true,
     "describe": true,
+    "document": true,
+    "global": true,
     "it": true,
     "navigator": true,
-    "window": true,
-    "dataLayer": true
+    "window": true
   },
   "plugins": [
     "react",
