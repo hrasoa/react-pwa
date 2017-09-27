@@ -9,9 +9,7 @@ const router = express.Router();
 const client = new ApolloClient({
   networkInterface: {
     query: request =>
-      axios.post('http://0.0.0.0:3001/graphql', request, {
-        headers: { 'x-access-token': appConfig.secretToken }
-      })
+      axios.post('http://0.0.0.0:3001/graphql', request)
         .then(response => response.data)
         .catch(error => error)
   }
