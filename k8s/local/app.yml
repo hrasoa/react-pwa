@@ -1,7 +1,7 @@
 kind: Deployment
 apiVersion: extensions/v1beta1
 metadata:
-  name: pwa-app-production
+  name: pwa-app-development
   labels:
     app: MyApp
 spec:
@@ -11,7 +11,7 @@ spec:
       name: app
       labels:
         app: MyApp
-        env: production
+        env: development
       annotations:
         pod.beta.kubernetes.io/init-containers: '[
           {
