@@ -13,14 +13,9 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use('/api', apiRouter);
 
-app.use('/graphql', bodyParser.json(), (req, res) => {
-  if (req.headers['x-access-token'] !== envConfig.secretToken) {
-    res.status(403);
-  }
-  graphqlExpress({ schema })(req, res);
-});
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 
-if (process.env.APP_ENV !== 'prod') {
+if (process.env.NODE_ENV !== 'production') {
   app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 }
 
