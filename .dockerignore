@@ -1,1 +1,6 @@
 .git
+docker
+clientBuild
+k8s
+node_modules
+serverBuild
