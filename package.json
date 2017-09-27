@@ -88,6 +88,7 @@
     "css-loader": "^0.28.1",
     "cssnano": "^3.10.0",
     "enzyme": "^3.0.0",
+    "enzyme-adapter-react-16": "^1.0.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-loader": "^1.7.1",
@@ -115,6 +116,10 @@
     "workbox-webpack-plugin": "^2.0.1"
   },
   "jest": {
+    "setupFiles": [
+      "./src/raf.js",
+      "./src/setupTest.js"
+    ],
     "moduleNameMapper": {
       "^.+\\.(css|scss)$": "babel-jest"
     },
