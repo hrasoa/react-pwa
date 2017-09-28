@@ -1,7 +1,4 @@
-import React from 'react';
 import universal from 'react-universal-component';
-import Loader from '../Loader';
+import options from '../../async';
 
-export default universal(import(/* webpackChunkName: "about" */ './About'), {
-  loading: <Loader />
-});
+export default universal(import(/* webpackChunkName: "about" */ './About'), options);
