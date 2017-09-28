@@ -117,8 +117,8 @@
   },
   "jest": {
     "setupFiles": [
-      "./src/raf.js",
-      "./src/setupTest.js"
+      "./scripts/raf.js",
+      "./scripts/setupTest.js"
     ],
     "moduleNameMapper": {
       "^.+\\.(css|scss)$": "babel-jest"
