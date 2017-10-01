@@ -4,14 +4,14 @@ module.exports = {
     script: "./serverBuild/app/prod.js",
     exec_mode: "cluster",
     instances: 0,
-    env : {
+    env: {
       NODE_ENV: "production"
     }
-  },{
+  }, {
     name: "api",
     script: "./serverBuild/api/index.js",
     exec_mode: "cluster",
-    env : {
+    env: {
       NODE_ENV: "production"
     }
   }]
