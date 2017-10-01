@@ -29,6 +29,6 @@ fs.readFile(mainCss, 'utf8', (err, data) => {
   } }));
 
   app.listen(3000, () => {
-    console.log("\x1b[35m", 'BUILD COMPLETE -- Listening @ :3000');
+    console.log("\x1b[35m", 'START  -- Listening @ :3000');
   });
 });
