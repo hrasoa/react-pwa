@@ -1,11 +1,10 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import favicon from 'serve-favicon';
-import path from 'path';
-import helmet from 'helmet';
-import fs from 'fs';
-import webpackCommonConfig from '../../webpack/config';
-import envConfig from '../config';
+const express = require('express');
+const bodyParser = require('body-parser');
+const favicon = require('serve-favicon');
+const path = require('path');
+const helmet = require('helmet');
+const fs = require('fs');
+const webpackCommonConfig = require('../../webpack/config');
 
 const app = express();
 const outputPath = webpackCommonConfig.paths.output;
@@ -26,10 +25,9 @@ fs.readFile(mainCss, 'utf8', (err, data) => {
   if (err) throw err;
   app.use(serverRenderer({ clientStats, options: {
     criticalCssRaw: data,
-    envConfig,
     isProd: true
   } }));
-  
+
   app.listen(3000, () => {
     console.log("\x1b[35m", 'BUILD COMPLETE -- Listening @ :3000');
   });

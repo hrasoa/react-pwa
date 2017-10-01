@@ -1,15 +1,15 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import favicon from 'serve-favicon';
-import webpack from 'webpack';
-import path from 'path';
-import helmet from 'helmet';
-import webpackConfig from '../../webpack/dev';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpackHotServerMiddleware from 'webpack-hot-server-middleware';
-import webpackCommonConfig from '../../webpack/config';
-import envConfig from '../config';
+const express = require('express');
+const bodyParser = require('body-parser');
+const favicon = require('serve-favicon');
+const webpack = require('webpack');
+const path = require('path');
+const helmet = require('helmet');
+const webpackConfig = require('../../webpack/dev');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
+const webpackCommonConfig = require('../../webpack/config');
+const envConfig = require('../config');
 
 const app = express();
 

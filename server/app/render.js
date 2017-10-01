@@ -8,20 +8,20 @@ import flushChunks from 'webpack-flush-chunks';
 import App from '../../src/components/App';
 import configureStore from '../../src/store/configureStore';
 import manifest from '../../src/manifest.json';
-import config from '../config';
 
 export default function serverRenderer({
   clientStats,
-  options = { envConfig: config }
+  options = {}
 }) {
   return (req, res) => {
     const {
       isProd,
-      envConfig: { gtmID },
       criticalCssRaw
     } = options;
     const store = configureStore();
     const context = {};
+
+    const gtmID = 'GTM-ID';
 
     const RootComp = (
       <Provider store={store}>
