@@ -11,7 +11,6 @@ module.exports = {
     name: "api",
     script: "./serverBuild/api/index.js",
     exec_mode: "cluster",
-    instances: 0,
     env : {
       "NODE_ENV": "production"
     }
