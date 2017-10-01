@@ -22,15 +22,6 @@ app.use(favicon(webpackCommonConfig.paths.favicon));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
 
-let isBuilt = false;
-
-const done = () =>
-!isBuilt &&
-app.listen(3000, () => {
-  isBuilt = true;
-  console.log("\x1b[35m", 'BUILD COMPLETE -- Listening @ :3000');
-});
-
 fs.readFile(mainCss, 'utf8', (err, data) => {
   if (err) throw err;
   app.use(serverRenderer({ clientStats, options: {
@@ -38,5 +29,8 @@ fs.readFile(mainCss, 'utf8', (err, data) => {
     envConfig,
     isProd: true
   } }));
-  done();
+  
+  app.listen(3000, () => {
+    console.log("\x1b[35m", 'BUILD COMPLETE -- Listening @ :3000');
+  });
 });
