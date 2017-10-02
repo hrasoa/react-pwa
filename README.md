@@ -14,7 +14,15 @@ Visit http://localhost:8001
 Test the production build:
 
     $ docker-compose run app npm run build:prod
-    $ docker-compose -f docker-compose.yml -f production.yml up 
+    $ docker-compose -f docker-compose.yml -f production.yml up
+     
+## Continuous integration deployment
+
+This app is ready to be used with [Jenkins CI Multi-branch Pipeline](https://jenkins.io/doc/book/pipeline/multibranch/) on Google Cloud Platform.
+It will look at the changes on the ```master``` branch and deploy the app through an Ingress load balancer:
+
+```Ingress --> Nginx --> (app:3000, api:3001)```
+
     
 ## Features per environment
 
