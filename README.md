@@ -18,7 +18,7 @@ Test the production build:
      
 ## Continuous integration
 
-This app is ready to be used with [Jenkins CI Multi-branch Pipeline](https://jenkins.io/doc/book/pipeline/multibranch/) on Google Cloud Platform.
+This app is ready to be used with Kubernetes and [Jenkins CI Multi-branch Pipeline](https://jenkins.io/doc/book/pipeline/multibranch/) on Google Cloud Platform.
 It will look at the changes on the ```master``` branch and deploy the app through an [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) load balancer:
 
 ```Ingress --> Nginx --> (app:3000, api:3001)```
