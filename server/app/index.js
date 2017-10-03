@@ -25,7 +25,7 @@ const done = () =>
   !isBuilt &&
   app.listen(3000, () => {
     isBuilt = true;
-    console.log("\x1b[35m", 'BUILD COMPLETE -- Listening @ :3000');
+    console.log("\x1b[35m", 'BUILD COMPLETE - Listening @ :3000');
   });
 
 const bundler = webpack(webpackConfig);
