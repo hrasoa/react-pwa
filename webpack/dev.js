@@ -6,6 +6,12 @@ const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const extractBundle = new ExtractCssChunks();
 const commonConfig = require('./config');
 const envConfig = require('../server/config');
+const cacheLoader = {
+  loader: 'cache-loader',
+  options: {
+    cacheDirectory: path.resolve('node_modules/.cache')
+  }
+};
 
 module.exports = [{
   cache: true,
@@ -22,18 +28,13 @@ module.exports = [{
     chunkFilename: '[name].js',
     publicPath: envConfig.publicPath
   },
-  devtool: 'eval-cheap-module-source-map',
+  devtool: 'eval-source-map',
   module: {
     rules: [
       {
         test: /\.js$/,
         use: [
-          {
-            loader: 'cache-loader',
-            options: {
-              cacheDirectory: path.resolve('node_modules/.cache')
-            }
-          },
+          cacheLoader,
           'babel-loader',
           'eslint-loader'
         ],
@@ -44,12 +45,7 @@ module.exports = [{
         use: ExtractCssChunks.extract({
           fallback: 'style-loader',
           use: [
-            {
-              loader: 'cache-loader',
-              options: {
-                cacheDirectory: path.resolve('node_modules/.cache')
-              }
-            },
+            cacheLoader,
             'css-loader',
             {
               loader: 'postcss-loader',
@@ -66,6 +62,9 @@ module.exports = [{
         exclude: /node_modules/
       }
     ]
+  },
+  resolve: {
+    symlinks: false
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -99,6 +98,7 @@ module.exports = [{
       {
         test: /\.js$/,
         use: [
+          cacheLoader,
           'babel-loader',
           'eslint-loader'
         ],
@@ -107,6 +107,7 @@ module.exports = [{
       {
         test: /\.scss$/,
         use: [
+          cacheLoader,
           'css-loader/locals',
           'sass-loader'
         ],
