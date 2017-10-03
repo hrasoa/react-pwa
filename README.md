@@ -4,6 +4,8 @@
 
 ## Getting started
 
+It is recommended to install [docker-sync](http://docker-sync.io/) for a faster development.
+
     $ git clone git@github.com:hrasoa/react-pwa.git app
     $ cd app/docker
     $ docker-compose run app yarn
