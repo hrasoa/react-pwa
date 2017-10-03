@@ -4,6 +4,12 @@ const fs = require('fs');
 const BabiliPlugin = require('babili-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const commonConfig = require('./config');
+const cacheLoader = {
+  loader: 'cache-loader',
+  options: {
+    cacheDirectory: path.resolve('node_modules/.cache/cache-loader')
+  }
+};
 
 module.exports = {
   name: 'server',
@@ -20,6 +26,7 @@ module.exports = {
       {
         test: /\.js$/,
         use: [
+          cacheLoader,
           'babel-loader',
           'eslint-loader'
         ],
@@ -28,6 +35,7 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
+          cacheLoader,
           'style-loader',
           'css-loader/locals',
           'sass-loader'

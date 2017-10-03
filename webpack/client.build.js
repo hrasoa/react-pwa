@@ -15,6 +15,12 @@ const prodVendor = commonConfig.vendors.production;
 const extractBundle = new ExtractCssChunks({
   filename: '[name].[chunkhash].css'
 });
+const cacheLoader = {
+  loader: 'cache-loader',
+  options: {
+    cacheDirectory: path.resolve('node_modules/.cache/cache-loader')
+  }
+};
 
 module.exports = {
   cache: true,
@@ -36,7 +42,11 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: [ 'babel-loader', 'eslint-loader' ],
+        use: [
+          cacheLoader,
+          'babel-loader',
+          'eslint-loader'
+        ],
         include: commonConfig.paths.src
       },
       {
@@ -44,6 +54,7 @@ module.exports = {
         use: ExtractCssChunks.extract({
           fallback: 'style-loader',
           use: [
+            cacheLoader,
             'css-loader',
             {
               loader: 'postcss-loader',
