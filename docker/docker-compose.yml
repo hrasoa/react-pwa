@@ -21,4 +21,9 @@ services:
       - "3001"
     command: [npm, run, "start:dev"]
     volumes:
-      - ../:/var/www
+      - pwa-sync:/var/www:nocopy # will be mounted on /var/www
+
+# that the important thing
+volumes:
+  pwa-sync:
+    external: true

@@ -3,11 +3,12 @@ const path = require('path');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const fs = require('fs');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
+const extractBundle = new ExtractCssChunks();
 const commonConfig = require('./config');
 const envConfig = require('../server/config');
-const extractBundle = new ExtractCssChunks();
 
 module.exports = [{
+  cache: true,
   name: 'client',
   target: 'web',
   entry: [
@@ -21,12 +22,18 @@ module.exports = [{
     chunkFilename: '[name].js',
     publicPath: envConfig.publicPath
   },
-  devtool: 'source-map',
+  devtool: 'eval-cheap-module-source-map',
   module: {
     rules: [
       {
         test: /\.js$/,
         use: [
+          {
+            loader: 'cache-loader',
+            options: {
+              cacheDirectory: path.resolve('node_modules/.cache')
+            }
+          },
           'babel-loader',
           'eslint-loader'
         ],
@@ -37,6 +44,12 @@ module.exports = [{
         use: ExtractCssChunks.extract({
           fallback: 'style-loader',
           use: [
+            {
+              loader: 'cache-loader',
+              options: {
+                cacheDirectory: path.resolve('node_modules/.cache')
+              }
+            },
             'css-loader',
             {
               loader: 'postcss-loader',
