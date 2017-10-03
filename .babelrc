@@ -10,16 +10,16 @@
     "stage-2"
   ],
   "plugins": [
-    "universal-import",
-    ["transform-runtime", {
-      "polyfill": false,
-      "regenerator": true
-    }]
+    "universal-import"
   ],
   "env": {
     "development": {
       "plugins": [
-        "react-hot-loader/babel"
+        "react-hot-loader/babel",
+        ["transform-runtime", {
+          "polyfill": false,
+          "regenerator": true
+        }]
       ]
     }
   }
