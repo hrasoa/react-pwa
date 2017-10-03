@@ -23,7 +23,7 @@
   },
   "repository": "git+https://github.com/hrasoa/react-pwa.git",
   "author": "Haja Rasoahaingo <haja.rasoah@gmail.com>",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/hrasoa/react-pwa/issues"
   },
