@@ -8,7 +8,7 @@ const conf = () => {
       return merge({}, d, require('./production'));
 
     default:
-      return d;
+      return merge({}, d, require('./development'));
   }
 };
 

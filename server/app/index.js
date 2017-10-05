@@ -10,9 +10,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
 const webpackCommonConfig = require('../../webpack/config');
-const defaultConf = require('../config/default');
-const devConf = require('../config/development');
-const config = merge({}, defaultConf, devConf);
+const config = require('../config');
 
 const app = express();
 

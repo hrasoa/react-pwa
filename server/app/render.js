@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
 import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
-import merge from 'lodash.merge';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
@@ -10,6 +9,9 @@ import flushChunks from 'webpack-flush-chunks';
 import App from '../../src/components/App';
 import configureStore from '../../src/store/configureStore';
 import manifest from '../../src/manifest.json';
+import conf from '../config';
+
+const { gtmID } = conf;
 
 export default function serverRenderer({
   clientStats,
@@ -17,9 +19,6 @@ export default function serverRenderer({
 }) {
   return (req, res) => {
     const { isProd, criticalCssRaw } = options;
-    const conf = isProd ? require('../config') :
-      merge({}, require('../config/default'), require('../config/development'));
-    const { gtmID } = conf;
     const store = configureStore();
     const context = {};
 
