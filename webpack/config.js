@@ -36,7 +36,7 @@ module.exports = {
       'react-universal-component',
       'redux',
       'redux-saga',
-      'regenerator-runtime',
+      'regenerator-runtime/runtime',
       'reselect'
     ]
   },
