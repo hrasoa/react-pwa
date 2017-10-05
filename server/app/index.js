@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const merge  = require('lodash.merge');
 const favicon = require('serve-favicon');
 const webpack = require('webpack');
 const path = require('path');
@@ -9,7 +10,9 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
 const webpackCommonConfig = require('../../webpack/config');
-const envConfig = require('../config');
+const defaultConf = require('../config/default');
+const devConf = require('../config/development');
+const config = merge({}, defaultConf, devConf);
 
 const app = express();
 
@@ -31,7 +34,7 @@ const done = () =>
 const bundler = webpack(webpackConfig);
 
 app.use(webpackDevMiddleware(bundler, {
-  publicPath: envConfig.publicPath,
+  publicPath: config.publicPath,
   stats: {
     colors: true
   }

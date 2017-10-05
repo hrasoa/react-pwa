@@ -1,5 +1,7 @@
+/* eslint-disable global-require */
 import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
+import merge from 'lodash.merge';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
@@ -14,14 +16,12 @@ export default function serverRenderer({
   options = {}
 }) {
   return (req, res) => {
-    const {
-      isProd,
-      criticalCssRaw
-    } = options;
+    const { isProd, criticalCssRaw } = options;
+    const conf = isProd ? require('../config') :
+      merge({}, require('../config/default'), require('../config/development'));
+    const { gtmID } = conf;
     const store = configureStore();
     const context = {};
-
-    const gtmID = 'GTM-ID';
 
     const RootComp = (
       <Provider store={store}>

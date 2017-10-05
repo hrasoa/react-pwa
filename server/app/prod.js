@@ -21,12 +21,15 @@ app.use(favicon(webpackCommonConfig.paths.favicon));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
 
-fs.readFile(mainCss, 'utf8', (err, data) => {
+fs.readFile(mainCss, 'utf8', (err, criticalCssRaw) => {
   if (err) throw err;
-  app.use(serverRenderer({ clientStats, options: {
-    criticalCssRaw: data,
-    isProd: true
-  } }));
+  app.use(serverRenderer({
+    clientStats,
+    options: {
+      criticalCssRaw,
+      isProd: true
+    }
+  }));
 
   app.listen(3000, () => {
     console.log("\x1b[35m", 'START  -- Listening @ :3000');
