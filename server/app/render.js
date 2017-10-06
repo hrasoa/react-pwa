@@ -1,4 +1,3 @@
-/* eslint-disable global-require */
 import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
 import React from 'react';
