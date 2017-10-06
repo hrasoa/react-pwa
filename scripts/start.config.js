@@ -5,8 +5,7 @@ module.exports = {
     exec_mode: "cluster",
     instances: 0,
     env: {
-      NODE_ENV: "production",
-      APP_ENV: "production"
+      NODE_ENV: "production"
   }
   }, {
     name: "api",
@@ -14,8 +13,7 @@ module.exports = {
     exec_mode: "cluster",
     instances: 0,
     env: {
-      NODE_ENV: "production",
-      APP_ENV: "production"
+      NODE_ENV: "production"
     }
   }]
 };
