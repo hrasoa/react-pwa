@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const BabiliPlugin = require('babili-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const commonConfig = require('./config');
+const shared = require('./shared');
 
 module.exports = {
   name: 'server',
@@ -13,7 +13,7 @@ module.exports = {
     path.resolve(__dirname, '../server/app/render.js')
   ],
   output: {
-    path: commonConfig.paths.outputServer,
+    path: shared.paths.outputServer,
     filename: 'prod.render.js',
     libraryTarget: 'commonjs2',
     publicPath: '/'

@@ -9,9 +9,9 @@ const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ManifestPlugin = require('webpack-manifest-plugin');
 const WorkboxBuildWebpackPlugin = require('workbox-webpack-plugin');
-const commonConfig = require('./config');
+const shared = require('./shared');
 const envConfig = require('../server/config');
-const prodVendor = commonConfig.vendors.production;
+const prodVendor = shared.vendors.production;
 const extractBundle = new ExtractCssChunks({
   filename: '[name].[chunkhash].css'
 });
@@ -21,12 +21,12 @@ module.exports = {
   entry: {
     main: [
       'regenerator-runtime/runtime',
-      commonConfig.paths.entry
+      shared.paths.entry
     ],
     vendor: prodVendor
   },
   output: {
-    path: commonConfig.paths.output,
+    path: shared.paths.output,
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].js',
     library: '[name]',
@@ -41,7 +41,7 @@ module.exports = {
           'babel-loader',
           'eslint-loader'
         ],
-        include: commonConfig.paths.src
+        include: shared.paths.src
       },
       {
         test: /\.scss$/,
@@ -61,7 +61,7 @@ module.exports = {
             'sass-loader'
           ]
         }),
-        include: commonConfig.paths.src
+        include: shared.paths.src
       }
     ]
   },

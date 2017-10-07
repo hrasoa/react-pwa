@@ -4,11 +4,11 @@ const favicon = require('serve-favicon');
 const path = require('path');
 const helmet = require('helmet');
 const fs = require('fs');
-const webpackCommonConfig = require('../../webpack/config');
+const shared = require('../../webpack/shared');
 
 const app = express();
-const outputPath = webpackCommonConfig.paths.output;
-const outputServerPath = webpackCommonConfig.paths.outputServer;
+const outputPath = shared.paths.output;
+const outputServerPath = shared.paths.outputServer;
 
 const serverRenderer = require(path.join(outputServerPath, 'prod.render.js')).default;
 const clientStats = require(path.join(outputPath, 'stats.json'));
@@ -17,7 +17,7 @@ const mainCss = path.join(outputPath, bundleManifest['main.css']);
 
 app.use(helmet());
 app.use(bodyParser.json());
-app.use(favicon(webpackCommonConfig.paths.favicon));
+app.use(favicon(shared.paths.favicon));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
 

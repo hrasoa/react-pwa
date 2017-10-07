@@ -9,14 +9,14 @@ const webpackConfig = require('../../webpack/dev');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
-const webpackCommonConfig = require('../../webpack/config');
+const shared = require('../../webpack/shared');
 const config = require('../config');
 
 const app = express();
 
 app.use(helmet());
 app.use(bodyParser.json());
-app.use(favicon(webpackCommonConfig.paths.favicon));
+app.use(favicon(shared.paths.favicon));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
 

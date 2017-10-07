@@ -4,7 +4,7 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const fs = require('fs');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const extractBundle = new ExtractCssChunks();
-const commonConfig = require('./config');
+const shared = require('./shared');
 const envConfig = require('../server/config');
 const cacheLoader = {
   loader: 'cache-loader',
@@ -20,10 +20,10 @@ module.exports = [{
   entry: [
     'webpack-hot-middleware/client',
     'react-hot-loader/patch',
-    commonConfig.paths.entry
+    shared.paths.entry
   ],
   output: {
-    path: commonConfig.paths.output,
+    path: shared.paths.output,
     filename: '[name].js',
     chunkFilename: '[name].js',
     publicPath: envConfig.publicPath
@@ -89,7 +89,7 @@ module.exports = [{
   target: 'node',
   entry: [path.resolve(__dirname, '../server/app/render.js')],
   output: {
-    path: commonConfig.paths.outputServer,
+    path: shared.paths.outputServer,
     filename: 'render.js',
     libraryTarget: 'commonjs2'
   },
