@@ -1,5 +1,3 @@
-import * as _api from './api';
-
-const api = _api;
+import * as api from './api';
 
 export default api;
