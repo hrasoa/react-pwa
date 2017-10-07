@@ -30,7 +30,7 @@ type PostsConnection {
 type Query {
   post(_id: String!): Post
   posts(first: Int, after: String): PostsConnection
-  postsByUser(userId: String!, first: String, after: String): PostsConnection
+  postsByUser(userId: String!, first: Int, after: String): PostsConnection
 }
 `];
 
