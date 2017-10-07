@@ -45,15 +45,18 @@ export default function serverRenderer({
         const {
           js,
           styles,
+          scripts,
           cssHash,
           cssHashRaw,
           stylesheets,
           publicPath
         } = flushed;
 
-        const css = stylesheets
+        // on prod, exclude "main" as it is inline as critical
+        const css = isProd ? stylesheets
           .filter(s => !new RegExp(s).test(cssHashRaw.main))
-          .map(s => `${publicPath}/${s}`);
+          .map(s => `${publicPath}/${s}`) :
+          stylesheets.map(s => `${publicPath}/${s}`);
 
         res.status(200).render('index', {
           helmet: Helmet.renderStatic(),
@@ -63,6 +66,7 @@ export default function serverRenderer({
           criticalCssRaw,
           css,
           manifest,
+          preloadJs: scripts.map(s => `${publicPath}/${s}`),
           js,
           styles,
           cssHash,
