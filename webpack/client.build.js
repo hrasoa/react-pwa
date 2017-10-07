@@ -15,6 +15,9 @@ const prodVendor = shared.vendors.production;
 const extractBundle = new ExtractCssChunks({
   filename: '[name].[chunkhash].css'
 });
+const workboxSw = require.resolve('workbox-sw');
+const workboxAnalytics = require.resolve('workbox-google-analytics');
+const workboxCache = require.resolve('workbox-runtime-caching');
 
 module.exports = {
   cache: true,
@@ -104,12 +107,12 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       { from: './src/manifest.json' },
-      { from: require.resolve('workbox-sw') },
-      { from: `${require.resolve('workbox-sw')}.map` },
-      { from: require.resolve('workbox-google-analytics') },
-      { from: `${require.resolve('workbox-google-analytics')}.map` },
-      { from: require.resolve('workbox-runtime-caching') },
-      { from: `${require.resolve('workbox-runtime-caching')}.map` }
+      { from: workboxSw },
+      { from: workboxAnalytics },
+      { from: workboxCache },
+      { from: `${workboxSw}.map` },
+      { from: `${workboxAnalytics}.map` },
+      { from: `${workboxCache}.map` }
     ])
   ]
 };
