@@ -1,11 +1,11 @@
-const webpack = require('webpack');
 const path = require('path');
+const webpack = require('webpack');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
-const fs = require('fs');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
-const extractBundle = new ExtractCssChunks();
-const shared = require('./shared');
 const envConfig = require('../server/config');
+const shared = require('./shared');
+
+const extractBundle = new ExtractCssChunks();
 const cacheLoader = {
   loader: 'cache-loader',
   options: {

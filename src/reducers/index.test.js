@@ -1,5 +1,5 @@
-import * as reducers from './index';
 import * as ActionTypes from '../actions/index';
+import * as reducers from './index';
 
 describe('reducers', () => {
   describe('ui reducer', () => {

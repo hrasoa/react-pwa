@@ -1,12 +1,12 @@
-export const prepare = o => ({ ...o, id: o['_id'] });
+export const prepare = o => ({ ...o, id: o._id });
 
 export const paginate = (list, { first, after }) => {
   let requiresList = [...list];
 
   if (after) {
-    const index = requiresList.reduce((acc, listItem, index) => {
+    const index = requiresList.reduce((acc, listItem, i) => {
       if (listItem._id === parseInt(after, 10)) {
-        acc = index;
+        return i;
       }
       return acc;
     }, 0);
@@ -27,5 +27,5 @@ export const paginate = (list, { first, after }) => {
       endCursor: requiresList[requiresList.length - 1]._id,
       nexPage: false
     }
-  }
+  };
 };

@@ -1,14 +1,13 @@
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-const merge  = require('lodash.merge');
 const favicon = require('serve-favicon');
 const webpack = require('webpack');
-const path = require('path');
 const helmet = require('helmet');
-const webpackConfig = require('../../webpack/dev');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
+const webpackConfig = require('../../webpack/dev');
 const shared = require('../../webpack/shared');
 const config = require('../config');
 
@@ -26,7 +25,7 @@ const done = () =>
   !isBuilt &&
   app.listen(3000, () => {
     isBuilt = true;
-    console.log("\x1b[35m", 'BUILD COMPLETE -- Listening @ :3000');
+    console.log('\x1b[35m', 'BUILD COMPLETE -- Listening @ :3000');
   });
 
 const bundler = webpack(webpackConfig);

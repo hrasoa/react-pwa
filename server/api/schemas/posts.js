@@ -1,6 +1,6 @@
 import { makeExecutableSchema } from 'graphql-tools';
-import posts from './posts.json';
 import { prepare, paginate } from '../utils';
+import posts from './posts.json';
 
 const typeDefs = [`
 type PageInfo {
@@ -37,7 +37,7 @@ type Query {
 const resolvers = {
   Query: {
     post: (parent, { _id }) => {
-      const post = posts.filter(post => post['_id'] === parseInt(_id, 10));
+      const post = posts.filter(p => p._id === parseInt(_id, 10));
       if (!post.length) {
         throw new Error('Post not found');
       }

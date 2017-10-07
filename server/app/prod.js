@@ -1,9 +1,9 @@
+const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
-const path = require('path');
 const helmet = require('helmet');
-const fs = require('fs');
 const shared = require('../../webpack/shared');
 
 const app = express();
@@ -32,6 +32,6 @@ fs.readFile(mainCss, 'utf8', (err, criticalCssRaw) => {
   }));
 
   app.listen(3000, () => {
-    console.log("\x1b[35m", 'START  -- Listening @ :3000');
+    console.log('\x1b[35m', 'START  -- Listening @ :3000');
   });
 });

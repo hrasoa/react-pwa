@@ -1,6 +1,5 @@
 import { makeExecutableSchema } from 'graphql-tools';
 import { prepare } from '../utils';
-import posts from './posts.json';
 import users from './users.json';
 
 const typeDefs = [`
@@ -17,7 +16,7 @@ type Query {
 
 const resolvers = {
   Query: {
-    user: (parent, { _id }) => prepare(users.filter(user => user['_id'] === parseInt(_id, 10))[0])
+    user: (parent, { _id }) => prepare(users.filter(user => user._id === parseInt(_id, 10))[0])
   }
 };
 

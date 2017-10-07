@@ -8,7 +8,7 @@ export default mergeSchemas({
   resolvers: mergeInfo => ({
     User: {
       posts: {
-        fragment: `fragment UserFragment on User { _id }`,
+        fragment: 'fragment UserFragment on User { _id }',
         resolve(parent, args, context, info) {
           const userId = parent._id;
           return mergeInfo.delegate(

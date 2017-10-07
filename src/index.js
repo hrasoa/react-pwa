@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle, global-require */
 import createHistory from 'history/createBrowserHistory';
 import React from 'react';
 import { hydrate } from 'react-dom';

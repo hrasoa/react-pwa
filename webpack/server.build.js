@@ -1,6 +1,5 @@
-const webpack = require('webpack');
 const path = require('path');
-const fs = require('fs');
+const webpack = require('webpack');
 const BabiliPlugin = require('babili-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const shared = require('./shared');

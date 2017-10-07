@@ -7,27 +7,32 @@
     "dataLayer": true,
     "describe": true,
     "document": true,
+    "expect": true,
     "global": true,
     "it": true,
     "navigator": true,
     "window": true
   },
   "plugins": [
-    "react",
+    "import",
     "jsx-a11y",
-    "import"
+    "react"
   ],
   "rules": {
     "comma-dangle": [2, "never"],
-    "no-unused-vars": [2, { "args": "none" }],
+    "global-require": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/no-dynamic-require": 0,
     "import/order": 2,
     "jsx-a11y/no-static-element-interactions": 0,
+    "no-underscore-dangle": 0,
+    "no-unused-vars": [2, { "args": "none" }],
     "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
     "react/prop-types": [2, { "ignore": [
       "children",
-      "route",
-      "location",
       "className",
+      "location",
+      "route",
       "staticContext"
     ]}]
   }
