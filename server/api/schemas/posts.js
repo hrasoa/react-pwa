@@ -1,6 +1,6 @@
-import { makeExecutableSchema } from 'graphql-tools';
-import { prepare, paginate } from '../utils';
-import posts from './posts.json';
+const { makeExecutableSchema } = require('graphql-tools');
+const { prepare, paginate } = require('../utils');
+const posts = require('./posts.json');
 
 const typeDefs = [`
 type PageInfo {
@@ -51,4 +51,4 @@ const resolvers = {
   }
 };
 
-export default makeExecutableSchema({ typeDefs, resolvers });
+module.exports = makeExecutableSchema({ typeDefs, resolvers });

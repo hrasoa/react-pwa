@@ -1,7 +1,7 @@
 module.exports = {
   apps : [{
     name: "app",
-    script: "./serverBuild/app/prod.js",
+    script: "./server/app/prod.js",
     exec_mode: "cluster",
     instances: 0,
     env: {
@@ -9,7 +9,7 @@ module.exports = {
   }
   }, {
     name: "api",
-    script: "./serverBuild/api/index.js",
+    script: "./server/api/index.js",
     exec_mode: "cluster",
     instances: 0,
     env: {

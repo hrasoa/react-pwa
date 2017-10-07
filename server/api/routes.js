@@ -1,7 +1,7 @@
-import express from 'express';
-import axios from 'axios';
-import ApolloClient from 'apollo-client';
-import gql from 'graphql-tag';
+const express = require('express');
+const axios = require('axios');
+const ApolloClient = require('apollo-client').default;
+const gql = require('graphql-tag');
 
 const router = express.Router();
 
@@ -100,5 +100,4 @@ router.post('/login', (req, res) => {
   }
 });
 
-
-export default router;
+module.exports = router;

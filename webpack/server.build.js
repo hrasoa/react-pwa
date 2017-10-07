@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const BabiliPlugin = require('babili-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const shared = require('./shared');
 
 module.exports = {
@@ -13,7 +12,7 @@ module.exports = {
   ],
   output: {
     path: shared.paths.outputServer,
-    filename: 'prod.render.js',
+    filename: 'render.js',
     libraryTarget: 'commonjs2',
     publicPath: '/'
   },
@@ -48,9 +47,6 @@ module.exports = {
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1
     }),
-    new BabiliPlugin(),
-    new CopyWebpackPlugin([
-      { from: './server' }
-    ])
+    new BabiliPlugin()
   ]
 };

@@ -1,9 +1,9 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import helmet from 'helmet';
-import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
-import apiRouter from './routes';
-import schema from './schemas';
+const express = require('express');
+const bodyParser = require('body-parser');
+const helmet = require('helmet');
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+const apiRouter = require('./routes');
+const schema = require('./schemas');
 
 const app = express();
 

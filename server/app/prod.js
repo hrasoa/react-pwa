@@ -10,7 +10,7 @@ const app = express();
 const outputPath = shared.paths.output;
 const outputServerPath = shared.paths.outputServer;
 
-const serverRenderer = require(path.join(outputServerPath, 'prod.render.js')).default;
+const serverRenderer = require(path.join(outputServerPath, 'render.js')).default;
 const clientStats = require(path.join(outputPath, 'stats.json'));
 const bundleManifest = require(path.join(outputPath, 'bundle.json'));
 const mainCss = path.join(outputPath, bundleManifest['main.css']);

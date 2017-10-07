@@ -1,6 +1,6 @@
-import { makeExecutableSchema } from 'graphql-tools';
-import { prepare } from '../utils';
-import users from './users.json';
+const { makeExecutableSchema } = require('graphql-tools');
+const { prepare } = require('../utils');
+const users = require('./users.json');
 
 const typeDefs = [`
 type User {
@@ -20,4 +20,4 @@ const resolvers = {
   }
 };
 
-export default makeExecutableSchema({ typeDefs, resolvers });
+module.exports = makeExecutableSchema({ typeDefs, resolvers });

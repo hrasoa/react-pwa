@@ -1,9 +1,9 @@
-import { mergeSchemas } from 'graphql-tools';
-import usersSchema from './users';
-import postsSchema from './posts';
-import linkTypeDefs from './linkTypeDefs';
+const { mergeSchemas } = require('graphql-tools');
+const usersSchema = require('./users');
+const postsSchema = require('./posts');
+const linkTypeDefs = require('./linkTypeDefs');
 
-export default mergeSchemas({
+module.exports = mergeSchemas({
   schemas: [usersSchema, postsSchema, linkTypeDefs],
   resolvers: mergeInfo => ({
     User: {

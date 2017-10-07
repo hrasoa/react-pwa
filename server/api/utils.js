@@ -1,7 +1,9 @@
-export const prepare = o => ({ ...o, id: o._id });
+const merge = require('lodash.merge');
 
-export const paginate = (list, { first, after }) => {
-  let requiresList = [...list];
+const prepare = o => merge({}, o, { id: o._id });
+
+const paginate = (list, { first, after }) => {
+  let requiresList = [].concat(list);
 
   if (after) {
     const index = requiresList.reduce((acc, listItem, i) => {
@@ -29,3 +31,5 @@ export const paginate = (list, { first, after }) => {
     }
   };
 };
+
+module.exports = { prepare, paginate };

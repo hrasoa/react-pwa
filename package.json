@@ -5,11 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "build:prod": "cross-env NODE_ENV=production APP_ENV=production npm run build",
-    "build": "concurrently --kill-others-on-fail \"npm run build:client\" \"npm run build:server\"",
+    "build": "concurrently --kill-others-on-fail \"npm run build:client\" \"npm run build:render\"",
     "build:client": "webpack --config webpack/client.build.js",
-    "build:backend": "babel --plugins=transform-runtime server -d serverBuild",
     "build:render": "webpack --config webpack/server.build.js",
-    "build:server": "npm run build:render && npm run build:backend",
     "clean": "rimraf clientBuild serverBuild",
     "postinstall": "rimraf node_modules/.cache",
     "prebuild": "npm run clean",
