@@ -1,6 +1,6 @@
 export default `
   extend type User {
-    postsConnection(
+    posts(
       first: Int
       after: String
     ) : PostsConnection

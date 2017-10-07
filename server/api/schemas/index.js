@@ -7,7 +7,7 @@ export default mergeSchemas({
   schemas: [usersSchema, postsSchema, linkTypeDefs],
   resolvers: mergeInfo => ({
     User: {
-      postsConnection: {
+      posts: {
         fragment: `fragment UserFragment on User { _id }`,
         resolve(parent, args, context, info) {
           const userId = parent._id;
