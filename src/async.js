@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default {
-  loading: <span className="loader" />
+  loading: ({ staticContext, ...rest }) => <span {...rest} className="loader" />
 };

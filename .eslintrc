@@ -27,7 +27,8 @@
       "children",
       "route",
       "location",
-      "className"
+      "className",
+      "staticContext"
     ]}]
   }
 }
