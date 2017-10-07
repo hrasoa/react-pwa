@@ -1,9 +1,7 @@
-const merge = require('lodash.merge');
-
-const prepare = o => merge({}, o, { id: o._id });
+const prepare = o => ({ ...o, id: o._id });
 
 const paginate = (list, { first, after }) => {
-  let requiresList = [].concat(list);
+  let requiresList = [...list];
 
   if (after) {
     const index = requiresList.reduce((acc, listItem, i) => {
