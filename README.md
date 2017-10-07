@@ -1,10 +1,10 @@
 # React Progressive Web Application
 
-> Production ready boilerplate
+Real world boilerplate
 
 ## Getting started
 
-It is recommended to install [docker-sync](http://docker-sync.io/) for a faster development.
+Prerequisites: [docker-compose](https://docs.docker.com/compose/) and [docker-sync](http://docker-sync.io/)
 
     $ git clone git@github.com:hrasoa/react-pwa.git app
     $ cd app/docker
