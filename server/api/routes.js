@@ -2,7 +2,6 @@ import express from 'express';
 import axios from 'axios';
 import ApolloClient from 'apollo-client';
 import gql from 'graphql-tag';
-import appConfig from '../config/index';
 
 const router = express.Router();
 

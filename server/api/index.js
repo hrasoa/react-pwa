@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import apiRouter from './routes';
-import schema from './schema';
+import schema from './schemas';
 
 const app = express();
 
