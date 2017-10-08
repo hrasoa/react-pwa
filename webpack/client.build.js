@@ -69,7 +69,10 @@ module.exports = {
               options: {
                 plugins: [
                   require('autoprefixer'),
-                  require('cssnano')
+                  require('cssnano')({
+                    minifyFontValues: false,
+                    discardUnused: false
+                  })
                 ]
               }
             },
