@@ -20,7 +20,9 @@
   <% for (var j = 0; j < preloadJs.length; j++) { %>
   <link rel="preload" as="script" href="<%- preloadJs[j] -%>"><% } %>
   <% if (isProd === true) { %>
-  <style><%- criticalCssRaw -%></style>
+  <style>
+    <%- criticalCssRaw -%>
+  </style>
   <link rel="manifest" href="/manifest.json">
   <script type="text/javascript">
     if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
