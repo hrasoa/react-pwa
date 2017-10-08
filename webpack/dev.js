@@ -32,6 +32,18 @@ module.exports = [{
   module: {
     rules: [
       {
+        test: /\.ttf$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 9999999, // always return data uri
+              mimetype: 'application/x-font-truetype'
+            }
+          }
+        ]
+      },
+      {
         test: /\.js$/,
         use: [
           cacheLoader,
@@ -95,6 +107,17 @@ module.exports = [{
   },
   module: {
     rules: [
+      {
+        test: /\.(ttf|ttc|otf|eot|woff|woff2)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              emitFile: false
+            }
+          }
+        ]
+      },
       {
         test: /\.js$/,
         use: [

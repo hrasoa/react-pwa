@@ -108,6 +108,7 @@
     "stats-webpack-plugin": "^0.6.1",
     "style-loader": "^0.17.0",
     "stylelint-webpack-plugin": "^0.7.1",
+    "url-loader": "^0.6.2",
     "webpack": "^3.5.1",
     "webpack-bundle-analyzer": "^2.8.2",
     "webpack-dev-middleware": "^1.10.2",

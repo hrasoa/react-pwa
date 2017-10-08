@@ -19,6 +19,17 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(ttf|ttc|otf|eot|woff|woff2)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              emitFile: false
+            }
+          }
+        ]
+      },
+      {
         test: /\.js$/,
         use: [
           'babel-loader',

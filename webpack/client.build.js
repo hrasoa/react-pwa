@@ -39,6 +39,18 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.ttf$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 9999999, // always return data uri
+              mimetype: 'application/x-font-truetype'
+            }
+          }
+        ]
+      },
+      {
         test: /\.js$/,
         use: [
           'babel-loader',
