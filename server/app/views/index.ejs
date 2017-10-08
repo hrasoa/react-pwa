@@ -8,7 +8,6 @@
   <%- helmet.title.toString() %>
   <%- helmet.meta.toString() %>
   <%- helmet.link.toString() %>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin" onload="this.rel='stylesheet'">
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -20,9 +19,7 @@
   <% for (var j = 0; j < preloadJs.length; j++) { %>
   <link rel="preload" as="script" href="<%- preloadJs[j] -%>"><% } %>
   <% if (isProd === true) { %>
-  <style>
-    <%- criticalCssRaw -%>
-  </style>
+  <style><%- criticalCssRaw -%></style>
   <link rel="manifest" href="/manifest.json">
   <script type="text/javascript">
     if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {

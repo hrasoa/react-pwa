@@ -96,6 +96,7 @@
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.0.0",
     "extract-css-chunks-webpack-plugin": "^2.0.17",
+    "file-loader": "^1.1.5",
     "jest": "^21.1.0",
     "node-sass": "^4.5.2",
     "nodemon": "^1.12.1",
