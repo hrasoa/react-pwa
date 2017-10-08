@@ -7,7 +7,7 @@ const helmet = require('helmet');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
-const webpackConfig = require('../../webpack/dev');
+const webpackDev = require('../../webpack/dev');
 const shared = require('../../webpack/shared');
 const config = require('../config');
 
@@ -28,7 +28,7 @@ const done = () =>
     console.log('\x1b[35m', 'BUILD COMPLETE -- Listening @ :3000');
   });
 
-const bundler = webpack(webpackConfig);
+const bundler = webpack(webpackDev);
 
 app.use(webpackDevMiddleware(bundler, {
   publicPath: config.publicPath,

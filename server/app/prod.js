@@ -7,13 +7,12 @@ const helmet = require('helmet');
 const shared = require('../../webpack/shared');
 
 const app = express();
-const outputPath = shared.paths.output;
-const outputServerPath = shared.paths.outputServer;
+const { output, outputServer } = shared.paths;
 
-const serverRenderer = require(path.join(outputServerPath, 'render.js')).default;
-const clientStats = require(path.join(outputPath, 'stats.json'));
-const bundleManifest = require(path.join(outputPath, 'bundle.json'));
-const mainCss = path.join(outputPath, bundleManifest['main.css']);
+const serverRenderer = require(path.join(outputServer, 'render.js')).default;
+const clientStats = require(path.join(output, 'stats.json'));
+const bundleManifest = require(path.join(output, 'bundle.json'));
+const mainCss = path.join(output, bundleManifest['main.css']);
 
 app.use(helmet());
 app.use(bodyParser.json());
