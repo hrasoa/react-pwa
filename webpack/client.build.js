@@ -99,11 +99,6 @@ module.exports = {
       name: ['vendor'],
       minChunks: Infinity
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: ['main'],
-      chunks: ['critical', 'bundle'],
-      minChunks: 0
-    }),
     new BabiliPlugin(),
     new CompressionPlugin({
       asset: '[path].gz[query]',
