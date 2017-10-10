@@ -18,7 +18,7 @@
   <noscript><link rel="stylesheet" href="<%- css[i] -%>"></noscript><% } %>
   <% for (var j = 0; j < preloadJs.length; j++) { %>
   <link rel="preload" as="script" href="<%- preloadJs[j] -%>"><% } %>
-  
+
   <style><%- criticalCssRaw -%></style>
   <link rel="manifest" href="/manifest.json">
   <script type="text/javascript">
@@ -51,9 +51,7 @@
   <iframe src="https://www.googletagmanager.com/ns.html?id=<%- gtmID -%>" height="0" width="0" style="display:none;visibility:hidden"></iframe>
   </noscript>
   <div id="root"><%- initialMarkup -%></div>
-  <script>
-    window.__INITIAL_STATE__ = <%- initialState -%>;
-  </script>
+  <script>window.__INITIAL_STATE__ = <%- initialState -%>;</script>
   <%- cssHash -%>
   <%- js -%>
 </body>
