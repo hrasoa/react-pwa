@@ -5,7 +5,7 @@ const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const envConfig = require('../server/config');
 const shared = require('./shared');
 
-const extractBundle = new ExtractCssChunks();
+const extractChunk = new ExtractCssChunks();
 const cacheLoader = {
   loader: 'cache-loader',
   options: {
@@ -20,6 +20,9 @@ module.exports = [{
   entry: [
     'webpack-hot-middleware/client',
     'react-hot-loader/patch',
+    shared.paths.critical,
+    shared.paths.bundle,
+    shared.paths.fonts,
     shared.paths.entry
   ],
   output: {
@@ -38,7 +41,7 @@ module.exports = [{
             loader: 'url-loader',
             options: {
               limit: 9999999, // always return data uri
-              mimetype: 'application/x-font-truetype'
+              mimetype: 'font/truetype'
             }
           }
         ]
@@ -86,7 +89,7 @@ module.exports = [{
       }
     }),
     new StyleLintPlugin(),
-    extractBundle,
+    extractChunk,
     new webpack.optimize.CommonsChunkPlugin({
       names: ['bootstrap'], // needed to put webpack bootstrap code before chunks
       filename: '[name].js',

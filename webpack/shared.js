@@ -2,15 +2,22 @@ const path = require('path');
 
 const fileNames = {
   entry: 'index.js',
+  critical: 'critical.scss',
+  bundle: 'bundle.scss',
+  fonts: 'fonts.scss',
   favicon: 'favicon.ico'
 };
 
 const srcPath = path.resolve(__dirname, '../src');
+const src = file => path.join(srcPath, file);
 
 module.exports = {
   paths: {
-    entry: path.join(srcPath, fileNames.entry),
-    favicon: path.join(srcPath, fileNames.favicon),
+    entry: src(fileNames.entry),
+    critical: src(fileNames.critical),
+    bundle: src(fileNames.bundle),
+    fonts: src(fileNames.fonts),
+    favicon: src(fileNames.favicon),
     output: path.resolve(__dirname, '../clientBuild'),
     outputServer: path.resolve(__dirname, '../serverBuild'),
     src: srcPath

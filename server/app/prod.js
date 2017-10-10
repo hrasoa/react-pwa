@@ -1,5 +1,5 @@
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
@@ -7,12 +7,14 @@ const helmet = require('helmet');
 const shared = require('../../webpack/shared');
 
 const app = express();
-const { output, outputServer } = shared.paths;
+const outputPath = shared.paths.output;
+const outputServerPath = shared.paths.outputServer;
 
-const serverRenderer = require(path.join(outputServer, 'render.js')).default;
-const clientStats = require(path.join(output, 'stats.json'));
-const bundleManifest = require(path.join(output, 'bundle.json'));
-const mainCss = path.join(output, bundleManifest['main.css']);
+const serverRenderer = require(path.join(outputServerPath, 'render.js')).default;
+const clientStats = require(path.join(outputPath, 'stats.json'));
+const bundleManifest = require(path.join(outputPath, 'bundle.json'));
+const criticalCss = path.join(outputPath, bundleManifest['critical.css']);
+const commonCss = [bundleManifest['bundle.css'], bundleManifest['fonts.css']];
 
 app.use(helmet());
 app.use(bodyParser.json());
@@ -20,11 +22,12 @@ app.use(favicon(shared.paths.favicon));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
 
-fs.readFile(mainCss, 'utf8', (err, criticalCssRaw) => {
+fs.readFile(criticalCss, 'utf8', (err, criticalCssRaw) => {
   if (err) throw err;
   app.use(serverRenderer({
     clientStats,
     options: {
+      commonCss,
       criticalCssRaw,
       isProd: true
     }

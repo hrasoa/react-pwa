@@ -13,12 +13,12 @@
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','<%- gtmID -%>');</script>
-  <% for (var j = 0; j < preloadJs.length; j++) { %>
-  <link rel="preload" as="script" href="<%- preloadJs[j] -%>"><% } %>
   <% if (isProd === true) { %>
   <% for (var i = 0; i < css.length; i++) { %>
   <link rel="preload" as="style" href="<%- css[i] -%>" onload="this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="<%- css[i] -%>"></noscript><% } %>
+  <% for (var j = 0; j < preloadJs.length; j++) { %>
+  <link rel="preload" as="script" href="<%- preloadJs[j] -%>"><% } %>
   <style><%- criticalCssRaw -%></style>
   <link rel="manifest" href="/manifest.json">
   <script type="text/javascript">
@@ -41,7 +41,10 @@
         });
       });
     }
-  </script><% } %>
+  </script>
+  <% } else { %>
+  <%- styles -%>
+  <% } %>
 </head>
 <body>
   <noscript>

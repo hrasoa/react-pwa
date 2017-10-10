@@ -12,9 +12,10 @@ const envConfig = require('../server/config');
 const shared = require('./shared');
 
 const prodVendor = shared.vendors.production;
-const extractBundle = new ExtractCssChunks({
+const extractChunk = new ExtractCssChunks({
   filename: '[name].[chunkhash].css'
 });
+
 const workboxSw = require.resolve('workbox-sw');
 const workboxAnalytics = require.resolve('workbox-google-analytics');
 const workboxCache = require.resolve('workbox-runtime-caching');
@@ -26,6 +27,9 @@ module.exports = {
       'regenerator-runtime/runtime',
       shared.paths.entry
     ],
+    critical: shared.paths.critical,
+    bundle: shared.paths.bundle,
+    fonts: shared.paths.fonts,
     vendor: prodVendor
   },
   output: {
@@ -45,7 +49,7 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 9999999, // always return data uri
-              mimetype: 'application/x-font-truetype'
+              mimetype: 'font/truetype'
             }
           }
         ]
@@ -60,7 +64,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: ExtractCssChunks.extract({
+        use: extractChunk.extract({
           fallback: 'style-loader',
           use: [
             'css-loader',
@@ -90,10 +94,15 @@ module.exports = {
       }
     }),
     new StyleLintPlugin(),
-    extractBundle,
+    extractChunk,
     new webpack.optimize.CommonsChunkPlugin({
       name: ['vendor'],
       minChunks: Infinity
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: ['main'],
+      chunks: ['critical', 'bundle'],
+      minChunks: 0
     }),
     new BabiliPlugin(),
     new CompressionPlugin({

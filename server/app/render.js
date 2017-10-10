@@ -17,7 +17,11 @@ export default function serverRenderer({
   options = {}
 }) {
   return (req, res) => {
-    const { isProd, criticalCssRaw } = options;
+    const {
+      isProd,
+      commonCss = [],
+      criticalCssRaw
+    } = options;
     const store = configureStore();
     const context = {};
 
@@ -46,25 +50,18 @@ export default function serverRenderer({
           js,
           styles,
           scripts,
-          cssHash,
-          cssHashRaw,
           stylesheets,
+          cssHash,
           publicPath
         } = flushed;
-
-        // on prod, exclude "main" as it is inline as critical
-        const css = isProd ? stylesheets
-          .filter(s => !new RegExp(s).test(cssHashRaw.main))
-          .map(s => `${publicPath}/${s}`) :
-          stylesheets.map(s => `${publicPath}/${s}`);
 
         res.status(200).render('index', {
           helmet: Helmet.renderStatic(),
           initialMarkup: markup,
           initialState: JSON.stringify(store.getState()),
           gtmID,
+          css: [...commonCss, ...stylesheets].map(s => `${publicPath}/${s}`),
           criticalCssRaw,
-          css,
           manifest,
           preloadJs: scripts.map(s => `${publicPath}/${s}`),
           js,
