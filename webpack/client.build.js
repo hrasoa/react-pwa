@@ -12,10 +12,7 @@ const envConfig = require('../server/config');
 const shared = require('./shared');
 
 const prodVendor = shared.vendors.production;
-const extractChunk = new ExtractCssChunks({
-  filename: '[name].[chunkhash].css'
-});
-
+const extractChunk = new ExtractCssChunks({ filename: '[name].[chunkhash].css' });
 const workboxSw = require.resolve('workbox-sw');
 const workboxAnalytics = require.resolve('workbox-google-analytics');
 const workboxCache = require.resolve('workbox-runtime-caching');
