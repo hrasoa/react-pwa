@@ -30,8 +30,10 @@ const readFile = file => new Promise((resolve, reject) => {
   try {
     const critical = readFile(criticalCss);
     const fontLoader = readFile(shared.paths.fontLoader);
+    const sw = readFile(shared.paths.sw);
     const criticalCssRaw = await critical;
     const fontLoaderRaw = await fontLoader;
+    const swRaw = await sw;
 
     app.use(serverRenderer({
       clientStats,
@@ -40,6 +42,7 @@ const readFile = file => new Promise((resolve, reject) => {
         fontsCss: bundleManifest['fonts.css'],
         criticalCssRaw,
         fontLoaderRaw,
+        swRaw,
         isProd: true
       }
     }));

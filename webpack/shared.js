@@ -9,7 +9,8 @@ const fileNames = {
   fontLoader: 'fontLoader.js',
   fonts: 'fonts.scss',
   render: 'render.js',
-  stats: 'stats.json'
+  stats: 'stats.json',
+  sw: 'swRegister.js'
 };
 
 const srcPath = path.resolve(__dirname, '../src');
@@ -30,6 +31,7 @@ module.exports = {
     fontLoader: out(fileNames.fontLoader),
     render: outServer(fileNames.render),
     stats: out(fileNames.stats),
+    sw: out(fileNames.sw),
     output: outputPath,
     outputServer: outputPathServer,
     src: srcPath
