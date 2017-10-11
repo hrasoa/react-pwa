@@ -40,13 +40,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ttf$/,
+        test: /\.(ttf|woff)$/,
         use: [
           {
             loader: 'url-loader',
             options: {
-              limit: 9999999, // always return data uri
-              mimetype: 'font/truetype'
+              limit: 9999999 // always return data uri
             }
           }
         ]

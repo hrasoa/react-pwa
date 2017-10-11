@@ -5,16 +5,17 @@ const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const helmet = require('helmet');
 const shared = require('../../webpack/shared');
+const pkg = require('../../package.json');
 
 const app = express();
 const outputPath = shared.paths.output;
 const outputServerPath = shared.paths.outputServer;
+const fontsCookieName = `fonts-${pkg.name}.v${pkg.version}`;
 
 const serverRenderer = require(path.join(outputServerPath, 'render.js')).default;
 const clientStats = require(path.join(outputPath, 'stats.json'));
 const bundleManifest = require(path.join(outputPath, 'bundle.json'));
 const criticalCss = path.join(outputPath, bundleManifest['critical.css']);
-const commonCss = [bundleManifest['bundle.css'], bundleManifest['fonts.css']];
 
 app.use(helmet());
 app.use(bodyParser.json());
@@ -27,7 +28,9 @@ fs.readFile(criticalCss, 'utf8', (err, criticalCssRaw) => {
   app.use(serverRenderer({
     clientStats,
     options: {
-      commonCss,
+      fontsCookieName,
+      bundleCss: bundleManifest['bundle.css'],
+      fontsCss: bundleManifest['fonts.css'],
       criticalCssRaw,
       isProd: true
     }

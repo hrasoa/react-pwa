@@ -13,13 +13,40 @@
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','<%- gtmID -%>');</script>
-  <% if (isProd === true) { %><% for (var i = 0; i < css.length; i++) { %>
+  <% if (isProd === true) { %>
+  <script>
+    function insertFont(value) {
+      var style = document.createElement('style');
+      style.innerHTML = value;
+      document.head.appendChild(style);
+    }
+
+    var request = new XMLHttpRequest(),
+      response;
+    request.open('GET', '<%- fontsCss -%>', true);
+    request.onload = function() {
+      if (this.status == 200) {
+        try {
+          insertFont(this.response);
+          //window.localStorage.setItem(key, this.response);
+        } catch(e) {
+          // LocalStorage is probably full
+        }
+      }
+    };
+    request.send();
+  </script>
+  <% for (var i = 0; i < css.length; i++) { %>
   <link rel="preload" as="style" href="<%- css[i] -%>" onload="this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="<%- css[i] -%>"></noscript><% } %>
+
+  <noscript><link rel="stylesheet" href="<%- fontsCss -%>"></noscript>
+
   <% for (var j = 0; j < preloadJs.length; j++) { %>
   <link rel="preload" as="script" href="<%- preloadJs[j] -%>"><% } %>
 
   <style><%- criticalCssRaw -%></style>
+
   <link rel="manifest" href="/manifest.json">
   <script type="text/javascript">
     if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {

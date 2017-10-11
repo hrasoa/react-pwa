@@ -1,13 +1,9 @@
 @font-face {
-  font-family: 'Open Sans';
-  src: url(./fonts/open_sans/OpenSans-Regular.ttf) format('truetype');
+  font-family: 'Roboto';
+  src: url(./fonts/roboto-v16-latin-regular.woff) format('woff');
   font-weight: 300;
   font-style: normal;
 }
-
-@font-face {
-  font-family: 'Open Sans';
-  src: url(./fonts/open_sans/OpenSans-Bold.ttf) format('truetype');
-  font-weight: 900;
-  font-style: normal;
+html {
+  font-family: 'Roboto', serif;
 }

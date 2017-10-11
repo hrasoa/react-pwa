@@ -19,7 +19,9 @@ export default function serverRenderer({
   return (req, res) => {
     const {
       isProd,
-      commonCss = [],
+      fontsCookieName,
+      bundleCss,
+      fontsCss,
       criticalCssRaw
     } = options;
     const store = configureStore();
@@ -60,11 +62,13 @@ export default function serverRenderer({
           initialMarkup: markup,
           initialState: JSON.stringify(store.getState()),
           gtmID,
-          css: [...commonCss, ...stylesheets].map(s => `${publicPath}/${s}`),
+          css: [bundleCss, ...stylesheets].map(s => `${publicPath}/${s}`),
           criticalCssRaw,
           manifest,
+          fontsCss: `${publicPath}/${fontsCss}`,
           preloadJs: scripts.map(s => `${publicPath}/${s}`),
           js,
+          fontsCookieName,
           styles,
           cssHash,
           isProd
