@@ -40,7 +40,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(ttf|woff)$/,
+        test: /\.(ttf|ttc|otf|eot|woff|woff2)$/,
         use: [
           {
             loader: 'url-loader',

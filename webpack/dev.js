@@ -21,8 +21,8 @@ module.exports = [{
     'webpack-hot-middleware/client',
     'react-hot-loader/patch',
     shared.paths.critical,
-    shared.paths.bundle,
     shared.paths.fonts,
+    shared.paths.bundle,
     shared.paths.entry
   ],
   output: {
@@ -31,17 +31,16 @@ module.exports = [{
     chunkFilename: '[name].js',
     publicPath: envConfig.publicPath
   },
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   module: {
     rules: [
       {
-        test: /\.ttf$/,
+        test: /\.(ttf|ttc|otf|eot|woff|woff2)$/,
         use: [
           {
             loader: 'url-loader',
             options: {
-              limit: 9999999, // always return data uri
-              mimetype: 'font/truetype'
+              limit: 9999999 // always return data uri
             }
           }
         ]
