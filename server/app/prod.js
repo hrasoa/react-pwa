@@ -5,16 +5,12 @@ const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const helmet = require('helmet');
 const shared = require('../../webpack/shared');
-const pkg = require('../../package.json');
 
 const app = express();
 const outputPath = shared.paths.output;
-const outputServerPath = shared.paths.outputServer;
-const fontsCookieName = `fonts-${pkg.name}.v${pkg.version}`;
-
-const serverRenderer = require(path.join(outputServerPath, 'render.js')).default;
-const clientStats = require(path.join(outputPath, 'stats.json'));
-const bundleManifest = require(path.join(outputPath, 'bundle.json'));
+const serverRenderer = require(shared.paths.render).default;
+const clientStats = require(shared.paths.stats);
+const bundleManifest = require(shared.paths.bundleManifest);
 const criticalCss = path.join(outputPath, bundleManifest['critical.css']);
 
 app.use(helmet());
@@ -23,20 +19,35 @@ app.use(favicon(shared.paths.favicon));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
 
-fs.readFile(criticalCss, 'utf8', (err, criticalCssRaw) => {
-  if (err) throw err;
-  app.use(serverRenderer({
-    clientStats,
-    options: {
-      fontsCookieName,
-      bundleCss: bundleManifest['bundle.css'],
-      fontsCss: bundleManifest['fonts.css'],
-      criticalCssRaw,
-      isProd: true
-    }
-  }));
-
-  app.listen(3000, () => {
-    console.log('\x1b[35m', 'START  -- Listening @ :3000');
+const readFile = file => new Promise((resolve, reject) => {
+  fs.readFile(file, 'utf8', (err, content) => {
+    if (err) reject(err);
+    resolve(content);
   });
 });
+
+(async () => {
+  try {
+    const critical = readFile(criticalCss);
+    const fontLoader = readFile(shared.paths.fontLoader);
+    const criticalCssRaw = await critical;
+    const fontLoaderRaw = await fontLoader;
+
+    app.use(serverRenderer({
+      clientStats,
+      options: {
+        bundleCss: bundleManifest['bundle.css'],
+        fontsCss: bundleManifest['fonts.css'],
+        criticalCssRaw,
+        fontLoaderRaw,
+        isProd: true
+      }
+    }));
+
+    app.listen(3000, () => {
+      console.log('\x1b[35m', 'START  -- Listening @ :3000');
+    });
+  } catch (err) {
+    console.log(err);
+  }
+})();

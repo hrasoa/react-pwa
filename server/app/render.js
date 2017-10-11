@@ -19,14 +19,11 @@ export default function serverRenderer({
   return (req, res) => {
     const {
       isProd,
-      fontsCookieName,
       bundleCss,
-      fontsCss,
-      criticalCssRaw
+      fontsCss
     } = options;
     const store = configureStore();
     const context = {};
-
     const RootComp = (
       <Provider store={store}>
         <StaticRouter
@@ -49,29 +46,25 @@ export default function serverRenderer({
         const chunkNames = flushChunkNames();
         const flushed = flushChunks(clientStats, { chunkNames });
         const {
-          js,
-          styles,
           scripts,
           stylesheets,
-          cssHash,
           publicPath
         } = flushed;
+
+        const makePublic = s => `${publicPath}/${s}`;
 
         res.status(200).render('index', {
           helmet: Helmet.renderStatic(),
           initialMarkup: markup,
           initialState: JSON.stringify(store.getState()),
+          isProd,
+          ...options,
+          ...flushed,
           gtmID,
-          css: [bundleCss, ...stylesheets].map(s => `${publicPath}/${s}`),
-          criticalCssRaw,
+          css: [bundleCss, ...stylesheets].map(makePublic),
           manifest,
-          fontsCss: `${publicPath}/${fontsCss}`,
-          preloadJs: scripts.map(s => `${publicPath}/${s}`),
-          js,
-          fontsCookieName,
-          styles,
-          cssHash,
-          isProd
+          fontsCss: makePublic(fontsCss),
+          preloadJs: scripts.map(makePublic)
         });
         res.end();
       }

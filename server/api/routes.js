@@ -4,7 +4,6 @@ const ApolloClient = require('apollo-client').default;
 const gql = require('graphql-tag');
 
 const router = express.Router();
-
 const client = new ApolloClient({
   networkInterface: {
     query: request =>
@@ -14,7 +13,6 @@ const client = new ApolloClient({
   }
 });
 
-
 const sendQuery = async ({ query }) => {
   const response = await client.query({ query: gql`${query}` })
     .catch((error) => {
@@ -22,7 +20,6 @@ const sendQuery = async ({ query }) => {
     });
   return response.data;
 };
-
 
 router.get('/posts', async (req, res) => {
   try {
@@ -44,7 +41,6 @@ router.get('/posts', async (req, res) => {
   }
 });
 
-
 router.get('/posts/:id', async (req, res) => {
   try {
     const data = await sendQuery({
@@ -61,7 +57,6 @@ router.get('/posts/:id', async (req, res) => {
     res.status(400).json({ errors: [{ message: e.message }] });
   }
 });
-
 
 router.get('/home', async (req, res) => {
   try {
@@ -81,7 +76,6 @@ router.get('/home', async (req, res) => {
     res.status(400).json({ errors: [{ message: e.message }] });
   }
 });
-
 
 router.post('/login', (req, res) => {
   try {

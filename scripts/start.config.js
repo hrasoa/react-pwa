@@ -3,7 +3,7 @@ module.exports = {
     name: "app",
     script: "./server/app/prod.js",
     exec_mode: "cluster",
-    instances: 0,
+    instances: 1,
     env: {
       NODE_ENV: "production"
   }
@@ -11,7 +11,7 @@ module.exports = {
     name: "api",
     script: "./server/api/index.js",
     exec_mode: "cluster",
-    instances: 0,
+    instances: 1,
     env: {
       NODE_ENV: "production"
     }
