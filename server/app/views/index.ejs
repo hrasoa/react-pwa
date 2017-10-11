@@ -18,14 +18,13 @@
     <%- fontLoaderRaw -%>
     window.loadFont('<%- fontsCss -%>');
   </script>
+  <style><%- criticalCssRaw -%></style>
   <% for (var i = 0; i < css.length; i++) { %>
   <link rel="preload" as="style" href="<%- css[i] -%>" onload="this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="<%- css[i] -%>"></noscript><% } %>
   <noscript><link rel="stylesheet" href="<%- fontsCss -%>"></noscript>
   <% for (var j = 0; j < preloadJs.length; j++) { %>
   <link rel="preload" as="script" href="<%- preloadJs[j] -%>"><% } %>
-
-  <style><%- criticalCssRaw -%></style>
 
   <link rel="manifest" href="/manifest.json">
   <script type="text/javascript"><%- swRaw -%></script>
