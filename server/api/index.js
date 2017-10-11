@@ -12,5 +12,5 @@ app.use('/api', apiRouter);
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 app.listen(3001, () => {
-  console.log('\x1b[35m', 'API -- Listening @ :3001');
+  console.log('\x1b[35m', 'API -- Listening @ :3001'); // eslint-disable-line no-console
 });

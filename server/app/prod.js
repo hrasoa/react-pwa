@@ -48,9 +48,9 @@ const readFile = file => new Promise((resolve, reject) => {
     }));
 
     app.listen(3000, () => {
-      console.log('\x1b[35m', 'START  -- Listening @ :3000');
+      console.log('\x1b[35m', 'START  -- Listening @ :3000'); // eslint-disable-line no-console
     });
   } catch (err) {
-    console.log(err);
+    console.log(err); // eslint-disable-line no-console
   }
 })();
