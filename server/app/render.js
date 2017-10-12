@@ -64,6 +64,7 @@ export default function serverRenderer({
           css: [bundleCss, ...stylesheets].map(makePublic),
           manifest,
           fontsCss: makePublic(fontsCss),
+          fontsCssName: fontsCss,
           preloadJs: scripts.map(makePublic)
         });
         res.end();

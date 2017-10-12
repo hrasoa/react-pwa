@@ -2,12 +2,12 @@
   'use strict';
 
   // quick way to determine whether a css file has been cached locally
-  function fileIsCached(href) {
-    return window.localStorage && localStorage.font_css_cache && (localStorage.font_css_cache_file === href);
+  function fileIsCached(name) {
+    return window.localStorage && localStorage.font_css_cache && (localStorage.font_css_cache_file === name);
   }
 
   // time to get the actual css file
-  function injectFontsStylesheet(css_href) {
+  function injectFontsStylesheet(css_href, css_name) {
     // if this is an older browser
     if (!window.localStorage || !window.XMLHttpRequest) {
       var stylesheet = document.createElement('link');
@@ -21,7 +21,7 @@
       // if this isn't an old browser
     } else {
       // use the cached version if we already have it
-      if (fileIsCached(css_href)) {
+      if (fileIsCached(css_name)) {
         injectRawStyle(localStorage.font_css_cache);
         // otherwise, load it with ajax
       } else {
@@ -33,7 +33,7 @@
             // and cache the text content for further use
             // notice that this overwrites anything that might have already been previously cached
             localStorage.font_css_cache = xhr.responseText;
-            localStorage.font_css_cache_file = css_href;
+            localStorage.font_css_cache_file = css_name;
           }
         });
         xhr.open('GET', css_href);

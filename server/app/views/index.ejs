@@ -16,8 +16,9 @@
   <% if (isProd === true) { %>
   <script type="text/javascript">
     <%- fontLoaderRaw -%>
-    window.loadFont('<%- fontsCss -%>');
+    window.loadFont('<%- fontsCss -%>','<%- fontsCssName -%>');
   </script>
+
   <style><%- criticalCssRaw -%></style>
   <% for (var i = 0; i < css.length; i++) { %>
   <link rel="preload" as="style" href="<%- css[i] -%>" onload="this.rel='stylesheet'">
