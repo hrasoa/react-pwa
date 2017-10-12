@@ -48,7 +48,7 @@ Prerequisites: [Minikube](https://kubernetes.io/docs/tutorials/stateless-applica
     $ kubectl config use-context minikube
     $ eval $(minikube docker-env)
     
-If you look at [the deployment configuration](https://github.com/hrasoa/react-pwa/blob/master/k8s/local/app.yml), you will have to build ```node:v1``` and ```nginx:v1``` images a apply all the required services. 
+If you look at [the deployment configuration](https://github.com/hrasoa/react-pwa/blob/master/k8s/development/app.yml), you will have to build ```node:v1``` and ```nginx:v1``` images a apply all the required services. 
 
 From the root folder:
 
