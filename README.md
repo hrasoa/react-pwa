@@ -34,7 +34,7 @@ Prerequisites: on development, you will need [docker-compose](https://docs.docke
 
 Visit http://localhost:8001
 
-## Testing the production build:
+Running the production build:
 
     $ docker-compose run app npm run build:prod
     $ docker-compose -f docker-compose.yml -f production.yml up
