@@ -66,5 +66,5 @@ Visit ```<I.P>```
 
 This app is ready to be used on [Google Cloud Platform](https://cloud.google.com/) with [Jenkins CI Multi-branch Pipeline](https://jenkins.io/doc/book/pipeline/multibranch/). 
 If you look at the [Jenkinsfile](https://github.com/hrasoa/react-pwa/blob/master/Jenkinsfile), by default it looks at the changes on the ```master``` branch and apply the production services to deploy the app.
-You can follow this tutorial on to [setup the continuous delivery pipeline](https://cloud.google.com/solutions/continuous-delivery-jenkins-container-engine).
+You can follow this tutorial to [setup your continuous delivery pipeline](https://cloud.google.com/solutions/continuous-delivery-jenkins-container-engine).
    
