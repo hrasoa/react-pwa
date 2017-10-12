@@ -5,6 +5,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Roboto';
+  src: url(./fonts/roboto-v16-latin-900.woff) format('woff');
+  font-weight: 900;
+  font-style: normal;
+}
+
 body {
   font-family: 'Roboto', serif;
 }
