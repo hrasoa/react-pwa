@@ -7,5 +7,5 @@ EXPOSE 3000 3001
 WORKDIR /var/www
 
 RUN yarn && \
-    nmp t \
+    npm t && \
     npm run build:prod
