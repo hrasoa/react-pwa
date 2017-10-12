@@ -45,6 +45,7 @@ Visit http://localhost:8001
 
 Prerequisites: [Minikube](https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/), follow the tutorial here are the commands that should be run:
 
+    $ minikube start
     $ kubectl config use-context minikube
     $ eval $(minikube docker-env)
     
