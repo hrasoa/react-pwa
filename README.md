@@ -6,7 +6,7 @@ There are lot of awesome start kits out there, but most of them are fine for sma
 
 ```web --> Ingress --> Nginx --> ("/":3000, "/api":3001)```
 
-With this king of set up we can easily add SSL, gzip compression, load balancing, etc ...
+With this kind of set up we can easily add SSL, gzip compression, load balancing, etc ...
 
 Before going further, make sure that your provider supports this kind of architecture. Or at least the ability to run the app and nginx.
 
