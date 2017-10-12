@@ -39,7 +39,6 @@ Running the production build:
     $ docker-compose run app npm run build:prod
     $ docker-compose -f docker-compose.yml -f production.yml up
     
-Visit http://localhost:8001
   
 ## Testing the deployment
 
