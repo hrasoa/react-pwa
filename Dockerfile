@@ -3,6 +3,7 @@ FROM node:alpine
 WORKDIR /var/www
 
 COPY package.json .
+COPY yarn.lock .
 
 RUN yarn
 
