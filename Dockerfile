@@ -1,11 +1,14 @@
 FROM node:alpine
 
-COPY . /var/www/
-
-EXPOSE 3000 3001
-
 WORKDIR /var/www
 
-RUN yarn && \
-    npm t && \
+COPY package.json .
+
+RUN yarn
+
+COPY . .
+
+RUN npm t && \
     npm run build:prod
+
+EXPOSE 3000 3001

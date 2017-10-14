@@ -2,4 +2,6 @@
 .DS_Store
 clientBuild
 node_modules
+npm-debug.log
 serverBuild
+yarn-error.log
