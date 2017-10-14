@@ -2,7 +2,7 @@
 
 Real world progressive web application running with an [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) load balancer, a [Nginx reverse proxy](https://www.nginx.com/resources/wiki/) and [pm2](http://pm2.keymetrics.io/) :
 
-:earth_africa: --> Ingress --> Nginx --> ("/":3000, "/api":3001)
+:earth_africa: --> Ingress --> Nginx --> app(/:3000, /api:3001)
 
 ## Features
 
@@ -38,7 +38,7 @@ Running the production build:
   
 ## Deployment
 
-This app will work out of the box on [Google Cloud Platform](https://cloud.google.com/) with [Jenkins CI Multi-branch Pipeline](https://jenkins.io/doc/book/pipeline/multibranch/), more information in the [Jenkinsfile](/blob/master/Jenkinsfile).
+This app will work out of the box on [Google Cloud Platform](https://cloud.google.com/) with [Jenkins CI Multi-branch Pipeline](https://jenkins.io/doc/book/pipeline/multibranch/), more information in the [Jenkinsfile](/Jenkinsfile).
 
 You can follow this tutorial to [setup your continuous delivery pipeline](https://cloud.google.com/solutions/continuous-delivery-jenkins-container-engine).
    
