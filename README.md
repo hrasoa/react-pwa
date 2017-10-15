@@ -44,5 +44,5 @@ You can follow this tutorial to [setup your continuous delivery pipeline](https:
 
 ## License
 
-[MIT](/License)
+[MIT](/LICENSE)
    
