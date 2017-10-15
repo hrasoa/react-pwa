@@ -39,9 +39,9 @@ Running the production build:
   
 ## Deployment
 
-This app will work out of the box on [Google Cloud Platform](https://cloud.google.com/) with [Jenkins CI Multi-branch Pipeline](https://jenkins.io/doc/book/pipeline/multibranch/), more information in the [Jenkinsfile](/Jenkinsfile).
+This app will work out of the box on  [![gcp](https://avatars0.githubusercontent.com/u/2810941?s=14&v=4) Google Cloud Platform](https://cloud.google.com/) with  [![jenkins](https://avatars0.githubusercontent.com/u/107424?s=14&v=4) Jenkins CI Multi-branch Pipeline](https://jenkins.io/doc/book/pipeline/multibranch/), more information in the [Jenkinsfile](/Jenkinsfile).
 
-You can follow this tutorial to [setup your continuous delivery pipeline](https://cloud.google.com/solutions/continuous-delivery-jenkins-container-engine).
+You can follow [this tutorial to setup your continuous delivery pipeline](https://cloud.google.com/solutions/continuous-delivery-jenkins-container-engine).
 
 ## License
 
