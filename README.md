@@ -12,8 +12,8 @@ Hot Module Replacement | :star: |
 GraphiQL | :star: |
 Code Split + Async Components | :star: | :star:
 Server Side Rendering | :star: | :star:
-Chunkhashes | | :star:
-Service Worker (precache, offline support) | | :star:
+Service Worker (precache, offline) | | :star:
+Long term caching | | :star:
 Minify + gzip | | :star:
 
 ## Prerequisites
