@@ -1,6 +1,7 @@
 # React Progressive Web Application
 
-Real world progressive web application starter-kit running with an [Ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress/), a [Nginx reverse proxy](https://www.nginx.com/resources/wiki/) and [pm2](http://pm2.keymetrics.io/):
+Real world progressive web application starter-kit running with an [Ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress/), 
+a [Nginx reverse proxy](https://www.nginx.com/resources/wiki/) and [pm2](http://pm2.keymetrics.io/) on production:
 
 :earth_africa: :arrow_right: ```Ingress``` :arrow_right: ```Nginx``` :arrow_right: ```app (/:3000, /api:3001)```
 
