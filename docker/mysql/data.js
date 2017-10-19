@@ -6,8 +6,8 @@ const knex = require('knex')({
     password : 'password'
   }
 });
-const users = require('../../server/api/schemas/users.json');
-const posts = require('../../server/api/schemas/posts.json');
+const users = require('./users.json');
+const posts = require('./posts.json');
 
 (async () => {
   await knex
