@@ -2,7 +2,8 @@ version: "2.1"
 services:
   db:
     image: mysql
-    restart: always
+    ports:
+      - "8080:3306"
     environment:
       MYSQL_ROOT_PASSWORD: password
     volumes:

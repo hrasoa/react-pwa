@@ -11,7 +11,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `pwa`.`posts` (
   `id` INT NOT NULL,
   `user_id` INT NOT NULL,
-  `title` VARCHAR(45) NULL,
+  `title` VARCHAR(255) NULL,
   `body` LONGTEXT NULL,
   PRIMARY KEY (`id`),
   INDEX `user_id_idx` (`user_id` ASC),

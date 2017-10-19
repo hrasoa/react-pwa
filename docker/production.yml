@@ -3,4 +3,4 @@ services:
   nginx:
     command: [nginx, -c, /conf/nginx.local.prod.conf]
   app:
-    command: [npm, start]
+    command: command: sh -c './docker/wait-for db:3306 -- npm start'
