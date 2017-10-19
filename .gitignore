@@ -1,6 +1,7 @@
 .docker-sync
 .happypack
 .idea
+docker/mysql/data
 clientBuild/
 node_modules/
 serverBuild/

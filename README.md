@@ -27,7 +27,17 @@ Minify + gzip | | :star:
     $ git clone git@github.com:hrasoa/react-pwa.git app
     $ cd app/docker
     $ docker-sync start
-    $ docker-compose run app yarn
+    
+    # init the db instance
+    $ docker-compose run --rm -e MYSQL_ROOT_PASSWORD=password db
+    
+    # wait for finish and stop the containers
+    $ docker stop $(docker ps -q --filter "ancestor=mysql")   
+    
+    # install the app
+    $ docker-compose run --no-deps app yarn
+    
+    # run
     $ docker-compose up
 
 Visit http://localhost:8001

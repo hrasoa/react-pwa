@@ -1,9 +1,20 @@
-version: "2"
+version: "2.1"
 services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d
+
   nginx:
     image: nginx:alpine
     ports:
       - "8001:80"
+    depends_on:
+      - app
     volumes:
       - ./nginx:/conf
     volumes_from:
@@ -15,11 +26,15 @@ services:
   app:
     image: node:alpine
     working_dir: /var/www
+    links:
+      - db
+    depends_on:
+      - db
     user: node
     expose:
       - "3000"
       - "3001"
-    command: [npm, run, "start:dev"]
+    command: sh -c './docker/wait-for db:3306 -- npm run start:dev'
     volumes:
       - pwa-sync:/var/www:nocopy # will be mounted on /var/www
 

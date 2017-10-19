@@ -20,6 +20,9 @@ module.exports = [{
   entry: [
     'webpack-hot-middleware/client',
     'react-hot-loader/patch',
+    shared.paths.critical,
+    shared.paths.fonts,
+    shared.paths.bundle,
     shared.paths.entry
   ],
   output: {
