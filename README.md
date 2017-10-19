@@ -38,7 +38,7 @@ Minify + gzip | | :star:
     $ docker-compose run --rm app sh -c './docker/wait-for db:3306 -- node docker/mysql/data.js'   
     
     # install the app
-    $ docker-compose run --no-deps app yarn
+    $ docker-compose run --rm --no-deps app yarn
     
     # run
     $ docker-compose up
