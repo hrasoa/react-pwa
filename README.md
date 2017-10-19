@@ -29,7 +29,7 @@ Minify + gzip | | :star:
     $ docker-sync start
     
     # init the db instance
-    $ docker-compose run --rm -e MYSQL_ROOT_PASSWORD=password db
+    $ docker-compose run --rm db
     
     # wait for finish and stop the containers
     $ docker stop $(docker ps -q --filter "ancestor=mysql")   
