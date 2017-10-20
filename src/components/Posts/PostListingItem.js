@@ -12,7 +12,7 @@ const PostsItem = ({ id, title }) => (
   </Link>);
 
 PostsItem.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired
 };
 

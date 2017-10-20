@@ -1,31 +1,21 @@
-const paginate = (list, { first, after }) => {
-  let requiresList = [...list];
+const paginate = async (Model, { first, after = null, where = null }) => {
+  const { results, cursors } = await Model.paginate({
+    limit: first,
+    where,
+    after
+  });
 
-  if (after) {
-    const index = requiresList.reduce((acc, listItem, i) => {
-      if (listItem._id === parseInt(after, 10)) {
-        return i;
-      }
-      return acc;
-    }, 0);
-    requiresList = requiresList.slice(index + 1);
-  }
-
-  if (first) {
-    requiresList = requiresList.slice(0, parseInt(first, 10));
-  }
-
-  return {
-    totalCount: requiresList.length,
-    edges: requiresList.map(listItem => ({
-      node: prepare(listItem),
-      cursor: listItem._id
+  return ({
+    totalCount: results.length,
+    edges: results.map(node => ({
+      node,
+      cursor: node.id
     })),
     pageInfo: {
-      endCursor: requiresList[requiresList.length - 1]._id,
-      nexPage: false
+      endCursor: cursors.after,
+      hasNextPage: cursors.hasNext
     }
-  };
+  });
 };
 
-module.exports = { prepare, paginate };
+module.exports = { paginate };

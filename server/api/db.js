@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 
 const db = new Sequelize('pwa', 'root', 'password', {
   host: 'db',
-  operatorsAliases: false,
+  //operatorsAliases: false,
   dialect: 'mysql'
 });
 
