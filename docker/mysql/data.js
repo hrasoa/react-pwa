@@ -1,26 +1,21 @@
-const knex = require('knex')({
-  client: 'mysql',
-  connection: {
-    host : 'db',
-    user : 'root',
-    password : 'password'
-  }
-});
 const users = require('./users.json');
 const posts = require('./posts.json');
+const db = require('../../server/api/db');
+const user = require('../../server/api/models/user');
+const post = require('../../server/api/models/post');
 
 (async () => {
-  await knex
-    .withSchema('pwa')
-    .table('users')
-    .insert(users)
-    .catch(console.log);
-
-  await knex
-    .withSchema('pwa')
-    .table('posts')
-    .insert(posts)
-    .catch(console.log);
-
-  console.log('Done');
+  try {
+    const sequelize = await db.connect();
+    const User = user(sequelize);
+    const Post = post(sequelize);
+    const dates = {
+      createdAt: new Date(),
+      updatedAt: new Date()
+    };
+    User.bulkCreate(users.map(u => ({ ...u, ...dates })));
+    Post.bulkCreate(posts.map(p => ({ ...p, ...dates })));
+  } catch (err) {
+    console.log(err);
+  }
 })();
