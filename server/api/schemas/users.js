@@ -1,22 +1,20 @@
 const { makeExecutableSchema } = require('graphql-tools');
-const { prepare } = require('../utils');
-const users = require('./users.json');
 
 const typeDefs = [`
 type User {
-  _id: String
+  id: Int!
   name: String
   username: String
   email: String
 }
 
 type Query {
-  user(_id: String!): User
+  user(id: Int!): User
 }`];
 
 const resolvers = {
   Query: {
-    user: (parent, { _id }) => prepare(users.filter(user => user._id === parseInt(_id, 10))[0])
+    user: (parent, { id }, { models: { User } }) => User.findById(id)
   }
 };
 

@@ -1,6 +1,4 @@
 const { makeExecutableSchema } = require('graphql-tools');
-const { prepare, paginate } = require('../utils');
-const posts = require('./posts.json');
 
 const typeDefs = [`
 type PageInfo {
@@ -9,15 +7,14 @@ type PageInfo {
 }
 
 type Post {
-  _id: String!
-  id: String
-  userId: String
+  id: Int!
+  user_id: String
   title: String
   body: String
 }
 
 type PostsEdges {
-  cursor: String
+  cursor: Int
   node: Post
 }
 
@@ -28,26 +25,17 @@ type PostsConnection {
 }
 
 type Query {
-  post(_id: String!): Post
-  posts(first: Int, after: String): PostsConnection
-  postsByUser(userId: String!, first: Int, after: String): PostsConnection
+  post(id: Int!): Post
+  posts(first: Int, after: Int): PostsConnection
+  postsByUser(user_id: Int!, first: Int, after: Int): PostsConnection
 }
 `];
 
 const resolvers = {
   Query: {
-    post: (parent, { _id }) => {
-      const post = posts.filter(p => p._id === parseInt(_id, 10));
-      if (!post.length) {
-        throw new Error('Post not found');
-      }
-      return prepare(post[0]);
-    },
-    posts: (parent, args) => paginate(posts, args),
-    postsByUser: (parent, args) => {
-      const userPosts = posts.filter(post => post.userId === parseInt(args.userId, 10));
-      return paginate(userPosts, args);
-    }
+    post: (parent, { id }, { models: { Post } }) => Post.findById(id),
+    posts: (parent, args, { models: { Post } }) => Post.findAll(),
+    postsByUser: (parent, { user_id }) => []
   }
 };
 

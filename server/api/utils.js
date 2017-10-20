@@ -1,5 +1,3 @@
-const prepare = o => ({ ...o, id: o._id });
-
 const paginate = (list, { first, after }) => {
   let requiresList = [...list];
 
