@@ -37,7 +37,7 @@ const resolvers = {
     post: (parent, { id }, { models: { Post } }) => Post.findById(id),
     posts: (parent, args, { models: { Post } }) => paginate(Post, args),
     postsByUser: (parent, args, { models: { Post } }) =>
-      paginate(Post, { ...args, where: { user_id: args.user_id }})
+      paginate(Post, { ...args, where: { user_id: args.user_id } })
   }
 };
 

@@ -43,7 +43,6 @@
     "graphql-tools": "^2.2.1",
     "helmet": "^3.6.1",
     "history": "^4.6.3",
-    "knex": "^0.13.0",
     "lodash.merge": "^4.6.0",
     "lodash.union": "^4.6.0",
     "mysql2": "^1.4.2",
