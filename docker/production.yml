@@ -1,6 +1,6 @@
-version: "2"
+version: "2.1"
 services:
   nginx:
     command: [nginx, -c, /conf/nginx.local.prod.conf]
   app:
-    command: command: sh -c './docker/wait-for db:3306 -- npm start'
+    command: sh -c './docker/wait-for db:3306 -- npm start'
