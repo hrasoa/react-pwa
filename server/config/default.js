@@ -1,4 +1,9 @@
 module.exports = {
-  secretToken: 'thisIsASecretToken',
+  db: {
+    name: 'pwa',
+    user: 'root',
+    password: 'password',
+    host: 'db'
+  },
   publicPath: '/'
 };
