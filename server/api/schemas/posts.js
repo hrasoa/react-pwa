@@ -9,7 +9,7 @@ type PageInfo {
 
 type Post {
   id: Int!
-  user_id: String
+  user_id: Int
   title: String
   body: String
 }
@@ -27,17 +27,22 @@ type PostsConnection {
 
 type Query {
   post(id: Int!): Post
-  posts(first: Int = 20, after: String): PostsConnection
-  postsByUser(user_id: Int!, first: Int = 5, after: String): PostsConnection
+  posts(limit: Int = 20, after: String): PostsConnection
+  postsByUser(user_id: Int!, limit: Int = 5, after: String): PostsConnection
 }
 `];
 
 const resolvers = {
   Query: {
     post: (parent, { id }, { models: { Post } }) => Post.findById(id),
-    posts: (parent, args, { models: { Post } }) => paginate(Post, args),
-    postsByUser: (parent, args, { models: { Post } }) =>
-      paginate(Post, { ...args, where: { user_id: args.user_id } })
+    posts: async (parent, args, { models: { Post } }) => {
+      const data = await Post.paginate(args);
+      return paginate(data);
+    },
+    postsByUser: async (parent, args, { models: { Post } }) => {
+      const data = await Post.paginate({ ...args, where: { user_id: args.user_id } });
+      return paginate(data);
+    }
   }
 };
 

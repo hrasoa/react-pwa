@@ -13,8 +13,8 @@ const client = new ApolloClient({
   }
 });
 
-const sendQuery = async ({ query }) => {
-  const response = await client.query({ query: gql`${query}` })
+const sendQuery = async ({ query, ...rest }) => {
+  const response = await client.query({ query: gql`${query}`, ...rest })
     .catch((error) => {
       throw new Error(error);
     });

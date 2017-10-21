@@ -5,8 +5,7 @@ const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const apiRouter = require('./routes');
 const schema = require('./schemas');
 const db = require('./db');
-const user = require('./models/user');
-const post = require('./models/post');
+const models = require('./models');
 
 (async () => {
   try {
@@ -17,10 +16,7 @@ const post = require('./models/post');
     app.use('/api', apiRouter);
     app.use('/graphql', bodyParser.json(), graphqlExpress({
       context: {
-        models: {
-          User: user(sequelize),
-          Post: post(sequelize)
-        }
+        models: models(sequelize)
       },
       schema
     }));
