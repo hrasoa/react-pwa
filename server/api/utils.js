@@ -6,7 +6,7 @@ const paginate = async (Model, { first, after = null, where = null }) => {
     where,
     after
   });
-  return ({
+  return {
     totalCount: results.length,
     edges: results.map(node => ({
       node,
@@ -16,7 +16,7 @@ const paginate = async (Model, { first, after = null, where = null }) => {
       endCursor: cursors.after,
       hasNextPage: cursors.hasNext
     }
-  });
+  };
 };
 
 module.exports = { paginate };
