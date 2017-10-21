@@ -15,7 +15,7 @@ type Post {
 }
 
 type PostsEdges {
-  cursor: Int
+  cursor: String
   node: Post
 }
 
