@@ -10,16 +10,15 @@ class Login extends Component {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleSubmit(this.email.value, this.password.value);
+            handleSubmit(this.username.value, this.password.value);
           }}
         >
           <ul>
             <li>
               <input
-                type="email"
-                id="email"
-                ref={(input) => { this.email = input; }}
-                placeholder="email "
+                id="username"
+                ref={(input) => { this.username = input; }}
+                placeholder="username"
               />
             </li>
             <li>

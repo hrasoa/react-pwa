@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS `pwa`.`users` (
   `name` VARCHAR(45) NULL,
   `username` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
-  `createdAt` DATETIME NULL,
-  `updatedAt` DATETIME NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS `pwa`.`posts` (
   `user_id` INT NOT NULL,
   `title` VARCHAR(255) NULL,
   `body` LONGTEXT NULL,
-  `createdAt` DATETIME NULL,
-  `updatedAt` DATETIME NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
   PRIMARY KEY (`id`),
   INDEX `user_id_idx` (`user_id` ASC),
   CONSTRAINT `user_id`

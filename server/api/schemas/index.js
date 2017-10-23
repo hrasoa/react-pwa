@@ -15,7 +15,7 @@ module.exports = mergeSchemas({
             'postsByUser',
             {
               user_id: parent.id,
-              first: args.first || null,
+              limit: args.limit || null,
               after: args.after || null
             },
             context,

@@ -10,8 +10,8 @@ const post = require('../../server/api/models/post');
     const User = user(sequelize);
     const Post = post(sequelize);
     const dates = {
-      createdAt: new Date(),
-      updatedAt: new Date()
+      created_at: new Date(),
+      updated_at: new Date()
     };
     User.bulkCreate(users.map(u => ({ ...u, ...dates })));
     Post.bulkCreate(posts.map(p => ({ ...p, ...dates })));

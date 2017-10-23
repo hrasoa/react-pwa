@@ -10,11 +10,15 @@ type User {
 
 type Query {
   user(id: Int!): User
+  userByUsername(username: String!): User
 }`];
 
 const resolvers = {
   Query: {
-    user: (parent, { id }, { models: { User } }) => User.findById(id)
+    user: (parent, { id }, { models: { User } }) => User.findById(id),
+    userByUsername: (parent, { username }, { models: { User } }) => User.findOne({
+      where: { username }
+    })
   }
 };
 

@@ -12,8 +12,8 @@ class LoginPage extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(email, password) {
-    this.props.loginRequest(email, password);
+  handleSubmit(username, password) {
+    this.props.loginRequest(username, password);
   }
 
   render() {

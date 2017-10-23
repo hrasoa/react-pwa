@@ -5,5 +5,5 @@ module.exports = sequelize => sequelize.define('user', {
   name: { type: Sequelize.STRING },
   username: { type: Sequelize.STRING }
 }, {
-  underscore: true
+  underscored: true
 });

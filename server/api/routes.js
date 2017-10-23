@@ -26,13 +26,18 @@ router.get('/posts', async (req, res) => {
 router.get('/posts/:id', async (req, res) => {
   try {
     const data = await sendQuery({
-      query: `{
-        post(id: ${req.params.id}) {
-          id
-          title
-          body
+      query: `
+        query GetPost($id: Int!) {
+          post(id: $id) {
+            id
+            body
+            title
+          }
         }
-      }`
+      `,
+      variables: {
+        id: req.params.id
+      }
     });
     res.json(data);
   } catch (e) {
@@ -59,18 +64,23 @@ router.get('/home', async (req, res) => {
   }
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   try {
-    if (req.body.password !== '123') {
-      throw new Error('Invalid password');
-    }
-    res.json({
-      user: {
-        id: '809090',
-        username: req.body.username,
-        firstName: 'Dummy first name'
+    const data = await sendQuery({
+      query: `
+        query GetUser($username: String!) {
+          user: userByUsername(username: $username) {
+            id
+            username
+            email
+          }
+        }
+      `,
+      variables: {
+        username: req.body.username
       }
     });
+    res.json(data);
   } catch (e) {
     res.status(400).json({ errors: [{ message: e.message }] });
   }
