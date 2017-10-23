@@ -7,8 +7,6 @@ module.exports = (sequelize) => {
     body: { type: Sequelize.TEXT },
     user_id: { type: Sequelize.INTEGER }
   });
-
   withPagination()(Post);
-
   return Post;
 };

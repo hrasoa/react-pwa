@@ -1,25 +1,7 @@
 const express = require('express');
-const axios = require('axios');
-const ApolloClient = require('apollo-client').default;
-const gql = require('graphql-tag');
+const sendQuery = require('./client');
 
 const router = express.Router();
-const client = new ApolloClient({
-  networkInterface: {
-    query: request =>
-      axios.post('http://0.0.0.0:3001/graphql', request)
-        .then(response => response.data)
-        .catch(error => error)
-  }
-});
-
-const sendQuery = async ({ query, ...rest }) => {
-  const response = await client.query({ query: gql`${query}`, ...rest })
-    .catch((error) => {
-      throw new Error(error);
-    });
-  return response.data;
-};
 
 router.get('/posts', async (req, res) => {
   try {
@@ -62,7 +44,7 @@ router.get('/home', async (req, res) => {
   try {
     const data = await sendQuery({
       query: `{
-        latestPosts: posts(first: 20) {
+        latestPosts: posts(limit: 20) {
           totalCount
           pageInfo { endCursor, hasNextPage }
           edges {
