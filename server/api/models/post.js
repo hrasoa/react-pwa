@@ -6,6 +6,8 @@ module.exports = (sequelize) => {
     title: { type: Sequelize.STRING },
     body: { type: Sequelize.TEXT },
     user_id: { type: Sequelize.INTEGER }
+  }, {
+    underscore: true
   });
   withPagination()(Post);
   return Post;
