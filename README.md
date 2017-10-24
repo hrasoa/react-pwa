@@ -32,10 +32,7 @@ Minify + gzip | | :star:
     $ docker-compose run --rm db
     
     # wait for finish and stop the containers
-    $ docker stop $(docker ps -q --filter "ancestor=mysql")
-       
-    # insert data
-    $ docker-compose run --rm app sh -c './docker/wait-for db:3306 -- node docker/mysql/data.js'   
+    $ docker stop $(docker ps -q --filter "ancestor=mysql")   
     
     # install the app
     $ docker-compose run --rm --no-deps app yarn

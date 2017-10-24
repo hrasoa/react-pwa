@@ -1,3 +1,7 @@
+/**
+ * the node way to insert data:
+ * $ docker-compose run --rm app sh -c './docker/wait-for db:3306 -- node docker/mysql/data.js'
+ */
 const users = require('./users.json');
 const posts = require('./posts.json');
 const db = require('../../server/api/db');
