@@ -9,22 +9,24 @@ node {
 
   checkout scm
 
-  stage 'Versions'
+  stage 'Apis version'
   sh("kubectl version")
 
   stage 'Build images'
   sh("docker build -t ${feImageTag} ./docker/nginx")
-  sh("docker build -t ${appImageTag} .")
 
   stage 'Push image to registry'
   sh("gcloud docker -- push ${feImageTag}")
-  sh("gcloud docker -- push ${appImageTag}")
 
   stage "Deploy Application"
   switch (env.BRANCH_NAME) {
 
     // Roll out to production
     case "master":
+        // build and push production image
+        sh("docker build -t ${appImageTag} --build-arg APP_ENV=production .")
+        sh("gcloud docker -- push ${appImageTag}")
+
         // Change deployed image in canary to the one we just built
         sh("sed -i.bak 's#gcr.io/cloud-solutions-images/pwa-app:1.0.0#${appImageTag}#' ./k8s/production/*.yml")
         sh("sed -i.bak 's#gcr.io/cloud-solutions-images/pwa-frontend:1.0.0#${feImageTag}#' ./k8s/production/*.yml")

@@ -4,7 +4,7 @@
   "description": "React progressive web application",
   "main": "src/index.js",
   "scripts": {
-    "build:prod": "cross-env NODE_ENV=production APP_ENV=production npm run build",
+    "build:production": "cross-env NODE_ENV=production APP_ENV=production npm run build",
     "build": "concurrently --kill-others-on-fail \"npm run build:client\" \"npm run build:render\"",
     "build:client": "webpack --config webpack/client.build.js",
     "build:fontloader": "uglifyjs scripts/fontLoader.js -o clientBuild/fontLoader.js -m",

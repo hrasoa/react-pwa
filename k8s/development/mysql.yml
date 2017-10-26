@@ -1,0 +1,43 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: db
+spec:
+  selector:
+    app: MyApp
+    tier: mysql
+  ports:
+  - name: mysql
+    port: 3306
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pwa-mysql-deployment
+  labels:
+    app: MyApp
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: MyApp
+        tier: mysql
+    spec:
+      containers:
+      - image: mysql:local
+        imagePullPolicy: Never
+        name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: pwa-mysql-disk
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: pwa-mysql-disk
+        emptyDir: {}
