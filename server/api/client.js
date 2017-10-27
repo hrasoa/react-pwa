@@ -1,14 +1,12 @@
-const axios = require('axios');
+const { HttpLink } = require('apollo-link-http');
+const { InMemoryCache } = require('apollo-cache-inmemory');
 const ApolloClient = require('apollo-client').default;
+const fetch = require('node-fetch');
 const gql = require('graphql-tag');
 
 const client = new ApolloClient({
-  networkInterface: {
-    query: request =>
-      axios.post('http://0.0.0.0:3001/graphql', request)
-        .then(response => response.data)
-        .catch(error => error)
-  }
+  link: new HttpLink({ uri: 'http://0.0.0.0:3001/graphql', fetch }),
+  cache: new InMemoryCache()
 });
 
 const sendQuery = async ({ query, ...rest }) => {
