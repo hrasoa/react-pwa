@@ -14,8 +14,6 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: pwa-mysql-deployment
-  labels:
-    app: MyApp
 spec:
   strategy:
     type: Recreate
