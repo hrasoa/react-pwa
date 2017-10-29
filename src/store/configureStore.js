@@ -9,7 +9,12 @@ import createSagaMiddleware, { END } from 'redux-saga';
 import rootReducer from '../reducers/index';
 import sagaManager from '../sagas/sagaManager';
 
-export default function configureStore(initialState, otherReducers = {}, otherMiddlewares = []) {
+export default function configureStore({
+  initialState,
+  otherReducers = {},
+  otherMiddlewares = [],
+  ...rest
+  }) {
   const composeEnhancers = (typeof window !== 'undefined' &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
@@ -33,11 +38,15 @@ export default function configureStore(initialState, otherReducers = {}, otherMi
 
     module.hot.accept('../sagas/sagaManager', () => {
       sagaManager.cancelSagas(store);
-      require('../sagas/sagaManager').default.startSagas(sagaMiddleware);
+      require('../sagas/sagaManager').default.startSagas(sagaMiddleware, {
+        firebase: rest.firebase
+      });
     });
   }
 
-  store.runSaga = sagaManager.startSagas.bind(null, sagaMiddleware);
+  store.runSaga = sagaManager.startSagas.bind(null, sagaMiddleware, {
+    firebase: rest.firebase
+  });
   store.close = () => store.dispatch(END);
 
   return store;

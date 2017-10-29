@@ -38,7 +38,10 @@
   <iframe src="https://www.googletagmanager.com/ns.html?id=<%- gtmID -%>" height="0" width="0" style="display:none;visibility:hidden"></iframe>
   </noscript>
   <div id="root"><%- initialMarkup -%></div>
-  <script>window.__INITIAL_STATE__ = <%- initialState -%>;</script>
+  <script>
+    window.__INITIAL_STATE__ = <%- initialState -%>;
+    window.__FIREBASE = <%- firebase -%>;
+  </script>
   <%- cssHash -%>
   <%- js -%>
 </body>

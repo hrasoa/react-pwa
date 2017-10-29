@@ -2,6 +2,7 @@ import createHistory from 'history/createBrowserHistory';
 import React from 'react';
 import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
+import * as firebase from 'firebase';
 import {
   ConnectedRouter,
   routerReducer,
@@ -14,13 +15,15 @@ import App from './components/App';
 const history = createHistory();
 const middleware = routerMiddleware(history);
 
-const store = configureStore(
-  window.__INITIAL_STATE__,
-  { router: routerReducer },
-  [middleware]
-);
+const store = configureStore({
+  initialState: window.__INITIAL_STATE__,
+  otherReducers: { router: routerReducer },
+  otherMiddlewares: [middleware],
+  firebase: firebase.initializeApp(window.__FIREBASE)
+});
 store.runSaga();
 delete window.__INITIAL_STATE__;
+delete window.__FIREBASE;
 
 history.listen((location) => {
   if (typeof navigator !== 'undefined' &&

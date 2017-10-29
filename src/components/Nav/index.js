@@ -7,7 +7,7 @@ import { getIsConnected } from '../../selectors/index';
 const links = [
   { title: 'Home', to: '/' },
   { title: 'About', to: '/about' },
-  { title: 'Private', to: '/private' }
+  { title: 'Privatee', to: '/private' }
 ];
 
 const Nav = ({ isConnected }) => (

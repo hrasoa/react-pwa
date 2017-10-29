@@ -17,9 +17,7 @@ import {
   getLatestPosts
 } from '../selectors/index';
 
-
 const { home, post, login } = actions;
-
 
 function* fetchEntity(entity, apiFn, payload) {
   const source = api.getTokenSource();
@@ -39,11 +37,9 @@ function* fetchEntity(entity, apiFn, payload) {
   }
 }
 
-
 export const fetchPost = fetchEntity.bind(null, post, api.fetchPost);
 export const fetchHome = fetchEntity.bind(null, home, api.fetchHome);
 export const fetchAuth = fetchEntity.bind(null, login, api.authorize);
-
 
 function* loadPost(id, requiredFields) {
   const loadedPost = yield select(getPost, id);
@@ -52,7 +48,6 @@ function* loadPost(id, requiredFields) {
   }
 }
 
-
 function* loadHome() {
   const loadedLatestPosts = yield select(getLatestPosts);
   if (!loadedLatestPosts.pageCount) {
@@ -60,11 +55,9 @@ function* loadHome() {
   }
 }
 
-
 function* authorize(username, password) {
   yield call(fetchAuth, { username, password });
 }
-
 
 function* watchLoadPostPage() {
   while (true) {
@@ -75,7 +68,6 @@ function* watchLoadPostPage() {
   }
 }
 
-
 function* watchLoadHomePage() {
   while (true) {
     yield take(actions.LOAD_HOME_PAGE);
@@ -85,8 +77,7 @@ function* watchLoadHomePage() {
   }
 }
 
-
-function* loginFlow() {
+function* loginFlow({ firebase }) {
   while (true) {
     const { username, password } = yield take(actions.LOGIN_USER);
     const task = yield fork(authorize, username, password);
@@ -98,11 +89,10 @@ function* loginFlow() {
   }
 }
 
-
-export default function* root() {
+export default function* root(args) {
   yield all([
     fork(watchLoadPostPage),
     fork(watchLoadHomePage),
-    fork(loginFlow)
+    fork(loginFlow, args)
   ]);
 }
