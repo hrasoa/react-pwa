@@ -3,22 +3,17 @@ import PropTypes from 'prop-types';
 
 class Login extends Component {
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, handleRegister } = this.props;
     return (
       <div>
-        <h1>Login</h1>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit(this.username.value, this.password.value);
-          }}
-        >
+        <h1>Login / Register</h1>
+        <form>
           <ul>
             <li>
               <input
-                id="username"
-                ref={(input) => { this.username = input; }}
-                placeholder="username"
+                id="email"
+                ref={(input) => { this.email = input; }}
+                placeholder="email"
               />
             </li>
             <li>
@@ -29,7 +24,24 @@ class Login extends Component {
               />
             </li>
           </ul>
-          <button type="submit">Go</button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              handleRegister(this.email.value, this.password.value);
+            }}
+            type="button"
+          >
+            Register
+          </button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              handleSubmit(this.email.value, this.password.value);
+            }}
+            type="button"
+          >
+            Login
+          </button>
         </form>
       </div>
     );
@@ -37,7 +49,8 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  handleRegister: PropTypes.func.isRequired
 };
 
 export default Login;

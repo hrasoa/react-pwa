@@ -17,7 +17,7 @@ import {
   getLatestPosts
 } from '../selectors/index';
 
-const { home, post, login } = actions;
+const { home, post, register } = actions;
 
 function* fetchEntity(entity, apiFn, payload) {
   const source = api.getTokenSource();
@@ -39,7 +39,6 @@ function* fetchEntity(entity, apiFn, payload) {
 
 export const fetchPost = fetchEntity.bind(null, post, api.fetchPost);
 export const fetchHome = fetchEntity.bind(null, home, api.fetchHome);
-export const fetchAuth = fetchEntity.bind(null, login, api.authorize);
 
 function* loadPost(id, requiredFields) {
   const loadedPost = yield select(getPost, id);
@@ -55,8 +54,33 @@ function* loadHome() {
   }
 }
 
-function* authorize(username, password) {
-  yield call(fetchAuth, { username, password });
+const apiAuthorizeUser = (email, password, firebase) =>
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(() => ({ response: firebase.auth().currentUser }))
+    .catch(err => ({ error: err.message }));
+
+const apiRegisterUser = (email, password, firebase) =>
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then(() => ({ response: firebase.auth().currentUser }))
+    .catch(err => ({ error: err.message }));
+
+function* authorizeUser(email, password, firebase) {
+  const { response, error } = yield call(apiAuthorizeUser, email, password, firebase);
+  if (response) {
+    console.log(response);
+  } else {
+    console.log(error);
+  }
+}
+
+function* registerUser(email, password, firebase) {
+  yield put(register.request({ email, password }));
+  const { response, error } = yield call(apiRegisterUser, email, password, firebase);
+  if (response) {
+    yield put(register.success({ response }));
+  } else {
+    yield put(register.error({ error }));
+  }
 }
 
 function* watchLoadPostPage() {
@@ -77,10 +101,17 @@ function* watchLoadHomePage() {
   }
 }
 
+function* registerFlow({ firebase }) {
+  while (true) {
+    const { email, password } = yield take(actions.REGISTER_USER);
+    yield fork(registerUser, email, password, firebase);
+  }
+}
+
 function* loginFlow({ firebase }) {
   while (true) {
-    const { username, password } = yield take(actions.LOGIN_USER);
-    const task = yield fork(authorize, username, password);
+    const { email, password } = yield take(actions.LOGIN_USER);
+    const task = yield fork(authorizeUser, email, password, firebase);
     const { type } = yield take([actions.LOGOUT_USER, actions.LOGIN.FAILURE]);
     if (type === actions.LOGOUT_USER) {
       yield cancel(task);
@@ -93,6 +124,7 @@ export default function* root(args) {
   yield all([
     fork(watchLoadPostPage),
     fork(watchLoadHomePage),
-    fork(loginFlow, args)
+    fork(loginFlow, args),
+    fork(registerFlow, args)
   ]);
 }

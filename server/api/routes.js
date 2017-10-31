@@ -68,8 +68,8 @@ router.post('/login', async (req, res) => {
   try {
     const data = await sendQuery({
       query: `
-        query GetUser($username: String!) {
-          user: userByUsername(username: $username) {
+        query GetUser($email: String!) {
+          user: userByEmail(email: $email) {
             id
             username
             email
@@ -77,7 +77,7 @@ router.post('/login', async (req, res) => {
         }
       `,
       variables: {
-        username: req.body.username
+        email: req.body.email
       }
     });
     res.json(data);

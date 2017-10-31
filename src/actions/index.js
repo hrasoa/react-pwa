@@ -16,6 +16,7 @@ export function action(type, payload = {}) {
 export const POST = createRequestTypes('POST');
 export const HOME = createRequestTypes('HOME');
 export const LOGIN = createRequestTypes('LOGIN');
+export const REGISTER = createRequestTypes('REGISTER');
 
 export const post = {
   request: ({ id }) => action(POST[REQUEST], { id }),
@@ -24,7 +25,7 @@ export const post = {
 };
 
 export const login = {
-  request: ({ username, password }) => action(LOGIN[REQUEST], { username, password }),
+  request: ({ email, password }) => action(LOGIN[REQUEST], { email, password }),
   success: ({ response }) => action(LOGIN[SUCCESS], { response }),
   failure: ({ error }) => action(LOGIN[FAILURE], { error })
 };
@@ -35,12 +36,19 @@ export const home = {
   failure: ({ error }) => action(HOME[FAILURE], { error })
 };
 
+export const register = {
+  request: ({ email, password }) => action(REGISTER[REQUEST], { email, password }),
+  success: ({ response }) => action(REGISTER[SUCCESS], { response }),
+  failure: ({ error }) => action(REGISTER[FAILURE], { error })
+};
+
 export const LOAD_POST_PAGE = 'LOAD_POST_PAGE';
 export const LEAVE_POST_PAGE = 'LEAVE_POST_PAGE';
 export const LOAD_HOME_PAGE = 'LOAD_HOME_PAGE';
 export const LEAVE_HOME_PAGE = 'LEAVE_HOME_PAGE';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
+export const REGISTER_USER = 'REGISTER_USER';
 
 export const loadPostPage = (id, requiredFields = ['id', 'title', 'body']) =>
   action(LOAD_POST_PAGE, { id, requiredFields });
@@ -49,5 +57,7 @@ export const leavePostPage = () => action(LEAVE_POST_PAGE);
 export const loadHomePage = () => action(LOAD_HOME_PAGE);
 export const leaveHomePage = () => action(LEAVE_HOME_PAGE);
 
-export const loginRequest = (username, password) => action(LOGIN_USER, { username, password });
+export const loginRequest = (email, password) => action(LOGIN_USER, { email, password });
 export const logoutRequest = () => action(LOGOUT_USER);
+
+export const registerRequest = (email, password) => action(REGISTER_USER, { email, password });
