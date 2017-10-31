@@ -13,6 +13,7 @@ export default function configureStore({
   initialState,
   otherReducers = {},
   otherMiddlewares = [],
+  sagaArgs = {},
   ...rest
   }) {
   const composeEnhancers = (typeof window !== 'undefined' &&
@@ -38,15 +39,11 @@ export default function configureStore({
 
     module.hot.accept('../sagas/sagaManager', () => {
       sagaManager.cancelSagas(store);
-      require('../sagas/sagaManager').default.startSagas(sagaMiddleware, {
-        firebase: rest.firebase
-      });
+      require('../sagas/sagaManager').default.startSagas(sagaMiddleware, sagaArgs);
     });
   }
 
-  store.runSaga = sagaManager.startSagas.bind(null, sagaMiddleware, {
-    firebase: rest.firebase
-  });
+  store.runSaga = sagaManager.startSagas.bind(null, sagaMiddleware, sagaArgs);
   store.close = () => store.dispatch(END);
 
   return store;

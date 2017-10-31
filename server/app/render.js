@@ -24,7 +24,9 @@ export default function serverRenderer({
       bundleCss,
       fontsCss
     } = options;
-    const store = configureStore({ firebase: firebaseApp });
+    const store = configureStore({
+      sagaArgs: { firebase: firebaseApp }
+    });
     const context = {};
     const RootComp = (
       <Provider store={store}>

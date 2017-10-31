@@ -19,7 +19,9 @@ const store = configureStore({
   initialState: window.__INITIAL_STATE__,
   otherReducers: { router: routerReducer },
   otherMiddlewares: [middleware],
-  firebase: firebase.initializeApp(window.__FIREBASE)
+  sagaArgs: {
+    firebase: firebase.initializeApp(window.__FIREBASE)
+  }
 });
 store.runSaga();
 delete window.__INITIAL_STATE__;
