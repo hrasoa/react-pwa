@@ -17,6 +17,7 @@ export const POST = createRequestTypes('POST');
 export const HOME = createRequestTypes('HOME');
 export const LOGIN = createRequestTypes('LOGIN');
 export const REGISTER = createRequestTypes('REGISTER');
+export const ADD_USER = createRequestTypes('ADD_USER');
 
 export const post = {
   request: ({ id }) => action(POST[REQUEST], { id }),
@@ -40,6 +41,12 @@ export const register = {
   request: ({ email, password }) => action(REGISTER[REQUEST], { email, password }),
   success: ({ response }) => action(REGISTER[SUCCESS], { response }),
   failure: ({ error }) => action(REGISTER[FAILURE], { error })
+};
+
+export const addUser = {
+  request: ({ uid }) => action(ADD_USER[REQUEST], { uid }),
+  success: ({ response }) => action(ADD_USER[SUCCESS], { response }),
+  failure: ({ error }) => action(ADD_USER[FAILURE], { error })
 };
 
 export const LOAD_POST_PAGE = 'LOAD_POST_PAGE';

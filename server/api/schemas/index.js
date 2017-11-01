@@ -9,12 +9,12 @@ module.exports = mergeSchemas({
     User: {
       posts: {
         fragment: 'fragment UserFragment on User { id }',
-        resolve(parent, args, context, info) {
+        resolve(_, args, context, info) {
           return mergeInfo.delegate(
             'query',
             'postsByUser',
             {
-              user_id: parent.id,
+              user_id: _.id,
               limit: args.limit || null,
               after: args.after || null
             },

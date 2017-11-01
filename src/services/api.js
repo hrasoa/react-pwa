@@ -15,7 +15,31 @@ function callApi(endpoint, entitySchema, options) {
 
   return axios(requestOptions)
     .then((response) => {
-      // first lets create the normalized tree
+      /*
+        Response example:
+
+        {
+          user: User
+          posts: [{
+            pageInfo
+            edges: [{ cursor, node }]
+          }]
+        }
+
+        Data to normalize:
+
+        {
+          user: User
+          posts: [node]
+        }
+
+        Extra:
+
+        {
+          user: null
+          posts: { pageInfo }
+        }
+       */
       const data = {};
       const extra = {};
       Object.keys(response.data).forEach((dataKey) => {
@@ -24,8 +48,6 @@ function callApi(endpoint, entitySchema, options) {
         extra[dataKey] = rest;
       });
       const normalized = normalize(data, entitySchema);
-
-      // then attach other data to the response
       return { response: { ...normalized, ...extra } };
     })
     .catch(response => ({
@@ -55,7 +77,14 @@ const singleUserSchema = new schema.Object({
 
 
 export const fetchPost = ({ id, cancelToken }) => callApi(`posts/${id}`, singlePostSchema, { cancelToken });
+
 export const fetchPosts = ({ cancelToken }) => callApi('posts', postsSchema, { cancelToken });
+
 export const fetchHome = ({ cancelToken }) => callApi('home', homeSchema, { cancelToken });
-export const authorize = ({ username, password, cancelToken }) =>
-  callApi('login', singleUserSchema, { method: 'post', data: { username, password }, cancelToken });
+
+export const addUser = ({ uid, cancelToken }) =>
+  callApi('user', singleUserSchema, {
+    method: 'post',
+    data: { uid },
+    cancelToken
+  });

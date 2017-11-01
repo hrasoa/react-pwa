@@ -1,11 +1,11 @@
 const express = require('express');
-const sendQuery = require('./client');
+const { query, mutate } = require('./client');
 
 const router = express.Router();
 
 router.get('/posts', async (req, res) => {
   try {
-    const data = await sendQuery({
+    const data = await query({
       query: `{
         posts {
           pageInfo { endCursor, hasNextPage }
@@ -25,7 +25,7 @@ router.get('/posts', async (req, res) => {
 
 router.get('/posts/:id', async (req, res) => {
   try {
-    const data = await sendQuery({
+    const data = await query({
       query: `
         query GetPost($id: Int!) {
           post(id: $id) {
@@ -47,7 +47,7 @@ router.get('/posts/:id', async (req, res) => {
 
 router.get('/home', async (req, res) => {
   try {
-    const data = await sendQuery({
+    const data = await query({
       query: `{
         latestPosts: posts(limit: 20) {
           totalCount
@@ -66,7 +66,7 @@ router.get('/home', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    const data = await sendQuery({
+    const data = await query({
       query: `
         query GetUser($email: String!) {
           user: userByEmail(email: $email) {
@@ -86,12 +86,27 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.get('/user', (req, res) => {
-  console.log(req.session.uid);
-  if (!req.session.uid) {
-    req.session.uid = '3fIkepr2dJdb0szOJFE7YvwS31k2';
+router.post('/user', async (req, res) => {
+  try {
+    const uid = req.body.uid;
+    const data = await mutate({
+      mutation: `
+        mutation AddUser($input: UserInput!) {
+          user: createUser(input: $input) {
+            id
+            uid
+          }
+        }
+      `,
+      variables: {
+        input: { uid }
+      }
+    });
+    req.session.uid = uid;
+    res.json(data);
+  } catch (e) {
+    res.status(400).json({ errors: [{ message: e.message }] });
   }
-  res.json({ uid: req.session.uid || null });
 });
 
 module.exports = router;

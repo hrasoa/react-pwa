@@ -9,7 +9,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
-const sendQuery = async ({ query, ...rest }) => {
+const query = async ({ query, ...rest }) => {
   const response = await client.query({ query: gql`${query}`, ...rest })
     .catch((error) => {
       throw new Error(error);
@@ -17,4 +17,12 @@ const sendQuery = async ({ query, ...rest }) => {
   return response.data;
 };
 
-module.exports = sendQuery;
+const mutate = async ({ mutation, ...rest }) => {
+  const response = await client.mutate({ mutation: gql`${mutation}`, ...rest })
+    .catch((error) => {
+      throw new Error(error);
+    });
+  return response.data;
+};
+
+module.exports = { query, mutate };

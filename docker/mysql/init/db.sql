@@ -1,9 +1,10 @@
 CREATE SCHEMA IF NOT EXISTS `pwa` DEFAULT CHARACTER SET utf8;
 
 CREATE TABLE IF NOT EXISTS `pwa`.`users` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `username` VARCHAR(45) NULL,
+  `uid` VARCHAR(255) NULL,
   `email` VARCHAR(45) NULL,
   `created_at` DATETIME NULL,
   `updated_at` DATETIME NULL,
@@ -11,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `pwa`.`users` (
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `pwa`.`posts` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `title` VARCHAR(255) NULL,
   `body` LONGTEXT NULL,

@@ -17,7 +17,12 @@ import {
   getLatestPosts
 } from '../selectors/index';
 
-const { home, post, register } = actions;
+const {
+  home,
+  post,
+  register,
+  addUser
+} = actions;
 
 function* fetchEntity(entity, apiFn, payload) {
   const source = api.getTokenSource();
@@ -39,6 +44,7 @@ function* fetchEntity(entity, apiFn, payload) {
 
 export const fetchPost = fetchEntity.bind(null, post, api.fetchPost);
 export const fetchHome = fetchEntity.bind(null, home, api.fetchHome);
+export const fetchAddUser = fetchEntity.bind(null, addUser, api.addUser);
 
 function* loadPost(id, requiredFields) {
   const loadedPost = yield select(getPost, id);
@@ -102,7 +108,14 @@ function* watchLoadHomePage() {
 function* registerFlow({ firebase }) {
   while (true) {
     const { email, password } = yield take(actions.REGISTER_USER);
-    yield fork(registerUser, email, password, firebase);
+    yield call(registerUser, email, password, firebase);
+  }
+}
+
+function* addUserFlow() {
+  while (true) {
+    const { response } = yield take(actions.REGISTER.SUCCESS);
+    yield call(fetchAddUser, { uid: response.uid });
   }
 }
 
@@ -123,6 +136,7 @@ export default function* root(args) {
     fork(watchLoadPostPage),
     fork(watchLoadHomePage),
     fork(loginFlow, args),
-    fork(registerFlow, args)
+    fork(registerFlow, args),
+    fork(addUserFlow)
   ]);
 }

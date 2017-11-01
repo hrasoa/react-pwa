@@ -31,7 +31,8 @@ Minify + gzip | | :star:
     # init the db instance
     $ docker-compose run --rm db
     
-    # wait for finish and stop the containers
+    # as the process won't exit
+    # wait for finish and stop the containers on another tab
     $ docker stop $(docker ps -q --filter "ancestor=mysql")   
     
     # install the app
