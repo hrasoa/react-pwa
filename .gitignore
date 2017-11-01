@@ -2,6 +2,7 @@
 .happypack
 .idea
 docker/mysql/data
+docker/redis/data
 clientBuild/
 node_modules/
 serverBuild/
