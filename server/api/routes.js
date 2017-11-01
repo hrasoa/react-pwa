@@ -64,28 +64,6 @@ router.get('/home', async (req, res) => {
   }
 });
 
-router.post('/login', async (req, res) => {
-  try {
-    const data = await query({
-      query: `
-        query GetUser($email: String!) {
-          user: userByEmail(email: $email) {
-            id
-            username
-            email
-          }
-        }
-      `,
-      variables: {
-        email: req.body.email
-      }
-    });
-    res.json(data);
-  } catch (e) {
-    res.status(400).json({ errors: [{ message: e.message }] });
-  }
-});
-
 router.post('/user', async (req, res) => {
   try {
     const uid = req.body.uid;
