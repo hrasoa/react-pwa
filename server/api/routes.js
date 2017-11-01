@@ -93,7 +93,6 @@ router.post('/user', async (req, res) => {
       mutation: `
         mutation AddUser($input: UserInput!) {
           user: createUser(input: $input) {
-            id
             uid
           }
         }
@@ -102,7 +101,7 @@ router.post('/user', async (req, res) => {
         input: { uid }
       }
     });
-    req.session.currentUser = data.user.id;
+    req.session.currentUser = uid;
     res.json(data);
   } catch (e) {
     res.status(400).json({ errors: [{ message: e.message }] });
