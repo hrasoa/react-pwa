@@ -12,7 +12,6 @@ const shared = require('../../webpack/shared');
 const config = require('../config');
 
 const app = express();
-
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(favicon(shared.paths.favicon));

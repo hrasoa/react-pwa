@@ -10,6 +10,12 @@ services:
       - ./mysql/data:/var/lib/mysql
       - ./mysql/init:/docker-entrypoint-initdb.d
 
+  redis:
+    image: redis:alpine
+    volumes:
+      - ./redis/data:/data
+    command: redis-server
+
   nginx:
     image: nginx:alpine
     ports:
@@ -35,7 +41,7 @@ services:
     expose:
       - "3000"
       - "3001"
-    command: sh -c './docker/wait-for db:3306 -- npm run start:dev'
+    command: sh -c './docker/wait-for db:3306 redis:6379 -- npm run start:dev'
     volumes:
       - pwa-sync:/var/www:nocopy # will be mounted on /var/www
 

@@ -56,30 +56,28 @@ function* loadHome() {
 
 const apiAuthorizeUser = (email, password, firebase) =>
   firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(() => ({ response: firebase.auth().currentUser }))
     .catch(err => ({ error: err.message }));
 
 const apiRegisterUser = (email, password, firebase) =>
   firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(() => ({ response: firebase.auth().currentUser }))
     .catch(err => ({ error: err.message }));
 
 function* authorizeUser(email, password, firebase) {
-  const { response, error } = yield call(apiAuthorizeUser, email, password, firebase);
-  if (response) {
-    console.log(response);
+  const response = yield call(apiAuthorizeUser, email, password, firebase);
+  if (response.error) {
+    yield put(register.error({ error: response.error }));
   } else {
-    console.log(error);
+    yield console.log(response);
   }
 }
 
 function* registerUser(email, password, firebase) {
   yield put(register.request({ email, password }));
-  const { response, error } = yield call(apiRegisterUser, email, password, firebase);
-  if (response) {
-    yield put(register.success({ response }));
+  const response = yield call(apiRegisterUser, email, password, firebase);
+  if (response.error) {
+    yield put(register.error({ error: response.error }));
   } else {
-    yield put(register.error({ error }));
+    yield put(register.success({ response }));
   }
 }
 

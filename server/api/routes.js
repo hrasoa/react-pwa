@@ -86,4 +86,12 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.get('/user', (req, res) => {
+  console.log(req.session.uid);
+  if (!req.session.uid) {
+    req.session.uid = '3fIkepr2dJdb0szOJFE7YvwS31k2';
+  }
+  res.json({ uid: req.session.uid || null });
+});
+
 module.exports = router;
