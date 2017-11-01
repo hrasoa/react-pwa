@@ -102,7 +102,7 @@ router.post('/user', async (req, res) => {
         input: { uid }
       }
     });
-    req.session.uid = uid;
+    req.session.currentUser = data.user.id;
     res.json(data);
   } catch (e) {
     res.status(400).json({ errors: [{ message: e.message }] });
