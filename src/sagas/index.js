@@ -12,15 +12,12 @@ import {
 } from 'redux-saga/effects';
 import api from '../services/index';
 import * as actions from '../actions/index';
-import {
-  getPost,
-  getLatestPosts
-} from '../selectors/index';
+import { signup, signin } from '../middlewares/firebase';
+import { getPost, getLatestPosts } from '../selectors/index';
 
 const {
   home,
   post,
-  register,
   addUser
 } = actions;
 
@@ -60,30 +57,12 @@ function* loadHome() {
   }
 }
 
-const apiAuthorizeUser = (email, password, firebase) =>
-  firebase.auth().signInWithEmailAndPassword(email, password)
-    .catch(err => ({ error: err.message }));
-
-const apiRegisterUser = (email, password, firebase) =>
-  firebase.auth().createUserWithEmailAndPassword(email, password)
-    .catch(err => ({ error: err.message }));
-
-function* authorizeUser(email, password, firebase) {
-  const response = yield call(apiAuthorizeUser, email, password, firebase);
+function* authorizeUser(email, password) {
+  const response = yield put.resolve(signin({ email, password }));
   if (response.error) {
-    yield put(register.error({ error: response.error }));
+    console.log(response.error.message);
   } else {
-    yield console.log(response);
-  }
-}
-
-function* registerUser(email, password, firebase) {
-  yield put(register.request({ email, password }));
-  const response = yield call(apiRegisterUser, email, password, firebase);
-  if (response.error) {
-    yield put(register.error({ error: response.error }));
-  } else {
-    yield put(register.success({ response }));
+    console.log(response);
   }
 }
 
@@ -105,24 +84,22 @@ function* watchLoadHomePage() {
   }
 }
 
-function* registerFlow({ firebase }) {
+function* registerFlow() {
   while (true) {
     const { email, password } = yield take(actions.REGISTER_USER);
-    yield call(registerUser, email, password, firebase);
+    const response = yield put.resolve(signup({ email, password }));
+    if (response.error) {
+      console.log(response.error.message);
+    } else {
+      yield call(fetchAddUser, { uid: response.uid });
+    }
   }
 }
 
-function* watchRegisterFlow() {
-  while (true) {
-    const { response } = yield take(actions.REGISTER.SUCCESS);
-    yield call(fetchAddUser, { uid: response.uid });
-  }
-}
-
-function* loginFlow({ firebase }) {
+function* loginFlow() {
   while (true) {
     const { email, password } = yield take(actions.LOGIN_USER);
-    const task = yield fork(authorizeUser, email, password, firebase);
+    const task = yield fork(authorizeUser, email, password);
     const { type } = yield take([actions.LOGOUT_USER, actions.LOGIN.FAILURE]);
     if (type === actions.LOGOUT_USER) {
       yield cancel(task);
@@ -131,12 +108,11 @@ function* loginFlow({ firebase }) {
   }
 }
 
-export default function* root(args) {
+export default function* root() {
   yield all([
     fork(watchLoadPostPage),
     fork(watchLoadHomePage),
-    fork(watchRegisterFlow),
-    fork(loginFlow, args),
-    fork(registerFlow, args)
+    fork(loginFlow),
+    fork(registerFlow)
   ]);
 }

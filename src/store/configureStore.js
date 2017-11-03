@@ -11,23 +11,21 @@ import sagaManager from '../sagas/sagaManager';
 
 export default function configureStore({
   initialState,
-  otherReducers = {},
-  otherMiddlewares = [],
-  sagaArgs = {},
-  ...rest
+  reducers = {},
+  middlewares = []
   }) {
   const composeEnhancers = (typeof window !== 'undefined' &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
   const sagaMiddleware = createSagaMiddleware();
-  const reducers = { ...rootReducer, ...otherReducers };
-  const middlewares = [sagaMiddleware, ...otherMiddlewares];
+  const reducer = { ...rootReducer, ...reducers };
+  const middleware = [sagaMiddleware, ...middlewares];
 
   const store = createStore(
-    combineReducers(reducers),
+    combineReducers(reducer),
     initialState,
     composeEnhancers(applyMiddleware(
-      ...middlewares
+      ...middleware
     ))
   );
 
@@ -39,11 +37,11 @@ export default function configureStore({
 
     module.hot.accept('../sagas/sagaManager', () => {
       sagaManager.cancelSagas(store);
-      require('../sagas/sagaManager').default.startSagas(sagaMiddleware, sagaArgs);
+      require('../sagas/sagaManager').default.startSagas(sagaMiddleware);
     });
   }
 
-  store.runSaga = sagaManager.startSagas.bind(null, sagaMiddleware, sagaArgs);
+  store.runSaga = sagaManager.startSagas.bind(null, sagaMiddleware);
   store.close = () => store.dispatch(END);
 
   return store;

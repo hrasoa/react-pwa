@@ -1,8 +1,6 @@
 import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
 import React from 'react';
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { flushChunkNames } from 'react-universal-component/server';
@@ -13,7 +11,6 @@ import manifest from '../../src/manifest.json';
 import conf from '../config';
 
 const { gtmID } = conf;
-const firebaseApp = firebase.initializeApp(conf.firebase);
 
 export default function serverRenderer({
   clientStats,
@@ -25,9 +22,7 @@ export default function serverRenderer({
       bundleCss,
       fontsCss
     } = options;
-    const store = configureStore({
-      sagaArgs: { firebase: firebaseApp }
-    });
+    const store = configureStore({});
     const context = {};
     const RootComp = (
       <Provider store={store}>

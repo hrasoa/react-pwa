@@ -7,10 +7,10 @@ import rootSaga from './index';
 
 export const CANCEL_SAGAS_HMR = 'CANCEL_SAGAS_HMR';
 
-function createAbortableSaga(saga, args) {
+function createAbortableSaga(saga) {
   if (module.hot) {
     return function* main() {
-      const sagaTask = yield fork(saga, args);
+      const sagaTask = yield fork(saga);
       yield take(CANCEL_SAGAS_HMR);
       yield cancel(sagaTask);
     };
@@ -19,9 +19,9 @@ function createAbortableSaga(saga, args) {
 }
 
 const sagaManager = {
-  startSagas(sagaMiddleware, args) {
-    const saga = createAbortableSaga(rootSaga, args);
-    return sagaMiddleware.run(saga, args);
+  startSagas(sagaMiddleware) {
+    const saga = createAbortableSaga(rootSaga);
+    return sagaMiddleware.run(saga);
   },
 
   cancelSagas(store) {

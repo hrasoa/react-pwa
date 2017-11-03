@@ -12,17 +12,17 @@ import {
 import configureStore from './store/configureStore';
 import AppContainer from './containers/AppContainer';
 import App from './components/App';
+import firebaseMiddleware from './middlewares/firebase';
 
 const history = createHistory();
-const middleware = routerMiddleware(history);
 
 const store = configureStore({
   initialState: window.__INITIAL_STATE__,
-  otherReducers: { router: routerReducer },
-  otherMiddlewares: [middleware],
-  sagaArgs: {
-    firebase: firebase.initializeApp(window.__FIREBASE)
-  }
+  reducers: { router: routerReducer },
+  middlewares: [
+    routerMiddleware(history),
+    firebaseMiddleware(firebase.initializeApp(window.__FIREBASE))
+  ]
 });
 store.runSaga();
 delete window.__INITIAL_STATE__;
