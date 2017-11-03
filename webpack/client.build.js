@@ -36,7 +36,7 @@ module.exports = {
     library: '[name]',
     publicPath: envConfig.publicPath
   },
-  devtool: 'hidden-source-map',
+  devtool: 'source-map',
   module: {
     rules: [
       {

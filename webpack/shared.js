@@ -42,6 +42,8 @@ module.exports = {
     ],
     production: [
       'axios',
+      'firebase/app',
+      'firebase/auth',
       'history',
       'lodash.merge',
       'lodash.union',

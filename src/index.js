@@ -2,7 +2,8 @@ import createHistory from 'history/createBrowserHistory';
 import React from 'react';
 import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 import {
   ConnectedRouter,
   routerReducer,

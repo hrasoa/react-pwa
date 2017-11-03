@@ -1,7 +1,8 @@
 import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
 import React from 'react';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { flushChunkNames } from 'react-universal-component/server';

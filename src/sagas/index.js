@@ -112,7 +112,7 @@ function* registerFlow({ firebase }) {
   }
 }
 
-function* addUserFlow() {
+function* watchRegisterFlow() {
   while (true) {
     const { response } = yield take(actions.REGISTER.SUCCESS);
     yield call(fetchAddUser, { uid: response.uid });
@@ -135,8 +135,8 @@ export default function* root(args) {
   yield all([
     fork(watchLoadPostPage),
     fork(watchLoadHomePage),
+    fork(watchRegisterFlow),
     fork(loginFlow, args),
-    fork(registerFlow, args),
-    fork(addUserFlow)
+    fork(registerFlow, args)
   ]);
 }

@@ -31,8 +31,7 @@ Minify + gzip | | :star:
     # init the db instance
     $ docker-compose run --rm db
     
-    # as the process won't exit
-    # wait for finish and stop the containers on another tab
+    # in a new tab stop the containers after finished
     $ docker stop $(docker ps -q --filter "ancestor=mysql")   
     
     # install the app
@@ -45,7 +44,7 @@ Visit http://localhost:8001
 
 Running the production build:
 
-    $ docker-compose run --rm --no-deps app npm run build:prod
+    $ docker-compose run --rm --no-deps app npm run build:production
     $ docker-compose -f docker-compose.yml -f production.yml up    
   
 ## Deployment

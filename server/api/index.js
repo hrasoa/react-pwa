@@ -14,7 +14,8 @@ const models = require('./models');
   try {
     const sequelize = await db.connect();
     const app = express();
-    const now = new Date();
+    const expires = new Date();
+    expires.setFullYear(expires.getFullYear() + 1);
     app.use(session({
       store: new RedisStore({
         client: redis.createClient({ host: 'redis' })
@@ -22,7 +23,7 @@ const models = require('./models');
       resave: true,
       saveUninitialized: false,
       cookie: {
-        expires: now.setTime(now.getTime() + 1 * 3600 * 1000)
+        expires: expires - Date.now()
       },
       secret: 'keyboard cat'
     }));

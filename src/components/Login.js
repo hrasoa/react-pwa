@@ -24,24 +24,31 @@ class Login extends Component {
               />
             </li>
           </ul>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              handleRegister(this.email.value, this.password.value);
-            }}
-            type="button"
-          >
-            Register
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              handleSubmit(this.email.value, this.password.value);
-            }}
-            type="button"
-          >
-            Login
-          </button>
+          <ul>
+            <li>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleRegister(this.email.value, this.password.value);
+                }}
+                type="button"
+              >
+                Register
+              </button>
+            </li>
+            <li>Or</li>
+            <li>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSubmit(this.email.value, this.password.value);
+                }}
+                type="button"
+              >
+                Login
+              </button>
+            </li>
+          </ul>
         </form>
       </div>
     );

@@ -1,4 +1,5 @@
 version: "2.1"
+
 services:
   nginx:
     command: [nginx, -c, /conf/nginx.local.prod.conf]
