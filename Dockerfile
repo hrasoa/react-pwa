@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:8.9.0-alpine
 
 EXPOSE 3000 3001
 WORKDIR /var/www
