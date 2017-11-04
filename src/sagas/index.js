@@ -84,9 +84,9 @@ function* watchLoadHomePage() {
   }
 }
 
-function* registerFlow() {
+function* signUpFlow() {
   while (true) {
-    const { email, password } = yield take(actions.REGISTER_USER);
+    const { email, password } = yield take(actions.SIGN_UP_USER);
     yield put(signUp({ email, password }));
     const payload = yield take([FIREBASE_SIGNUP_SUCCESS, FIREBASE_SIGNUP_FAILURE]);
     console.log(payload);
@@ -110,6 +110,6 @@ export default function* root() {
     fork(watchLoadPostPage),
     fork(watchLoadHomePage),
     fork(loginFlow),
-    fork(registerFlow)
+    fork(signUpFlow)
   ]);
 }

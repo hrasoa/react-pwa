@@ -65,7 +65,7 @@ export const LOGIN_USER = 'LOGIN_USER';
 
 export const LOGOUT_USER = 'LOGOUT_USER';
 
-export const REGISTER_USER = 'REGISTER_USER';
+export const SIGN_UP_USER = 'SIGN_UP_USER';
 
 export const loadPostPage = (id, requiredFields = ['id', 'title', 'body']) =>
   action(LOAD_POST_PAGE, { id, requiredFields });
@@ -80,4 +80,4 @@ export const loginRequest = payload => action(LOGIN_USER, payload);
 
 export const logoutRequest = () => action(LOGOUT_USER);
 
-export const registerRequest = payload => action(REGISTER_USER, payload);
+export const signUpRequest = payload => action(SIGN_UP_USER, payload);

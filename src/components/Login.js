@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Login extends Component {
   render() {
-    const { handleSubmit, handleRegister } = this.props;
+    const { handleSubmit, handleSignUp } = this.props;
     return (
       <div>
         <h1>Login / Register</h1>
@@ -24,19 +24,20 @@ class Login extends Component {
               />
             </li>
           </ul>
+          <hr/>
           <ul>
             <li>
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  handleRegister(this.email.value, this.password.value);
+                  handleSignUp(this.email.value, this.password.value);
                 }}
                 type="button"
               >
-                Register
+                Sign Up
               </button>
             </li>
-            <li>Or</li>
+            <li>or</li>
             <li>
               <button
                 onClick={(e) => {
@@ -45,7 +46,7 @@ class Login extends Component {
                 }}
                 type="button"
               >
-                Login
+                Sign In
               </button>
             </li>
           </ul>
@@ -57,7 +58,7 @@ class Login extends Component {
 
 Login.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  handleRegister: PropTypes.func.isRequired
+  handleSignUp: PropTypes.func.isRequired
 };
 
 export default Login;
