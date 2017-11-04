@@ -13,9 +13,10 @@ import {
 import api from '../services/index';
 import * as actions from '../actions/index';
 import {
-  FIREBASE_SIGNUP_DONE,
-  signup,
-  signin
+  FIREBASE_SIGNUP_SUCCESS,
+  FIREBASE_SIGNUP_FAILURE,
+  signUp,
+  signIn
 } from '../middlewares/firebase';
 import { getPost, getLatestPosts } from '../selectors/index';
 
@@ -62,9 +63,7 @@ function* loadHome() {
 }
 
 function* authorizeUser(email, password) {
-  yield put(signin({ email, password }));
-  const { error, uid } = yield take(FIREBASE_SIGNUP_DONE);
-  console.log(error, uid);
+  yield put(signIn({ email, password }));
 }
 
 function* watchLoadPostPage() {
@@ -88,8 +87,8 @@ function* watchLoadHomePage() {
 function* registerFlow() {
   while (true) {
     const { email, password } = yield take(actions.REGISTER_USER);
-    yield put(signup({ email, password }));
-    const payload = yield take(FIREBASE_SIGNUP_DONE);
+    yield put(signUp({ email, password }));
+    const payload = yield take([FIREBASE_SIGNUP_SUCCESS, FIREBASE_SIGNUP_FAILURE]);
     console.log(payload);
   }
 }
