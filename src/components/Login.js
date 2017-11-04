@@ -24,7 +24,7 @@ class Login extends Component {
               />
             </li>
           </ul>
-          <hr/>
+          <hr />
           <ul>
             <li>
               <button

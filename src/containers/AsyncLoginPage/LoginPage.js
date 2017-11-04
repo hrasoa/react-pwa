@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Login from '../../components/Login';
-import { loginRequest, signUpRequest } from '../../actions/index';
+import { loginRequest } from '../../actions/index';
+import { signUp } from '../../middlewares/firebase';
 import { getIsConnected } from '../../selectors/index';
 
 class LoginPage extends Component {
@@ -18,7 +19,7 @@ class LoginPage extends Component {
   }
 
   handleSignUp(email, password) {
-    this.props.signUpRequest({ email, password });
+    this.props.signUp({ email, password });
   }
 
   render() {
@@ -35,11 +36,11 @@ class LoginPage extends Component {
 LoginPage.propTypes = {
   isConnected: PropTypes.bool.isRequired,
   loginRequest: PropTypes.func.isRequired,
-  signUpRequest: PropTypes.func.isRequired
+  signUp: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   isConnected: getIsConnected(state)
 });
 
-export default connect(mapStateToProps, { loginRequest, signUpRequest })(LoginPage);
+export default connect(mapStateToProps, { loginRequest, signUp })(LoginPage);

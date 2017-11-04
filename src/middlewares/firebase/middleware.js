@@ -1,13 +1,14 @@
 import {
-  FIREBASE_SIGNUP_REQUEST,
+  FIREBASE_SIGN_UP_REQUEST,
   signUpSuccess,
   signUpFail
 } from './actions';
 
 export default function firebaseMiddleware(firebaseApp) {
   const firebase = firebaseApp;
+
   return store => next => async (action) => {
-    if (action.type === FIREBASE_SIGNUP_REQUEST) {
+    if (action.type === FIREBASE_SIGN_UP_REQUEST) {
       next(action);
 
       const result = await firebase
