@@ -31,7 +31,7 @@ module.exports = [{
     chunkFilename: '[name].js',
     publicPath: envConfig.publicPath
   },
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   module: {
     rules: [
       {

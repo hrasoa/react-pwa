@@ -19,7 +19,7 @@ export default function configureStore({
 
   const sagaMiddleware = createSagaMiddleware();
   const reducer = { ...rootReducer, ...reducers };
-  const middleware = [sagaMiddleware, ...middlewares];
+  const middleware = [...middlewares, sagaMiddleware];
 
   const store = createStore(
     combineReducers(reducer),

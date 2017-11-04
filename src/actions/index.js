@@ -14,9 +14,13 @@ export function action(type, payload = {}) {
 }
 
 export const POST = createRequestTypes('POST');
+
 export const HOME = createRequestTypes('HOME');
+
 export const LOGIN = createRequestTypes('LOGIN');
+
 export const REGISTER = createRequestTypes('REGISTER');
+
 export const ADD_USER = createRequestTypes('ADD_USER');
 
 export const post = {
@@ -50,21 +54,30 @@ export const addUser = {
 };
 
 export const LOAD_POST_PAGE = 'LOAD_POST_PAGE';
+
 export const LEAVE_POST_PAGE = 'LEAVE_POST_PAGE';
+
 export const LOAD_HOME_PAGE = 'LOAD_HOME_PAGE';
+
 export const LEAVE_HOME_PAGE = 'LEAVE_HOME_PAGE';
+
 export const LOGIN_USER = 'LOGIN_USER';
+
 export const LOGOUT_USER = 'LOGOUT_USER';
+
 export const REGISTER_USER = 'REGISTER_USER';
 
 export const loadPostPage = (id, requiredFields = ['id', 'title', 'body']) =>
   action(LOAD_POST_PAGE, { id, requiredFields });
+
 export const leavePostPage = () => action(LEAVE_POST_PAGE);
 
 export const loadHomePage = () => action(LOAD_HOME_PAGE);
+
 export const leaveHomePage = () => action(LEAVE_HOME_PAGE);
 
-export const loginRequest = (email, password) => action(LOGIN_USER, { email, password });
+export const loginRequest = payload => action(LOGIN_USER, payload);
+
 export const logoutRequest = () => action(LOGOUT_USER);
 
-export const registerRequest = (email, password) => action(REGISTER_USER, { email, password });
+export const registerRequest = payload => action(REGISTER_USER, payload);

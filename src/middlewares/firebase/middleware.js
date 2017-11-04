@@ -1,16 +1,21 @@
 import {
-  FIREBASE_SIGNUP_REQUEST
+  FIREBASE_SIGNUP_REQUEST,
+  signupDone
 } from './actions';
 
 export default function firebaseMiddleware(firebaseApp) {
-  const firebase = firebaseApp;
-
-  return store => next => (action) => {
+  // const firebase = firebaseApp;
+  return store => next => async (action) => {
     if (action.type === FIREBASE_SIGNUP_REQUEST) {
-      return firebase
-        .auth()
-        .createUserWithEmailAndPassword(action.email, action.password)
-        .catch(err => ({ error: err.message }));
+      next(action);
+      // const result = await firebase
+        // .auth()
+        // .createUserWithEmailAndPassword(action.email, action.password)
+        // .catch(err => ({ error: err.message }));
+      const result = { uid: 'qdqdqdqdqqd' };
+      return next(signupDone({
+        uid: result.uid
+      }));
     }
 
     return next(action);

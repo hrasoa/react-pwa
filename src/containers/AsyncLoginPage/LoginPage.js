@@ -14,11 +14,11 @@ class LoginPage extends Component {
   }
 
   handleSubmit(email, password) {
-    this.props.loginRequest(email, password);
+    this.props.loginRequest({ email, password });
   }
 
   handleRegister(email, password) {
-    this.props.registerRequest(email, password);
+    this.props.registerRequest({ email, password });
   }
 
   render() {

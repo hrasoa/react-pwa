@@ -4,7 +4,6 @@ import * as ActionTypes from '../actions/index';
 import loader from './loader';
 import paginate from './paginate';
 
-
 // Updates an entity cache in response to any action with response.entities.
 function entities(state = {}, action) {
   if (action.response && action.response.entities) {
@@ -12,7 +11,6 @@ function entities(state = {}, action) {
   }
   return state;
 }
-
 
 const getResultByKey = (action, key) => {
   if (!action.response || !action.response.result) {
@@ -27,7 +25,6 @@ const getResultByKey = (action, key) => {
     }
   };
 };
-
 
 export const ui = combineReducers({
   postContent: loader({
@@ -53,7 +50,6 @@ export const ui = combineReducers({
   }
 });
 
-
 export const pagination = combineReducers({
   latestPosts: paginate({
     mapActionResults: action => getResultByKey(action, 'latestPosts'),
@@ -64,7 +60,6 @@ export const pagination = combineReducers({
     ]
   })
 });
-
 
 export default {
   entities,

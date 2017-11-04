@@ -12,7 +12,11 @@ import {
 } from 'redux-saga/effects';
 import api from '../services/index';
 import * as actions from '../actions/index';
-import { signup, signin } from '../middlewares/firebase';
+import {
+  FIREBASE_SIGNUP_DONE,
+  signup,
+  signin
+} from '../middlewares/firebase';
 import { getPost, getLatestPosts } from '../selectors/index';
 
 const {
@@ -58,12 +62,9 @@ function* loadHome() {
 }
 
 function* authorizeUser(email, password) {
-  const response = yield put.resolve(signin({ email, password }));
-  if (response.error) {
-    console.log(response.error.message);
-  } else {
-    console.log(response);
-  }
+  yield put(signin({ email, password }));
+  const { error, uid } = yield take(FIREBASE_SIGNUP_DONE);
+  console.log(error, uid);
 }
 
 function* watchLoadPostPage() {
@@ -87,12 +88,9 @@ function* watchLoadHomePage() {
 function* registerFlow() {
   while (true) {
     const { email, password } = yield take(actions.REGISTER_USER);
-    const response = yield put.resolve(signup({ email, password }));
-    if (response.error) {
-      console.log(response.error.message);
-    } else {
-      yield call(fetchAddUser, { uid: response.uid });
-    }
+    yield put(signup({ email, password }));
+    const payload = yield take(FIREBASE_SIGNUP_DONE);
+    console.log(payload);
   }
 }
 
