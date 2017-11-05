@@ -14,5 +14,6 @@ module.exports = session({
   cookie: {
     expires: expires - Date.now()
   },
+  name: 'sessionId',
   secret: 'keyboard cat'
 });
