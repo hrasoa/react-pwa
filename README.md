@@ -9,6 +9,7 @@ a [Nginx reverse proxy](https://www.nginx.com/) and [pm2](http://pm2.keymetrics.
 ## Stack
 
 * docker
+* kubernetes
 * nginx
 * redis
 * expressjs
