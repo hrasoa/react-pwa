@@ -19,7 +19,7 @@ export const HOME = createRequestTypes('HOME');
 
 export const LOGIN = createRequestTypes('LOGIN');
 
-export const ADD_USER = createRequestTypes('ADD_USER');
+export const REGISTER = createRequestTypes('ADD_USER');
 
 export const post = {
   request: ({ id }) => action(POST[REQUEST], { id }),
@@ -33,10 +33,10 @@ export const home = {
   failure: error => action(HOME[FAILURE], error)
 };
 
-export const addUser = {
-  request: ({ uid }) => action(ADD_USER[REQUEST], { uid }),
-  success: payload => action(ADD_USER[SUCCESS], payload),
-  failure: error => action(ADD_USER[FAILURE], error)
+export const register = {
+  request: ({ uid }) => action(REGISTER[REQUEST], { uid }),
+  success: payload => action(REGISTER[SUCCESS], payload),
+  failure: error => action(REGISTER[FAILURE], error)
 };
 
 export const LOAD_POST_PAGE = 'LOAD_POST_PAGE';

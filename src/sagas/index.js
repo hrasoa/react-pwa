@@ -21,7 +21,7 @@ import { getPost, getLatestPosts } from '../selectors/index';
 const {
   home,
   post,
-  addUser
+  register
 } = actions;
 
 function* fetchEntity(entity, apiFn, payload) {
@@ -44,7 +44,7 @@ function* fetchEntity(entity, apiFn, payload) {
 
 export const fetchPost = fetchEntity.bind(null, post, api.fetchPost);
 export const fetchHome = fetchEntity.bind(null, home, api.fetchHome);
-export const fetchAddUser = fetchEntity.bind(null, addUser, api.addUser);
+export const fetchRegisterUser = fetchEntity.bind(null, register, api.registerUser);
 
 function* loadPost(id, requiredFields) {
   const loadedPost = yield select(getPost, id);
@@ -89,7 +89,7 @@ function* signUpFlow() {
       FIREBASE_SIGN_UP.FAILURE
     ]);
     if (type === FIREBASE_SIGN_UP.SUCCESS) {
-      yield call(fetchAddUser, payload);
+      yield call(fetchRegisterUser, payload);
     }
   }
 }

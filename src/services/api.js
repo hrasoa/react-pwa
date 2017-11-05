@@ -89,7 +89,7 @@ export const fetchPosts = ({ cancelToken }) => callApi('posts', postsSchema, { c
 
 export const fetchHome = ({ cancelToken }) => callApi('home', homeSchema, { cancelToken });
 
-export const addUser = ({ uid, cancelToken }) =>
+export const registerUser = ({ uid, cancelToken }) =>
   callApi('register', singleUserSchema, {
     method: 'post',
     data: { uid },
