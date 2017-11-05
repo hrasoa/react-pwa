@@ -18,6 +18,22 @@ Service Worker (precache, offline) | | :star:
 Long term caching | | :star:
 Minify + gzip | | :star:
 
+## Stack
+
+* docker
+* nginx
+* redis
+* expressjs
+* mysql
+* graphql
+* webpack
+* react
+* reacr-router
+* redux
+* redux-saga
+* firebase
+* workbox
+
 ## Prerequisites
 
 * [docker-compose](https://docs.docker.com/compose/)
