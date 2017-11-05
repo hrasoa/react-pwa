@@ -38,7 +38,7 @@ Minify + gzip | | :star:
 ## Prerequisites
 
 * [docker-compose](https://docs.docker.com/compose/)
-* [docker-sync](http://docker-sync.io/)
+* [docker-sync (optional)](http://docker-sync.io/)
 
 ## Getting started
 
