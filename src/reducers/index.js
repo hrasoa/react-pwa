@@ -38,6 +38,7 @@ export const ui = combineReducers({
   me: (state = null, action) => {
     switch (action.type) {
       case ActionTypes.LOGIN.SUCCESS:
+      case ActionTypes.REGISTER.SUCCESS:
         return action.payload.result.user;
 
       case ActionTypes.LOGOUT_USER:

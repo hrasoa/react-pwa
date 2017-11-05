@@ -19,7 +19,7 @@ export const HOME = createRequestTypes('HOME');
 
 export const LOGIN = createRequestTypes('LOGIN');
 
-export const REGISTER = createRequestTypes('ADD_USER');
+export const REGISTER = createRequestTypes('REGISTER');
 
 export const post = {
   request: payload => action(POST[REQUEST], payload),
