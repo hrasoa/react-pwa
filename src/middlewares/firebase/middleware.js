@@ -9,8 +9,8 @@ export default function firebaseMiddleware(firebaseApp) {
 
   return store => next => async (action) => {
     if (action.type === FIREBASE_SIGN_UP.REQUEST) {
-      next(action);
       const { email, password } = action.payload;
+      next(action);
 
       const result = await firebase
         .auth()
