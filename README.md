@@ -1,5 +1,5 @@
 # React Progressive Web Application
-> In progress
+> :hourglass_flowing_sand: In progress
 
 Real world progressive web application starter-kit running with an [Ingress controller](https://kubernetes.io/docs/concepts/services-networking/ingress/), 
 a [Nginx reverse proxy](https://www.nginx.com/) and [pm2](http://pm2.keymetrics.io/) on production:
