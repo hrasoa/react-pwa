@@ -8,19 +8,19 @@ a [Nginx reverse proxy](https://www.nginx.com/) and [pm2](http://pm2.keymetrics.
 
 ## Stack
 
-* docker
-* kubernetes
-* nginx
-* redis
-* expressjs
-* mysql
-* graphql
-* webpack
-* react
-* redux
-* redux-saga
-* firebase
-* workbox
+[```docker```](https://www.docker.com/)
+[```kubernetes```](https://kubernetes.io/)
+[```nginx```](https://www.nginx.com/)
+[```redis (sessions storage)```](https://redis.io/)
+[```express```](http://expressjs.com/)
+[```mysql```](https://www.mysql.com/)
+[```graphql```](https://www.apollographql.com/)
+[```webpack```](https://webpack.js.org/)
+[```react```](https://reactjs.org/)
+[```redux```](http://redux.js.org/)
+[```redux-saga```](https://redux-saga.js.org/)
+[```firebase```](https://firebase.google.com/)
+[```workboxjs```](https://workboxjs.org/)
 
 ## Features
 
