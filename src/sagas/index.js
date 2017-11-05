@@ -14,9 +14,6 @@ import api from '../services/index';
 import * as actions from '../actions/index';
 import {
   FIREBASE_SIGN_UP,
-  FIREBASE_SIGN_UP_SUCCESS,
-  FIREBASE_SIGN_UP_FAILURE,
-  signUpRequest,
   signIn
 } from '../middlewares/firebase';
 import { getPost, getLatestPosts } from '../selectors/index';
@@ -87,9 +84,7 @@ function* watchLoadHomePage() {
 
 function* signUpFlow() {
   while (true) {
-    const { payload: { email, password } } = yield take(FIREBASE_SIGN_UP);
-    yield put(signUpRequest({ email, password }));
-    const payload = yield take([FIREBASE_SIGN_UP_SUCCESS, FIREBASE_SIGN_UP_FAILURE]);
+    const payload = yield take([FIREBASE_SIGN_UP.SUCCESS, FIREBASE_SIGN_UP.FAILURE]);
     console.log(payload);
   }
 }

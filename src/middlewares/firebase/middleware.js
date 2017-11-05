@@ -1,14 +1,14 @@
 import {
-  FIREBASE_SIGN_UP_REQUEST,
+  FIREBASE_SIGN_UP,
   signUpSuccess,
-  signUpFail
+  signUpFailure
 } from './actions';
 
 export default function firebaseMiddleware(firebaseApp) {
   const firebase = firebaseApp;
 
   return store => next => async (action) => {
-    if (action.type === FIREBASE_SIGN_UP_REQUEST) {
+    if (action.type === FIREBASE_SIGN_UP.REQUEST) {
       next(action);
       const { email, password } = action.payload;
 
@@ -18,7 +18,7 @@ export default function firebaseMiddleware(firebaseApp) {
         .catch(err => ({ error: err.message }));
 
       if (result.error) {
-        return next(signUpFail({
+        return next(signUpFailure({
           message: result.error
         }));
       }
