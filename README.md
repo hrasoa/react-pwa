@@ -11,6 +11,7 @@ a [Nginx reverse proxy](https://www.nginx.com/) and [pm2](http://pm2.keymetrics.
 [```docker```](https://www.docker.com/)
 [```kubernetes```](https://kubernetes.io/)
 [```nginx```](https://www.nginx.com/)
+[```pm2```](http://pm2.keymetrics.io/)
 [```redis (sessions storage)```](https://redis.io/)
 [```express```](http://expressjs.com/)
 [```mysql```](https://www.mysql.com/)
