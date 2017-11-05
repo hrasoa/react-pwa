@@ -10,8 +10,10 @@ const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
 const webpackDev = require('../../webpack/dev');
 const shared = require('../../webpack/shared');
 const config = require('../config');
+const session = require('../shared/session');
 
 const app = express();
+app.use(session);
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(favicon(shared.paths.favicon));

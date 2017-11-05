@@ -1,32 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const session = require('express-session');
-const redis = require('redis');
-const RedisStore = require('connect-redis')(session);
 const helmet = require('helmet');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const apiRouter = require('./routes');
 const schema = require('./schemas');
 const db = require('./db');
 const models = require('./models');
+const session = require('../shared/session');
 
 (async () => {
   try {
     const sequelize = await db.connect();
     const app = express();
-    const expires = new Date();
-    expires.setFullYear(expires.getFullYear() + 1);
-    app.use(session({
-      store: new RedisStore({
-        client: redis.createClient({ host: 'redis' })
-      }),
-      resave: true,
-      saveUninitialized: false,
-      cookie: {
-        expires: expires - Date.now()
-      },
-      secret: 'keyboard cat'
-    }));
+    app.use(session);
     app.use(helmet());
     app.use(bodyParser.json());
     app.use('/api', apiRouter);

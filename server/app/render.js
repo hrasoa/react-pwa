@@ -17,6 +17,7 @@ export default function serverRenderer({
   options = {}
 }) {
   return (req, res) => {
+    console.log(req.session.currentUser);
     const {
       isProd,
       bundleCss,
