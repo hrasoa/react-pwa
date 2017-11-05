@@ -6,18 +6,6 @@ a [Nginx reverse proxy](https://www.nginx.com/) and [pm2](http://pm2.keymetrics.
 
 :earth_africa: :arrow_right: ```Ingress``` :arrow_right: ```Nginx``` :arrow_right: ```app (/:3000, /api:3001)```
 
-## Features
-
-| | Development | Production
---- | --- | ---
-Hot Module Replacement | :star: |
-GraphiQL | :star: |
-Code Split + Async Components | :star: | :star:
-Server Side Rendering | :star: | :star:
-Service Worker (precache, offline) | | :star:
-Long term caching | | :star:
-Minify + gzip | | :star:
-
 ## Stack
 
 * docker
@@ -32,6 +20,18 @@ Minify + gzip | | :star:
 * redux-saga
 * firebase
 * workbox
+
+## Features
+
+| | Development | Production
+--- | --- | ---
+Hot Module Replacement | :star: |
+GraphiQL | :star: |
+Code Split + Async Components | :star: | :star:
+Server Side Rendering | :star: | :star:
+Service Worker (precache, offline) | | :star:
+Long term caching | | :star:
+Minify + gzip | | :star:
 
 ## Prerequisites
 
