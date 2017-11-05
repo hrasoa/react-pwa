@@ -23,7 +23,7 @@ a [Nginx reverse proxy](https://www.nginx.com/) and [pm2](http://pm2.keymetrics.
 [```firebase```](https://firebase.google.com/)
 [```workboxjs```](https://workboxjs.org/)
 
-## Features
+#### Features
 
 | | Development | Production
 --- | --- | ---
