@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const helmet = require('helmet');
 const shared = require('../../webpack/shared');
+const session = require('../shared/session');
 
 const app = express();
 const outputPath = shared.paths.output;
@@ -13,6 +14,7 @@ const clientStats = require(shared.paths.stats);
 const bundleManifest = require(shared.paths.bundleManifest);
 const criticalCss = path.join(outputPath, bundleManifest['critical.css']);
 
+app.use(session);
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(favicon(shared.paths.favicon));

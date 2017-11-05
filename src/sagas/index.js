@@ -84,7 +84,10 @@ function* watchLoadHomePage() {
 
 function* signUpFlow() {
   while (true) {
-    const { type, payload } = yield take([FIREBASE_SIGN_UP.SUCCESS, FIREBASE_SIGN_UP.FAILURE]);
+    const { type, payload } = yield take([
+      FIREBASE_SIGN_UP.SUCCESS,
+      FIREBASE_SIGN_UP.FAILURE
+    ]);
     if (type === FIREBASE_SIGN_UP.SUCCESS) {
       yield call(fetchAddUser, payload);
     }
