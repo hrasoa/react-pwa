@@ -10,7 +10,7 @@ export function createRequestTypes(base) {
 }
 
 export function action(type, payload = {}) {
-  return { type, ...payload };
+  return { type, payload };
 }
 
 export const POST = createRequestTypes('POST');
@@ -19,38 +19,24 @@ export const HOME = createRequestTypes('HOME');
 
 export const LOGIN = createRequestTypes('LOGIN');
 
-export const REGISTER = createRequestTypes('REGISTER');
-
 export const ADD_USER = createRequestTypes('ADD_USER');
 
 export const post = {
   request: ({ id }) => action(POST[REQUEST], { id }),
-  success: ({ id, response }) => action(POST[SUCCESS], { id, response }),
-  failure: ({ id, error }) => action(POST[FAILURE], { id, error })
-};
-
-export const login = {
-  request: ({ email, password }) => action(LOGIN[REQUEST], { email, password }),
-  success: ({ response }) => action(LOGIN[SUCCESS], { response }),
-  failure: ({ error }) => action(LOGIN[FAILURE], { error })
+  success: payload => action(POST[SUCCESS], payload),
+  failure: error => action(POST[FAILURE], error)
 };
 
 export const home = {
   request: () => action(HOME[REQUEST]),
-  success: ({ response }) => action(HOME[SUCCESS], { response }),
-  failure: ({ error }) => action(HOME[FAILURE], { error })
-};
-
-export const register = {
-  request: ({ email, password }) => action(REGISTER[REQUEST], { email, password }),
-  success: ({ response }) => action(REGISTER[SUCCESS], { response }),
-  failure: ({ error }) => action(REGISTER[FAILURE], { error })
+  success: payload => action(HOME[SUCCESS], payload),
+  failure: error => action(HOME[FAILURE], error)
 };
 
 export const addUser = {
   request: ({ uid }) => action(ADD_USER[REQUEST], { uid }),
-  success: ({ response }) => action(ADD_USER[SUCCESS], { response }),
-  failure: ({ error }) => action(ADD_USER[FAILURE], { error })
+  success: payload => action(ADD_USER[SUCCESS], payload),
+  failure: error => action(ADD_USER[FAILURE], error)
 };
 
 export const LOAD_POST_PAGE = 'LOAD_POST_PAGE';
@@ -65,8 +51,6 @@ export const LOGIN_USER = 'LOGIN_USER';
 
 export const LOGOUT_USER = 'LOGOUT_USER';
 
-export const SIGN_UP_USER = 'SIGN_UP_USER';
-
 export const loadPostPage = (id, requiredFields = ['id', 'title', 'body']) =>
   action(LOAD_POST_PAGE, { id, requiredFields });
 
@@ -79,5 +63,3 @@ export const leaveHomePage = () => action(LEAVE_HOME_PAGE);
 export const loginRequest = payload => action(LOGIN_USER, payload);
 
 export const logoutRequest = () => action(LOGOUT_USER);
-
-export const signUpRequest = payload => action(SIGN_UP_USER, payload);

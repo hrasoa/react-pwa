@@ -33,9 +33,9 @@ function* fetchEntity(entity, apiFn, payload) {
     yield put(entity.request(payload));
     const { response, error } = yield call(apiFn, { ...payload, cancelToken: source.token });
     if (response) {
-      yield put(entity.success({ response }));
+      yield put(entity.success(response));
     } else {
-      yield put(entity.failure({ error }));
+      yield put(entity.failure(error));
     }
   } finally {
     if (yield cancelled()) {
@@ -69,7 +69,7 @@ function* authorizeUser(email, password) {
 
 function* watchLoadPostPage() {
   while (true) {
-    const { id, requiredFields = [] } = yield take(actions.LOAD_POST_PAGE);
+    const { payload: { id, requiredFields = [] } } = yield take(actions.LOAD_POST_PAGE);
     const task = yield fork(loadPost, id, requiredFields);
     yield take(actions.LEAVE_POST_PAGE);
     yield cancel(task);

@@ -34,9 +34,9 @@ export default function paginate({
       case successType:
         return merge({}, state, {
           isFetching: false,
-          ids: union(state.ids, action.response.result),
-          pageInfo: action.response.pageInfo,
-          totalCount: action.response.totalCount,
+          ids: union(state.ids, action.payload.result),
+          pageInfo: action.payload.pageInfo,
+          totalCount: action.payload.totalCount,
           didInvalidate: false
         });
       case failureType:

@@ -5,6 +5,17 @@ import {
 import axios from 'axios';
 import config from '../config';
 
+export const normalizable = (result) => {
+  const data = {};
+  const extra = {};
+  Object.keys(result).forEach((entityName) => {
+    const { edges, ...rest } = result[entityName];
+    data[entityName] = edges ? edges.map(edge => edge.node) : rest;
+    extra[entityName] = rest;
+  });
+  return { data, extra };
+};
+
 function callApi(endpoint, entitySchema, options) {
   const fullUrl = `${config.serverUrl}/api/${endpoint}`;
   const requestOptions = {
@@ -22,7 +33,7 @@ function callApi(endpoint, entitySchema, options) {
           user: User
           posts: [{
             pageInfo
-            edges: [{ cursor, node }]
+            edges: [{ cursor, Post }]
           }]
         }
 
@@ -30,7 +41,7 @@ function callApi(endpoint, entitySchema, options) {
 
         {
           user: User
-          posts: [node]
+          posts: [Post]
         }
 
         Extra:
@@ -40,13 +51,7 @@ function callApi(endpoint, entitySchema, options) {
           posts: { pageInfo }
         }
        */
-      const data = {};
-      const extra = {};
-      Object.keys(response.data).forEach((dataKey) => {
-        const { edges, ...rest } = response.data[dataKey];
-        data[dataKey] = edges ? edges.map(edge => edge.node) : rest;
-        extra[dataKey] = rest;
-      });
+      const { data, extra } = normalizable(response.data);
       const normalized = normalize(data, entitySchema);
       return { response: { ...normalized, ...extra } };
     })
@@ -55,26 +60,28 @@ function callApi(endpoint, entitySchema, options) {
     }));
 }
 
-
 export const getTokenSource = () => {
   const CancelToken = axios.CancelToken;
   return CancelToken.source();
 };
 
-
 const postSchema = new schema.Entity('posts');
+
 const userSchema = new schema.Entity('users');
+
 const postsSchema = [postSchema];
+
 const singlePostSchema = new schema.Object({
   post: postSchema
 });
+
 const homeSchema = new schema.Object({
   latestPosts: postsSchema
 });
+
 const singleUserSchema = new schema.Object({
   user: userSchema
 });
-
 
 export const fetchPost = ({ id, cancelToken }) => callApi(`posts/${id}`, singlePostSchema, { cancelToken });
 

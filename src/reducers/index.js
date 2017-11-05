@@ -4,24 +4,24 @@ import * as ActionTypes from '../actions/index';
 import loader from './loader';
 import paginate from './paginate';
 
-// Updates an entity cache in response to any action with response.entities.
+// Updates an entity cache in payload to any action with payload.entities.
 function entities(state = {}, action) {
-  if (action.response && action.response.entities) {
-    return merge({}, state, action.response.entities);
+  if (action.payload && action.payload.entities) {
+    return merge({}, state, action.payload.entities);
   }
   return state;
 }
 
 const getResultByKey = (action, key) => {
-  if (!action.response || !action.response.result) {
+  if (!action.payload || !action.payload.result) {
     return action;
   }
   return {
     ...action,
-    response: {
-      ...action.response,
-      ...action.response[key],
-      result: action.response.result[key]
+    payload: {
+      ...action.payload,
+      ...action.payload[key],
+      result: action.payload.result[key]
     }
   };
 };
@@ -38,7 +38,7 @@ export const ui = combineReducers({
   me: (state = null, action) => {
     switch (action.type) {
       case ActionTypes.LOGIN.SUCCESS:
-        return action.response.result.user;
+        return action.payload.result.user;
 
       case ActionTypes.LOGOUT_USER:
       case ActionTypes.LOGIN.FAILURE:
