@@ -28,7 +28,6 @@ Minify + gzip | | :star:
 * graphql
 * webpack
 * react
-* reacr-router
 * redux
 * redux-saga
 * firebase
