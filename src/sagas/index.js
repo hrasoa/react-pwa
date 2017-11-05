@@ -87,7 +87,7 @@ function* watchLoadHomePage() {
 
 function* signUpFlow() {
   while (true) {
-    const { email, password } = yield take(FIREBASE_SIGN_UP);
+    const { payload: { email, password } } = yield take(FIREBASE_SIGN_UP);
     yield put(signUpRequest({ email, password }));
     const payload = yield take([FIREBASE_SIGN_UP_SUCCESS, FIREBASE_SIGN_UP_FAILURE]);
     console.log(payload);

@@ -10,10 +10,11 @@ export default function firebaseMiddleware(firebaseApp) {
   return store => next => async (action) => {
     if (action.type === FIREBASE_SIGN_UP_REQUEST) {
       next(action);
+      const { email, password } = action.payload;
 
       const result = await firebase
         .auth()
-        .createUserWithEmailAndPassword(action.email, action.password)
+        .createUserWithEmailAndPassword(email, password)
         .catch(err => ({ error: err.message }));
 
       if (result.error) {
