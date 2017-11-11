@@ -20,7 +20,9 @@ import {
 import {
   getPost,
   getLatestPosts,
-  getCurrentUser
+  getCurrentUser,
+  getCurrentUserEntity,
+  getIsConnected
 } from '../selectors/index';
 
 const {
@@ -109,8 +111,10 @@ function* signUpFlow() {
 function* loadCurrentUser() {
   yield take(actions.LOAD_CURRENT_USER);
   const user = yield select(getCurrentUser);
-  if (!user) {
-    yield call(fetchCurrentUser);
+  const userEntity = yield select(getCurrentUserEntity);
+  const isConnected = yield select(getIsConnected);
+  if (isConnected && !userEntity) {
+    yield call(fetchCurrentUser, { uid: user.uid });
   }
 }
 

@@ -55,11 +55,8 @@ router.get('/user/logout', (req, res) => {
   }
 });
 
-router.get('/user/current', async (req, res) => {
+router.get('/user/current/:uid', async (req, res) => {
   try {
-    const authHeader = req.get('Authorization');
-    console.log(authHeader);
-/*
     const data = await sendQuery(`
       query CurrentUser($uid: String!) {
         user: userByUid(uid: $uid) {
@@ -68,10 +65,9 @@ router.get('/user/current', async (req, res) => {
         }
       }
     `, {
-      variables: { uid }
-    });*/
-
-    // res.json(data);
+      variables: { uid: req.params.uid }
+    });
+    res.json(data);
   } catch (e) {
     res.status(400).json({ errors: [{ message: e.message }] });
   }

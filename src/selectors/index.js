@@ -29,6 +29,11 @@ export const getLatestPosts = createSelector(
 
 export const getCurrentUser = createSelector(
   currentUserSelector,
+  user => user
+);
+
+export const getCurrentUserEntity = createSelector(
+  currentUserSelector,
   usersSelector,
   (user, users) => (user.id && users[user.id]) || null
 );

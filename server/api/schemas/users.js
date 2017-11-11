@@ -30,7 +30,10 @@ const typeDefs = [`
 const resolvers = {
   Query: {
     user: (_, { id }, { models: { User } }) => User.findById(id),
-    userByUid: (_, { uid }, { models: { User } }) => User.findOne({ where: { uid } })
+    userByUid: (_, { uid }, { models: { User } }) =>
+      User
+        .findOrCreate({ where: { uid } })
+        .spread(user => user)
   },
   Mutation: {
     createUser: (_, { input }, { models: { User } }) => User.create(input).then(user => user),

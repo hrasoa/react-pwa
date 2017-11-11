@@ -44,7 +44,7 @@ export const registerUser = {
 };
 
 export const currentUser = {
-  request: () => action(CURRENT_USER[REQUEST]),
+  request: payload => action(CURRENT_USER[REQUEST], payload),
   success: payload => action(CURRENT_USER[SUCCESS], payload),
   failure: error => action(CURRENT_USER[FAILURE], error)
 };
