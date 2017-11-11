@@ -26,15 +26,20 @@ function entities(state = {}, action) {
   return state;
 }
 
-function currentUser(state = null, action) {
+function currentUser(state = {}, action) {
   switch (action.type) {
     case ActionTypes.CURRENT_USER.SUCCESS:
     case ActionTypes.REGISTER_USER.SUCCESS:
     case ActionTypes.LOGIN_USER.SUCCESS:
-      return action.payload.user.id;
+      return {
+        ...state,
+        id: action.payload.user.id,
+        uid: action.payload.user.uid,
+        isConnected: true
+      };
 
     case ActionTypes.LOGOUT_USER.SUCCESS:
-      return null;
+      return {};
 
     default:
       return state;

@@ -17,12 +17,15 @@ export default function serverRenderer({
   options = {}
 }) {
   return (req, res) => {
-    const { currentUser = {} } = req.session;
+    const { currentUser } = req.session;
     const initialState = {};
 
-    if (currentUser.id) {
-      initialState.entities = { users: { [currentUser.id]: currentUser } };
-      initialState.currentUser = currentUser.id;
+    if (currentUser) {
+      const { id, uid } = currentUser;
+      if (id) {
+        initialState.entities = { users: { [id]: currentUser } };
+      }
+      initialState.currentUser = { id, uid, isConnected: true };
     }
 
     const {
