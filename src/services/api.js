@@ -100,10 +100,10 @@ export const currentUser = ({ uid, cancelToken }) => callApi('user/current', sin
   auth: { uid }
 });
 
-export const updateUser = ({ uid, cancelToken }) =>
+export const updateUser = ({ cancelToken, ...data }) =>
   callApi('user/update', singleUserSchema, {
     method: 'post',
-    data: { uid },
+    data: { input: data },
     cancelToken
   });
 

@@ -78,7 +78,6 @@ router.get('/user/current', async (req, res) => {
 });
 
 router.post('/user/update', async (req, res) => {
-  const uid = req.body.uid;
   try {
     const data = await sendMutation(`
       mutation UpdateUser($input: UserInput!) {
@@ -89,7 +88,7 @@ router.post('/user/update', async (req, res) => {
       }
     `, {
       variables: {
-        input: { uid }
+        input: req.body.input
       }
     });
     req.session.currentUser = data.user;
