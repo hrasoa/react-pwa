@@ -2,11 +2,14 @@ import createCachedSelector from 're-reselect';
 import { createSelector } from 'reselect';
 
 const postsSelector = state => state.entities.posts || {};
-const usersSelector = state => state.entities.users || {};
-const postSelector = (state, id) => (state.entities.posts && state.entities.posts[id]) || {};
-const latestPostsSelector = state => state.pagination.latestPosts;
-const meSelector = state => state.ui.me;
 
+const usersSelector = state => state.entities.users || {};
+
+const postSelector = (state, id) => (state.entities.posts && state.entities.posts[id]) || {};
+
+const latestPostsSelector = state => state.pagination.latestPosts;
+
+const currentUserSelector = state => state.currentUser || {};
 
 export const getPost = createCachedSelector(
   postSelector,
@@ -14,7 +17,6 @@ export const getPost = createCachedSelector(
 )(
   (state, id) => id
 );
-
 
 export const getLatestPosts = createSelector(
   postsSelector,
@@ -25,15 +27,13 @@ export const getLatestPosts = createSelector(
   })
 );
 
-
-export const getConnectedUser = createSelector(
+export const getCurrentUser = createSelector(
+  currentUserSelector,
   usersSelector,
-  meSelector,
-  (users, me) => (me && users[me]) || {}
+  (user, users) => (user.id && users[user.id]) || null
 );
 
-
 export const getIsConnected = createSelector(
-  getConnectedUser,
-  user => typeof user.id !== 'undefined'
+  currentUserSelector,
+  user => user.uid !== undefined
 );

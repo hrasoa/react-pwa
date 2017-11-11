@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
@@ -12,6 +13,7 @@ const session = require('../shared/session');
   try {
     const sequelize = await db.connect();
     const app = express();
+    app.use(cors());
     app.use(session);
     app.use(helmet());
     app.use(bodyParser.json());

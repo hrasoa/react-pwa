@@ -20,12 +20,17 @@ function callApi(endpoint, entitySchema, options) {
   const fullUrl = `${config.serverUrl}/api/${endpoint}`;
   const requestOptions = {
     url: fullUrl,
+    withCredentials: true,
     method: 'get',
     ...options
   };
 
   return axios(requestOptions)
     .then((response) => {
+      if (!entitySchema) {
+        return { response: response.data };
+      }
+
       /*
         Response example:
 
@@ -51,6 +56,7 @@ function callApi(endpoint, entitySchema, options) {
           posts: { pageInfo }
         }
        */
+
       const { data, extra } = normalizable(response.data);
       const normalized = normalize(data, entitySchema);
       return { response: { ...normalized, ...extra } };
@@ -85,12 +91,17 @@ const singleUserSchema = new schema.Object({
 
 export const fetchPost = ({ id, cancelToken }) => callApi(`posts/${id}`, singlePostSchema, { cancelToken });
 
-export const fetchPosts = ({ cancelToken }) => callApi('posts', postsSchema, { cancelToken });
-
 export const fetchHome = ({ cancelToken }) => callApi('home', homeSchema, { cancelToken });
 
+export const logout = ({ cancelToken }) => callApi('user/logout', null, { cancelToken });
+
+export const currentUser = ({ uid, cancelToken }) => callApi('user/current', singleUserSchema, {
+  cancelToken,
+  auth: { uid }
+});
+
 export const registerUser = ({ uid, cancelToken }) =>
-  callApi('register', singleUserSchema, {
+  callApi('user/register', singleUserSchema, {
     method: 'post',
     data: { uid },
     cancelToken

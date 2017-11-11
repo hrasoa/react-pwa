@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const webpack = require('webpack');
+const cors = require('cors');
 const helmet = require('helmet');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -13,6 +14,7 @@ const config = require('../config');
 const session = require('../shared/session');
 
 const app = express();
+app.use(cors());
 app.use(session);
 app.use(helmet());
 app.use(bodyParser.json());

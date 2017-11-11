@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getConnectedUser } from '../../selectors/index';
+import { getCurrentUser } from '../../selectors/index';
 import Profile from '../../components/Profile';
-import { logoutRequest } from '../../actions/index';
+import { signOut } from '../../middlewares/firebase';
 
 const ProfilePage = props => <Profile {...props} />;
 
 const mapStateToProps = state => ({
-  connectedUser: getConnectedUser(state)
+  currentUser: getCurrentUser(state)
 });
 
-export default connect(mapStateToProps, { logoutRequest })(ProfilePage);
+export default connect(mapStateToProps, { signOut })(ProfilePage);

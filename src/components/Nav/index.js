@@ -34,6 +34,16 @@ const Nav = ({ isConnected }) => (
             Login
           </Link>
         </li>)}
+      {isConnected &&
+      (<li>
+        <Link
+          className="c-nav__link"
+          title="Profile"
+          to="/profile"
+        >
+          Profile
+        </Link>
+      </li>)}
     </ul>
   </nav>
 );

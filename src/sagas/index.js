@@ -14,14 +14,21 @@ import api from '../services/index';
 import * as actions from '../actions/index';
 import {
   FIREBASE_SIGN_UP,
-  signIn
+  FIREBASE_SIGN_IN,
+  FIREBASE_SIGN_OUT
 } from '../middlewares/firebase';
-import { getPost, getLatestPosts } from '../selectors/index';
+import {
+  getPost,
+  getLatestPosts,
+  getCurrentUser
+} from '../selectors/index';
 
 const {
   home,
   post,
-  register
+  register,
+  currentUser,
+  logout
 } = actions;
 
 function* fetchEntity(entity, apiFn, payload) {
@@ -43,8 +50,14 @@ function* fetchEntity(entity, apiFn, payload) {
 }
 
 export const fetchPost = fetchEntity.bind(null, post, api.fetchPost);
+
 export const fetchHome = fetchEntity.bind(null, home, api.fetchHome);
-export const fetchRegisterUser = fetchEntity.bind(null, register, api.registerUser);
+
+export const registerUser = fetchEntity.bind(null, register, api.registerUser);
+
+export const fetchCurrentUser = fetchEntity.bind(null, currentUser, api.currentUser);
+
+export const fetchLogout = fetchEntity.bind(null, logout, api.logout);
 
 function* loadPost(id, requiredFields) {
   const loadedPost = yield select(getPost, id);
@@ -55,13 +68,9 @@ function* loadPost(id, requiredFields) {
 
 function* loadHome() {
   const loadedLatestPosts = yield select(getLatestPosts);
-  if (!loadedLatestPosts.pageCount) {
+  if (!loadedLatestPosts.totalCount) {
     yield call(fetchHome);
   }
-}
-
-function* authorizeUser(email, password) {
-  yield put(signIn({ email, password }));
 }
 
 function* watchLoadPostPage() {
@@ -89,28 +98,47 @@ function* signUpFlow() {
       FIREBASE_SIGN_UP.FAILURE
     ]);
     if (type === FIREBASE_SIGN_UP.SUCCESS) {
-      yield call(fetchRegisterUser, payload);
+      yield call(registerUser, payload);
     }
+  }
+}
+
+function* loadCurrentUser() {
+  yield take(actions.LOAD_CURRENT_USER);
+  const user = yield select(getCurrentUser);
+  if (!user) {
+    yield call(fetchCurrentUser);
   }
 }
 
 function* loginFlow() {
   while (true) {
-    const { email, password } = yield take(actions.LOGIN_USER);
-    const task = yield fork(authorizeUser, email, password);
-    const { type } = yield take([actions.LOGOUT_USER, actions.LOGIN.FAILURE]);
-    if (type === actions.LOGOUT_USER) {
+    const { payload } = yield take(FIREBASE_SIGN_IN.SUCCESS);
+    const task = yield fork(registerUser, payload);
+    const { type } = yield take([FIREBASE_SIGN_OUT.SUCCESS, FIREBASE_SIGN_IN.FAILURE]);
+    if (type === FIREBASE_SIGN_OUT.SUCCESS) {
       yield cancel(task);
       yield put(push('/'));
     }
   }
 }
 
+function* logoutFlow() {
+  while (true) {
+    yield take(FIREBASE_SIGN_OUT.SUCCESS);
+    yield fork(fetchLogout);
+    yield take(actions.LOG_OUT.SUCCESS);
+    yield put(push('/'));
+  }
+}
+
 export default function* root() {
   yield all([
+    fork(loadCurrentUser),
     fork(watchLoadPostPage),
     fork(watchLoadHomePage),
     fork(loginFlow),
+    fork(logoutFlow),
     fork(signUpFlow)
   ]);
 }

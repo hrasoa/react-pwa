@@ -17,13 +17,21 @@ export default function serverRenderer({
   options = {}
 }) {
   return (req, res) => {
-    console.log(req.session.currentUser);
+    const { currentUser = {} } = req.session;
+    const initialState = {};
+
+    if (currentUser.id) {
+      initialState.entities = { users: { [currentUser.id]: currentUser } };
+      initialState.currentUser = currentUser;
+    }
+
     const {
       isProd,
       bundleCss,
       fontsCss
     } = options;
-    const store = configureStore({});
+
+    const store = configureStore({ initialState });
     const context = {};
     const RootComp = (
       <Provider store={store}>

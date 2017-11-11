@@ -1,14 +1,10 @@
-import {
-  FIREBASE_SIGN_UP,
-  signUpSuccess,
-  signUpFailure
-} from './actions';
+import * as actions from './actions';
 
 export default function firebaseMiddleware(firebaseApp) {
   const firebase = firebaseApp;
 
   return store => next => async (action) => {
-    if (action.type === FIREBASE_SIGN_UP.REQUEST) {
+    if (action.type === actions.FIREBASE_SIGN_UP.REQUEST) {
       const { email, password } = action.payload;
       next(action);
 
@@ -18,14 +14,51 @@ export default function firebaseMiddleware(firebaseApp) {
         .catch(err => ({ error: err.message }));
 
       if (result.error) {
-        return next(signUpFailure({
+        return next(actions.signUpFailure({
           message: result.error
         }));
       }
 
-      return next(signUpSuccess({
+      return next(actions.signUpSuccess({
         uid: result.uid
       }));
+    }
+
+    if (action.type === actions.FIREBASE_SIGN_IN.REQUEST) {
+      const { email, password } = action.payload;
+      next(action);
+
+      const result = await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .catch(err => ({ error: err.message }));
+
+      if (result.error) {
+        return next(actions.signInFailure({
+          message: result.error
+        }));
+      }
+
+      return next(actions.signInSuccess({
+        uid: result.uid
+      }));
+    }
+
+    if (action.type === actions.FIREBASE_SIGN_OUT.REQUEST) {
+      next(action);
+
+      const result = await firebase
+        .auth()
+        .signOut()
+        .catch(err => ({ error: err.message }));
+
+      if (result && result.error) {
+        return next(actions.signOutFailure({
+          message: result.error
+        }));
+      }
+
+      return next(actions.signOutSuccess());
     }
 
     return next(action);

@@ -25,8 +25,8 @@ const store = configureStore({
   ]
 });
 store.runSaga();
-delete window.__INITIAL_STATE__;
-delete window.__FIREBASE;
+// delete window.__INITIAL_STATE__;
+// delete window.__FIREBASE;
 
 history.listen((location) => {
   if (typeof navigator !== 'undefined' &&

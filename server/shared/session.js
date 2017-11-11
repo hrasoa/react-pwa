@@ -12,6 +12,7 @@ module.exports = session({
   resave: true,
   saveUninitialized: false,
   cookie: {
+    domain: 'localhost',
     expires: expires - Date.now()
   },
   name: 'sessionId',

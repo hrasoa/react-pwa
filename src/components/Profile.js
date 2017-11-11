@@ -1,23 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Profile = ({ connectedUser, logoutRequest }) => (
+const Profile = ({ currentUser, signOut }) => (
   <div>
     <h1>Profile</h1>
     <div>
-      {connectedUser.username}
+      <ul>
+        <li>id: {currentUser.id}</li>
+        <li>uid: {currentUser.uid}</li>
+      </ul>
     </div>
     <div>
-      <button onClick={logoutRequest} type="button">Logout</button>
+      <button onClick={signOut} type="button">Logout</button>
     </div>
   </div>
 );
 
 Profile.propTypes = {
-  connectedUser: PropTypes.shape({
-    username: PropTypes.string
+  currentUser: PropTypes.shape({
+    uid: PropTypes.string
   }).isRequired,
-  logoutRequest: PropTypes.func.isRequired
+  signOut: PropTypes.func.isRequired
 };
 
 export default Profile;

@@ -3,19 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Login from '../../components/Login';
-import { loginRequest } from '../../actions/index';
-import { signUp } from '../../middlewares/firebase';
+import { signUp, signIn } from '../../middlewares/firebase';
 import { getIsConnected } from '../../selectors/index';
 
 class LoginPage extends Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSignIn = this.handleSignIn.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
   }
 
-  handleSubmit(email, password) {
-    this.props.loginRequest({ email, password });
+  handleSignIn(email, password) {
+    this.props.signIn({ email, password });
   }
 
   handleSignUp(email, password) {
@@ -28,14 +27,14 @@ class LoginPage extends Component {
       <Redirect to={from} /> :
       <Login
         handleSignUp={this.handleSignUp}
-        handleSubmit={this.handleSubmit}
+        handleSignIn={this.handleSignIn}
       />;
   }
 }
 
 LoginPage.propTypes = {
   isConnected: PropTypes.bool.isRequired,
-  loginRequest: PropTypes.func.isRequired,
+  signIn: PropTypes.func.isRequired,
   signUp: PropTypes.func.isRequired
 };
 
@@ -43,4 +42,4 @@ const mapStateToProps = state => ({
   isConnected: getIsConnected(state)
 });
 
-export default connect(mapStateToProps, { loginRequest, signUp })(LoginPage);
+export default connect(mapStateToProps, { signIn, signUp })(LoginPage);
