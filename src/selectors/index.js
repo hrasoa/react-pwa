@@ -9,7 +9,7 @@ const postSelector = (state, id) => (state.entities.posts && state.entities.post
 
 const latestPostsSelector = state => state.pagination.latestPosts;
 
-const currentUserSelector = state => state.currentUser || {};
+const currentUserSelector = state => state.currentUser || null;
 
 export const getPost = createCachedSelector(
   postSelector,
@@ -30,10 +30,10 @@ export const getLatestPosts = createSelector(
 export const getCurrentUser = createSelector(
   currentUserSelector,
   usersSelector,
-  (user, users) => (user.id && users[user.id]) || null
+  (id, users) => (id && users[id]) || null
 );
 
 export const getIsConnected = createSelector(
   currentUserSelector,
-  user => user.uid !== undefined
+  id => id !== null
 );

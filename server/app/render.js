@@ -22,7 +22,7 @@ export default function serverRenderer({
 
     if (currentUser.id) {
       initialState.entities = { users: { [currentUser.id]: currentUser } };
-      initialState.currentUser = currentUser;
+      initialState.currentUser = currentUser.id;
     }
 
     const {

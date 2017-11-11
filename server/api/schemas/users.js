@@ -11,6 +11,9 @@ const typeDefs = [`
 
   input UserInput {
     uid: String!
+    name: String
+    username: String
+    email: String
   }
 
   type Query {
@@ -20,18 +23,22 @@ const typeDefs = [`
 
   type Mutation {
     createUser(input: UserInput!): User
+    updateUserByUid(input: UserInput!): User
   }
 `];
 
 const resolvers = {
   Query: {
     user: (_, { id }, { models: { User } }) => User.findById(id),
-    userByUid: (_, { uid }, { models: { User } }) => User.findOrCreate({
-      where: { uid }
-    }).spread(user => user)
+    userByUid: (_, { uid }, { models: { User } }) => User.findOne({ where: { uid } })
   },
   Mutation: {
-    createUser: (_, { input }, { models: { User } }) => User.create(input).then(user => user)
+    createUser: (_, { input }, { models: { User } }) => User.create(input).then(user => user),
+    updateUserByUid: async (_, { input }, { models: { User } }) => {
+      const { uid, ...rest } = input;
+      const user = await User.findOne({ where: { uid } });
+      return await user.update(rest);
+    }
   }
 };
 

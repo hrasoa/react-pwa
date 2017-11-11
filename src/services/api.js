@@ -100,6 +100,13 @@ export const currentUser = ({ uid, cancelToken }) => callApi('user/current', sin
   auth: { uid }
 });
 
+export const updateUser = ({ uid, cancelToken }) =>
+  callApi('user/update', singleUserSchema, {
+    method: 'post',
+    data: { uid },
+    cancelToken
+  });
+
 export const registerUser = ({ uid, cancelToken }) =>
   callApi('user/register', singleUserSchema, {
     method: 'post',

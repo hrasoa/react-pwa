@@ -40,7 +40,8 @@ export default function firebaseMiddleware(firebaseApp) {
       }
 
       return next(actions.signInSuccess({
-        uid: result.uid
+        uid: result.uid,
+        email: result.email
       }));
     }
 

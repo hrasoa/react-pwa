@@ -26,9 +26,10 @@ import {
 const {
   home,
   post,
-  register,
+  registerUser,
   currentUser,
-  logout
+  loginUser,
+  logoutUser
 } = actions;
 
 function* fetchEntity(entity, apiFn, payload) {
@@ -53,11 +54,13 @@ export const fetchPost = fetchEntity.bind(null, post, api.fetchPost);
 
 export const fetchHome = fetchEntity.bind(null, home, api.fetchHome);
 
-export const registerUser = fetchEntity.bind(null, register, api.registerUser);
+export const fetchRegisterUser = fetchEntity.bind(null, registerUser, api.registerUser);
+
+export const fetchLogin = fetchEntity.bind(null, loginUser, api.updateUser);
 
 export const fetchCurrentUser = fetchEntity.bind(null, currentUser, api.currentUser);
 
-export const fetchLogout = fetchEntity.bind(null, logout, api.logout);
+export const fetchLogout = fetchEntity.bind(null, logoutUser, api.logout);
 
 function* loadPost(id, requiredFields) {
   const loadedPost = yield select(getPost, id);
@@ -98,7 +101,7 @@ function* signUpFlow() {
       FIREBASE_SIGN_UP.FAILURE
     ]);
     if (type === FIREBASE_SIGN_UP.SUCCESS) {
-      yield call(registerUser, payload);
+      yield call(fetchRegisterUser, payload);
     }
   }
 }
@@ -114,7 +117,7 @@ function* loadCurrentUser() {
 function* loginFlow() {
   while (true) {
     const { payload } = yield take(FIREBASE_SIGN_IN.SUCCESS);
-    const task = yield fork(registerUser, payload);
+    const task = yield fork(fetchLogin, payload);
     const { type } = yield take([FIREBASE_SIGN_OUT.SUCCESS, FIREBASE_SIGN_IN.FAILURE]);
     if (type === FIREBASE_SIGN_OUT.SUCCESS) {
       yield cancel(task);
@@ -127,7 +130,7 @@ function* logoutFlow() {
   while (true) {
     yield take(FIREBASE_SIGN_OUT.SUCCESS);
     yield fork(fetchLogout);
-    yield take(actions.LOG_OUT.SUCCESS);
+    yield take(actions.LOGOUT_USER.SUCCESS);
     yield put(push('/'));
   }
 }

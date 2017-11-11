@@ -17,11 +17,13 @@ export const POST = createRequestTypes('POST');
 
 export const HOME = createRequestTypes('HOME');
 
-export const LOG_OUT = createRequestTypes('LOG_OUT');
+export const LOGOUT_USER = createRequestTypes('LOGOUT_USER');
 
-export const REGISTER = createRequestTypes('REGISTER');
+export const REGISTER_USER = createRequestTypes('REGISTER_USER');
 
 export const CURRENT_USER = createRequestTypes('CURRENT_USER');
+
+export const LOGIN_USER = createRequestTypes('LOGIN_USER');
 
 export const post = {
   request: payload => action(POST[REQUEST], payload),
@@ -35,10 +37,10 @@ export const home = {
   failure: error => action(HOME[FAILURE], error)
 };
 
-export const register = {
-  request: payload => action(REGISTER[REQUEST], payload),
-  success: payload => action(REGISTER[SUCCESS], payload),
-  failure: error => action(REGISTER[FAILURE], error)
+export const registerUser = {
+  request: payload => action(REGISTER_USER[REQUEST], payload),
+  success: payload => action(REGISTER_USER[SUCCESS], payload),
+  failure: error => action(REGISTER_USER[FAILURE], error)
 };
 
 export const currentUser = {
@@ -47,10 +49,16 @@ export const currentUser = {
   failure: error => action(CURRENT_USER[FAILURE], error)
 };
 
-export const logout = {
-  request: () => action(LOG_OUT[REQUEST]),
-  success: () => action(LOG_OUT[SUCCESS]),
-  failure: error => action(LOG_OUT[FAILURE], error)
+export const loginUser = {
+  request: payload => action(LOGIN_USER[REQUEST], payload),
+  success: payload => action(LOGIN_USER[SUCCESS], payload),
+  failure: error => action(LOGIN_USER[FAILURE], error)
+};
+
+export const logoutUser = {
+  request: () => action(LOGOUT_USER[REQUEST]),
+  success: () => action(LOGOUT_USER[SUCCESS]),
+  failure: error => action(LOGOUT_USER[FAILURE], error)
 };
 
 export const LOAD_POST_PAGE = 'LOAD_POST_PAGE';

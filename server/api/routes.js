@@ -77,6 +77,28 @@ router.get('/user/current', async (req, res) => {
   }
 });
 
+router.post('/user/update', async (req, res) => {
+  const uid = req.body.uid;
+  try {
+    const data = await sendMutation(`
+      mutation UpdateUser($input: UserInput!) {
+        user: updateUserByUid(input: $input) {
+          id
+          uid
+        }
+      }
+    `, {
+      variables: {
+        input: { uid }
+      }
+    });
+    req.session.currentUser = data.user;
+    res.json(data);
+  } catch (e) {
+    res.status(400).json({ errors: [{ message: e.message }] });
+  }
+});
+
 router.post('/user/register', async (req, res) => {
   const uid = req.body.uid;
   try {
