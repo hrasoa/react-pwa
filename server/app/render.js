@@ -21,7 +21,7 @@ export default function serverRenderer({
     const initialState = {};
 
     if (currentUser) {
-      const { id, uid } = currentUser;
+      const { id = null, uid } = currentUser;
       if (id) {
         initialState.entities = { users: { [id]: currentUser } };
       }
