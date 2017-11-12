@@ -55,17 +55,17 @@ router.get('/user/logout', (req, res) => {
   }
 });
 
-router.get('/user/current/:uid', async (req, res) => {
+router.post('/user/current', async (req, res) => {
   try {
-    const data = await sendQuery(`
-      query CurrentUser($uid: String!) {
-        user: userByUid(uid: $uid) {
+    const data = await sendMutation(`
+      mutation FindUser($uid: String!) {
+        user: findOrCreateUserByUid(uid: $uid) {
           id
           uid
         }
       }
     `, {
-      variables: { uid: req.params.uid }
+      variables: { uid: req.body.uid }
     });
     res.json(data);
   } catch (e) {

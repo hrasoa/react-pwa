@@ -96,7 +96,11 @@ export const fetchHome = ({ cancelToken }) => callApi('home', homeSchema, { canc
 export const logout = ({ cancelToken }) => callApi('user/logout', null, { cancelToken });
 
 export const currentUser = ({ uid, cancelToken }) =>
-  callApi(`user/current/${uid}`, singleUserSchema, { cancelToken });
+  callApi('user/current', singleUserSchema, {
+    cancelToken,
+    method: 'post',
+    data: { uid }
+  });
 
 export const updateUser = ({ cancelToken, ...data }) =>
   callApi('user/update', singleUserSchema, {
