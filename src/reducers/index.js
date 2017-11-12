@@ -38,7 +38,10 @@ function currentUser(state = {}, action) {
       };
 
     case ActionTypes.LOGOUT_USER.SUCCESS:
-      return {};
+      return {
+        ...state,
+        isConnected: false
+      };
 
     default:
       return state;
