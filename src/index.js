@@ -21,12 +21,12 @@ const store = configureStore({
   reducers: { router: routerReducer },
   middlewares: [
     routerMiddleware(history),
-    firebaseMiddleware(firebase.initializeApp(window.__FIREBASE))
+    firebaseMiddleware(firebase.initializeApp(window.__FIREBASE__))
   ]
 });
 store.runSaga();
-// delete window.__INITIAL_STATE__;
-// delete window.__FIREBASE;
+delete window.__INITIAL_STATE__;
+delete window.__FIREBASE__;
 
 history.listen((location) => {
   if (typeof navigator !== 'undefined' &&
