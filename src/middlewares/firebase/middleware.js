@@ -1,9 +1,9 @@
-import Firebase from './Firebase';
+import actionHandler from './actionHandler';
 import Auth from './Auth';
 
 export default function firebaseMiddleware(firebaseApp) {
-  const FirebaseApp = new Firebase(firebaseApp, [
+  const handleAction = actionHandler(firebaseApp, [
     new Auth()
   ]);
-  return store => next => action => FirebaseApp.handleAction(action, next);
+  return store => next => action => handleAction(action, next);
 }
