@@ -1,16 +1,14 @@
 import Handler from './Handler';
 
-function getUser(result) {
-  return {
-    uid: result.uid,
-    displayName: result.displayName,
-    photoURL: result.photoURL,
-    email: result.email,
-    emailVerified: result.emailVerified,
-    phoneNumber: result.phoneNumber,
-    isAnonymous: result.isAnonymous
-  };
-}
+const getUser = result => ({
+  uid: result.uid,
+  displayName: result.displayName,
+  photoURL: result.photoURL,
+  email: result.email,
+  emailVerified: result.emailVerified,
+  phoneNumber: result.phoneNumber,
+  isAnonymous: result.isAnonymous
+});
 
 class Auth extends Handler {
   constructor() {
