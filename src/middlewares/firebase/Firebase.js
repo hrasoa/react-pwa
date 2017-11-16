@@ -1,11 +1,6 @@
 export default class Firebase {
   constructor(firebaseApp, handlers = []) {
     this.firebase = firebaseApp;
-    this.handlers = {};
-    this.initHandlers(handlers);
-  }
-
-  initHandlers(handlers) {
     this.handlers = handlers.reduce((acc, handler) => {
       const actions = handler.mapActionsToApi();
       return { ...acc, ...actions };
