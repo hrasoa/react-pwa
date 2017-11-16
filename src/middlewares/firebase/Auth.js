@@ -8,7 +8,7 @@ class Auth extends Handler {
     this.signOut = this.signOut.bind(this);
   }
 
-  mapActionsToMethods() {
+  mapActionsToApi() {
     return {
       [this.actions.FIREBASE_SIGN_UP.REQUEST]: this.createUserWithEmailAndPassword,
       [this.actions.FIREBASE_SIGN_IN.REQUEST]: this.signInWithEmailAndPassword,

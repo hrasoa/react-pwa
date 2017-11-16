@@ -7,7 +7,7 @@ export default class Firebase {
 
   initHandlers(handlers) {
     this.handlers = handlers.reduce((acc, handler) => {
-      const actions = handler.mapActionsToMethods();
+      const actions = handler.mapActionsToApi();
       return { ...acc, ...actions };
     }, {});
   }

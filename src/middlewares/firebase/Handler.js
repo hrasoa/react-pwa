@@ -5,7 +5,7 @@ export default class Handler {
     this.actions = actions;
   }
 
-  mapActionsToMethods() { // eslint-disable-line class-methods-use-this
+  mapActionsToApi() { // eslint-disable-line class-methods-use-this
     return {};
   }
 }
