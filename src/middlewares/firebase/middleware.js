@@ -5,6 +5,5 @@ export default function firebaseMiddleware(firebaseApp) {
   const FirebaseApp = new Firebase(firebaseApp, [
     new Auth()
   ]);
-
   return store => next => action => FirebaseApp.handleAction(action, next);
 }
