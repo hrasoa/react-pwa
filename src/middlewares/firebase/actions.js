@@ -1,10 +1,11 @@
 const REQUEST = 'REQUEST';
 const SUCCESS = 'SUCCESS';
 const FAILURE = 'FAILURE';
+const NAMESPACE = '@@firebase';
 
 function createRequestTypes(base) {
   return [REQUEST, SUCCESS, FAILURE].reduce((acc, type) => {
-    acc[type] = `${base}_${type}`;
+    acc[type] = `${NAMESPACE}/${base}_${type}`;
     return acc;
   }, {});
 }
@@ -13,11 +14,11 @@ function action(type, payload = {}) {
   return { type, payload };
 }
 
-export const FIREBASE_SIGN_UP = createRequestTypes('@@firebase/SIGN_UP');
+export const FIREBASE_SIGN_UP = createRequestTypes('SIGN_UP');
 
-export const FIREBASE_SIGN_IN = createRequestTypes('@@firebase/SIGN_IN');
+export const FIREBASE_SIGN_IN = createRequestTypes('SIGN_IN');
 
-export const FIREBASE_SIGN_OUT = createRequestTypes('@@firebase/SIGN_OUT');
+export const FIREBASE_SIGN_OUT = createRequestTypes('SIGN_OUT');
 
 export const signUp = payload => action(FIREBASE_SIGN_UP.REQUEST, payload);
 
