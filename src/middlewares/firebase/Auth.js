@@ -1,5 +1,17 @@
 import Handler from './Handler';
 
+function getUser(result) {
+  return {
+    uid: result.uid,
+    displayName: result.displayName,
+    photoURL: result.photoURL,
+    email: result.email,
+    emailVerified: result.emailVerified,
+    phoneNumber: result.phoneNumber,
+    isAnonymous: result.isAnonymous
+  };
+}
+
 class Auth extends Handler {
   constructor() {
     super();
@@ -31,9 +43,7 @@ class Auth extends Handler {
       }));
     }
 
-    return next(this.actions.signUpSuccess({
-      uid: result.uid
-    }));
+    return next(this.actions.signUpSuccess(getUser(result)));
   }
 
   async signInWithEmailAndPassword({ firebase, action, next }) {
@@ -51,10 +61,7 @@ class Auth extends Handler {
       }));
     }
 
-    return next(this.actions.signInSuccess({
-      uid: result.uid,
-      email: result.email
-    }));
+    return next(this.actions.signInSuccess(getUser(result)));
   }
 
   async signOut({ firebase, action, next }) {
