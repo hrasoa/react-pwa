@@ -1,8 +1,8 @@
-export default (firebaseApp, handlers = []) => {
+export default (firebaseApp, services = []) => {
   const firebase = firebaseApp;
-  const actions = handlers.reduce((acc, handler) => {
-    const handlerActions = handler.mapActionsToApi();
-    return { ...acc, ...handlerActions };
+  const actions = services.reduce((acc, service) => {
+    const serviceActions = service.mapActionsToApi();
+    return { ...acc, ...serviceActions };
   }, {});
 
   return (action, next) => {
