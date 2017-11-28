@@ -1,6 +1,8 @@
 (function() {
   'use strict';
 
+  // Credit: https://gist.github.com/hdragomir/8f00ce2581795fd7b1b7
+
   // quick way to determine whether a css file has been cached locally
   function fileIsCached(name) {
     return window.localStorage && localStorage.font_css_cache && (localStorage.font_css_cache_file === name);
