@@ -1,5 +1,3 @@
-import Service from './Service';
-
 export default (firebaseApp, services = []) => {
   const actions = services.reduce((acc, service) => {
     service.setApi(firebaseApp);
