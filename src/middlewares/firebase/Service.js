@@ -5,6 +5,10 @@ export default class Service {
     this.actions = actions;
   }
 
+  setApi(firebase) {
+    this.firebase = firebase;
+  }
+
   mapActionsToApi() { // eslint-disable-line class-methods-use-this
     return {};
   }

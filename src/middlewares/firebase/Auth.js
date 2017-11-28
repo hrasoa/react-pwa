@@ -26,11 +26,11 @@ class Auth extends Service {
     };
   }
 
-  async createUserWithEmailAndPassword(firebase, action, next) {
+  async createUserWithEmailAndPassword(action, next) {
     const { email, password } = action.payload;
     next(action);
 
-    const result = await firebase
+    const result = await this.firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .catch(err => ({ error: err.message }));
@@ -44,11 +44,11 @@ class Auth extends Service {
     return next(this.actions.signUpSuccess(getUser(result)));
   }
 
-  async signInWithEmailAndPassword(firebase, action, next) {
+  async signInWithEmailAndPassword(action, next) {
     const { email, password } = action.payload;
     next(action);
 
-    const result = await firebase
+    const result = await this.firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .catch(err => ({ error: err.message }));
@@ -62,10 +62,10 @@ class Auth extends Service {
     return next(this.actions.signInSuccess(getUser(result)));
   }
 
-  async signOut(firebase, action, next) {
+  async signOut(action, next) {
     next(action);
 
-    const result = await firebase
+    const result = await this.firebase
       .auth()
       .signOut()
       .catch(err => ({ error: err.message }));
