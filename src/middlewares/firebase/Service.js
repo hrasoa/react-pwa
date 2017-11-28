@@ -1,6 +1,6 @@
 import * as actions from './actions';
 
-export default class Handler {
+export default class Service {
   constructor() {
     this.actions = actions;
   }

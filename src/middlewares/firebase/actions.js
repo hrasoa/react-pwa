@@ -1,18 +1,12 @@
+const NAMESPACE = '@@firebase';
 const REQUEST = 'REQUEST';
 const SUCCESS = 'SUCCESS';
 const FAILURE = 'FAILURE';
-const NAMESPACE = '@@firebase';
 
-function createRequestTypes(base) {
-  return [REQUEST, SUCCESS, FAILURE].reduce((acc, type) => {
-    acc[type] = `${NAMESPACE}/${base}_${type}`;
-    return acc;
-  }, {});
-}
+const createRequestTypes = base => [REQUEST, SUCCESS, FAILURE].reduce((acc, type) =>
+  ({ ...acc, [type]: `${NAMESPACE}/${base}_${type}` }), {});
 
-function action(type, payload = {}) {
-  return { type, payload };
-}
+const action = (type, payload = {}) => ({ type, payload });
 
 export const FIREBASE_SIGN_UP = createRequestTypes('SIGN_UP');
 

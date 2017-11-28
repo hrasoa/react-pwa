@@ -1,4 +1,4 @@
-import Handler from './Handler';
+import Service from './Service';
 
 const getUser = result => ({
   uid: result.uid,
@@ -10,7 +10,7 @@ const getUser = result => ({
   isAnonymous: result.isAnonymous
 });
 
-class Auth extends Handler {
+class Auth extends Service {
   constructor() {
     super();
     this.createUserWithEmailAndPassword = this.createUserWithEmailAndPassword.bind(this);
@@ -26,7 +26,7 @@ class Auth extends Handler {
     };
   }
 
-  async createUserWithEmailAndPassword({ firebase, action, next }) {
+  async createUserWithEmailAndPassword(firebase, action, next) {
     const { email, password } = action.payload;
     next(action);
 
@@ -44,7 +44,7 @@ class Auth extends Handler {
     return next(this.actions.signUpSuccess(getUser(result)));
   }
 
-  async signInWithEmailAndPassword({ firebase, action, next }) {
+  async signInWithEmailAndPassword(firebase, action, next) {
     const { email, password } = action.payload;
     next(action);
 
@@ -62,7 +62,7 @@ class Auth extends Handler {
     return next(this.actions.signInSuccess(getUser(result)));
   }
 
-  async signOut({ firebase, action, next }) {
+  async signOut(firebase, action, next) {
     next(action);
 
     const result = await firebase

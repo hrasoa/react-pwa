@@ -4,8 +4,9 @@ export default (firebaseApp, handlers = []) => {
     const handlerActions = handler.mapActionsToApi();
     return { ...acc, ...handlerActions };
   }, {});
+
   return (action, next) => {
     const { type } = action;
-    return actions[type] ? actions[type]({ firebase, action, next }) : next(action);
+    return actions[type] ? actions[type](firebase, action, next) : next(action);
   };
 };
