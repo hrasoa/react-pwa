@@ -1,9 +1,8 @@
 import Service from './Service';
 
 export default (firebaseApp, services = []) => {
-  Service.prototype.firebase = firebaseApp;
-
   const actions = services.reduce((acc, service) => {
+    service.setApi(firebaseApp);
     const serviceActions = service.mapActionsToApi();
     return { ...acc, ...serviceActions };
   }, {});
